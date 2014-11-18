@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title_bar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/custom_height8d"
+                android:paddingLeft="@dimen/custom_height14d"
+                android:paddingTop="@dimen/custom_height8d"
+                android:text="流量控制"
+                android:textColor="@color/black"
+                android:textSize="@dimen/custom_height14d" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/custom_height10d"
+                android:layout_marginRight="@dimen/custom_height10d"
+                android:background="@drawable/selector_setting_page_fragment__top_bg"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/custom_height6d"
+                    android:text="非WIFI时下载"
+                    android:textColor="@color/grey_black"
+                    android:textSize="@dimen/custom_height14d" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/custom_height10d"
+                android:layout_marginRight="@dimen/custom_height10d"
+                android:background="@drawable/selector_setting_page_fragment_centre_bg"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/custom_height6d"
+                    android:text="2G/3G网络下节省流量"
+                    android:textColor="@color/grey_black"
+                    android:textSize="@dimen/custom_height14d" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/custom_height8d"
+                android:paddingLeft="@dimen/custom_height14d"
+                android:paddingTop="@dimen/custom_height8d"
+                android:text="提醒设置"
+                android:textColor="@color/black"
+                android:textSize="@dimen/custom_height14d" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/custom_height10d"
+                android:layout_marginRight="@dimen/custom_height10d"
+                android:background="@drawable/selector_setting_page_fragment_centre_bg"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/custom_height6d"
+                    android:text="自动更新"
+                    android:textColor="@color/grey_black"
+                    android:textSize="@dimen/custom_height14d" />
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/custom_height8d"
+                android:paddingLeft="@dimen/custom_height14d"
+                android:paddingTop="@dimen/custom_height8d"
+                android:text="软件信息"
+                android:textColor="@color/black"
+                android:textSize="@dimen/custom_height14d" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/custom_height10d"
+                android:layout_marginRight="@dimen/custom_height10d"
+                android:background="@drawable/selector_setting_page_fragment_centre_bg"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/custom_height6d"
+                    android:textColor="@color/grey_black"
+                    android:text="意见反馈"
+                    android:textSize="@dimen/custom_height14d" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/custom_height14d"
+                    android:background="@drawable/selector_setting_page_fragment_right_arrows_bg"
+                    android:checked="true" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/custom_height10d"
+                android:layout_marginRight="@dimen/custom_height10d"
+                android:background="@drawable/selector_setting_page_fragment__bottom_bg"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/custom_height6d"
+                    android:text="新手指南"
+                    android:textColor="@color/grey_black"
+                    android:textSize="@dimen/custom_height14d" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/custom_height14d"
+                    android:background="@drawable/selector_setting_page_fragment_right_arrows_bg"
+                    android:checked="true" />
+            </RelativeLayout>
+            
+            <Button 
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="退出登录"
+                android:textColor="@color/white"
+                android:layout_margin="@dimen/custom_height10d"
+                android:gravity="center"
+                android:background="@drawable/selector_setting_page_fragment_bottom_buttom_bg"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

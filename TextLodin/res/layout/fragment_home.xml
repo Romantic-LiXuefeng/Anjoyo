@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_title_bar" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/small_title_bg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tabRecommend_fragment_home"
+                style="@style/text_style"
+                android:text="推荐" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/vertical_line1" />
+
+            <TextView
+                android:id="@+id/tabRankRow_fragment_home"
+                style="@style/text_style"
+                android:text="排行" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/vertical_line1" />
+
+            <TextView
+                android:id="@+id/tabClassify_fragment_home"
+                style="@style/text_style"
+                android:text="分类" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/vertical_line1" />
+
+            <TextView
+                android:id="@+id/tabDissertation_fragment_home"
+                style="@style/text_style"
+                android:text="专题" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/vertical_line1" />
+
+            <TextView
+                android:id="@+id/tabCommunity_fragment_home"
+                style="@style/text_style"
+                android:text="社区" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/indicator"
+            android:layout_width="55dp"
+            android:layout_height="6dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/slider" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

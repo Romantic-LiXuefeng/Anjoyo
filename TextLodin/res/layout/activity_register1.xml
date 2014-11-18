@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_register_back_password_thirdparty"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/custom_height16d"
+        android:background="@drawable/editext_big_bg" >
+
+        <EditText
+            android:id="@+id/ET_nickname_activity_login_register_backPassword_thirdparty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view"
+            android:layout_margin="@dimen/custom_height14d"
+            android:background="@drawable/editext_bg"
+            android:hint="中文/英文/数字(必填)"
+            android:paddingLeft="@dimen/custom_height50d"
+            android:textSize="@dimen/custom_height14d" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@id/ET_nickname_activity_login_register_backPassword_thirdparty"
+            android:layout_alignTop="@id/ET_nickname_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height25d"
+            android:gravity="center|left"
+            android:text="昵称："
+            android:textColor="@color/black"
+            android:textSize="@dimen/custom_height16d" />
+
+        <EditText
+            android:id="@+id/ET_mailbox_activity_login_register_backPassword_thirdparty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ET_nickname_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height20d"
+            android:layout_marginRight="@dimen/custom_height20d"
+            android:background="@drawable/editext_bg"
+            android:hint="Email邮箱(必填)"
+            android:paddingLeft="@dimen/custom_height50d"
+            android:textSize="@dimen/custom_height14d" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@id/ET_mailbox_activity_login_register_backPassword_thirdparty"
+            android:layout_alignTop="@id/ET_mailbox_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height25d"
+            android:gravity="center|left"
+            android:text="邮箱："
+            android:textColor="@color/black"
+            android:textSize="@dimen/custom_height16d" />
+
+        <EditText
+            android:id="@+id/ET_newPassword_activity_login_register_backPassword_thirdparty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ET_mailbox_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height20d"
+            android:layout_marginRight="@dimen/custom_height20d"
+            android:layout_marginTop="@dimen/custom_height14d"
+            android:background="@drawable/editext_bg"
+            android:hint="6-16位(必填)"
+            android:paddingLeft="@dimen/custom_height50d"
+            android:textSize="@dimen/custom_height14d" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@id/ET_newPassword_activity_login_register_backPassword_thirdparty"
+            android:layout_alignTop="@id/ET_newPassword_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height25d"
+            android:gravity="center|left"
+            android:text="密码："
+            android:textColor="@color/black"
+            android:textSize="@dimen/custom_height16d" />
+
+        <EditText
+            android:id="@+id/ET_password_activity_login_register_backPassword_thirdparty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ET_newPassword_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height20d"
+            android:layout_marginRight="@dimen/custom_height20d"
+            android:layout_marginTop="@dimen/custom_height14d"
+            android:background="@drawable/editext_bg"
+            android:hint="6-16位(必填)"
+            android:paddingLeft="80dp"
+            android:textSize="@dimen/custom_height14d" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@id/ET_password_activity_login_register_backPassword_thirdparty"
+            android:layout_alignTop="@id/ET_password_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height25d"
+            android:gravity="center|left"
+            android:text="确认密码："
+            android:textColor="@color/black"
+            android:textSize="@dimen/custom_height16d" />
+
+        <EditText
+            android:id="@+id/ET_phone_activity_login_register_backPassword_thirdparty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ET_password_activity_login_register_backPassword_thirdparty"
+            android:layout_margin="@dimen/custom_height14d"
+            android:background="@drawable/editext_bg"
+            android:hint="选填"
+            android:paddingLeft="65dp"
+            android:textSize="@dimen/custom_height14d" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignBottom="@id/ET_phone_activity_login_register_backPassword_thirdparty"
+            android:layout_alignTop="@id/ET_phone_activity_login_register_backPassword_thirdparty"
+            android:layout_marginLeft="@dimen/custom_height25d"
+            android:gravity="center|left"
+            android:text="手机号："
+            android:textColor="@color/black"
+            android:textSize="@dimen/custom_height16d" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/custom_height5d"
+            android:text="完成注册,表示您同意"
+            android:textColor="@color/black"
+            android:textSize="@dimen/custom_height16d" />
+
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview1"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/custom_height5d"
+            android:text="@string/registration_protocol"
+            android:textColor="@color/purple"
+            android:textSize="@dimen/custom_height16d" />
+
+        <Button
+            android:layout_width="@dimen/custom_height200d"
+            android:layout_height="@dimen/custom_height60d"
+            android:layout_below="@id/textview2"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/custom_height40d"
+            android:layout_marginRight="@dimen/custom_height20d"
+            android:background="@drawable/selector_activity_login_buttom_bg"
+            android:gravity="center"
+            android:text="注册" />
+    </RelativeLayout>
+
+</LinearLayout>

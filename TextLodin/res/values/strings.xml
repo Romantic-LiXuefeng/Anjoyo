@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">GameDownloadCenter</string>
+    <string name="underline"><u>忘记密码?</u></string>
+    <string name="registration_protocol"><u>菜鸟游戏注册协议</u></string>
+
+</resources>
