@@ -30,6 +30,7 @@ import com.anjovo.textlodin.R;
 public class MainActivity extends FragmentActivity implements OnClickListener, OnClickChangeListener{
 
 	private ResideMenu resideMenu;
+	
 	private ResideMenuItem itemHome;//主页
 	private ResideMenuItem itemPersonalCenter;//个人中心
 	private ResideMenuItem itemMessageCenter;//消息中心
