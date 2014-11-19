@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bg_title" >
+
+        <ImageView
+            android:id="@+id/gamespecial_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/selector_btn_back" />
+
+        <ImageView
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@id/gamespecial_back"
+            android:background="#000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="专题推荐"
+            android:textColor="#ffffff"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/special_img"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/default_pic" />
+
+    <TextView
+        android:id="@+id/special_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#EAEAEA"
+        android:padding="5dp"
+        android:text="虚心很浮躁，该宣泄一下啦！！"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/gamespecial_divider" />
+
+    <TextView
+        android:id="@+id/special_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gamespecial_content"
+        android:text="最近App store刮起了一阵虐心的风暴 ,玩的我们各种感伤"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="36dp"
+        android:background="@drawable/gamespecial_content" >
+
+        <Button
+            android:id="@+id/gamespecial_attention"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/detail_focus_selector"
+            android:text="关注" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/gamespecial_listvist"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

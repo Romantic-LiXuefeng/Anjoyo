@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical" >
+    
+	<ImageView
+	    android:id="@+id/special_img_item" 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:scaleType="fitXY"
+	    android:src="@drawable/default_pic"/>
+	<TextView
+	    android:id="@+id/special_name_item" 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="5dp"
+	    android:textSize="20sp"
+	    android:textColor="#000000"
+	    android:text="虚心很浮躁，该宣泄一下啦！！"/>
+	<ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_detail_divider" />
+</LinearLayout>

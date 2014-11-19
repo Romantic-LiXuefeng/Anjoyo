@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * @author Jiny
+ * 游戏相关页面
  *
  */
 public class AboutActivity extends Activity{

@@ -21,8 +21,8 @@ import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment1;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment2;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment3;
-import com.anjovo.gamedownloadcenter.fragment.main.Fragment4;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment5;
+import com.anjovo.gamedownloadcenter.fragment.main.FragmentSpecial;
 import com.anjovo.textlodin.R;
 
 /**
@@ -116,7 +116,7 @@ public class HomeFragment extends TitleFragmentBase {
     	fragments.add(new Fragment1());
     	fragments.add(new Fragment2());
     	fragments.add(new Fragment3());
-    	fragments.add(new Fragment4());
+    	fragments.add(new FragmentSpecial());
     	fragments.add(new Fragment5());
     	pagerAdapter = new MyPagerAdapter(getActivity().getSupportFragmentManager(), fragments);
     	viewPager.setAdapter(pagerAdapter);
