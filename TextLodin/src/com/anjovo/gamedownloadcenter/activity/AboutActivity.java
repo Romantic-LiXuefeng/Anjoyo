@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 /**
  * 游戏相关页面
- *
+ *  this
  */
 public class AboutActivity extends Activity{
 	@ViewInject(R.id.detail_about)
