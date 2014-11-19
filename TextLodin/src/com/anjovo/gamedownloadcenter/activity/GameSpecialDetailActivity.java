@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-//专题详情页面
+//游戏专题详情页面
 public class GameSpecialDetailActivity extends Activity{
 	@ViewInject(R.id.gamespecial_back)
 	private Button gamespecial_back;
