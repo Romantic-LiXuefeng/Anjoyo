@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -22,16 +24,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--  游戏详情-->
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.GameDetailActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.CommentActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.AboutActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.GameSpecialDetailActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.PeopleNearbyActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.ArticleDetailActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.NewsInformation"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.PeopleCenter"></activity>
-        
+        <!-- 游戏详情 -->
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.GameDetailActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.CommentActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.AboutActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.GameSpecialDetailActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.PeopleNearbyActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.ArticleDetailActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.NewsInformation" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.PeopleCenter" >
+        </activity>
     </application>
 
 </manifest>
