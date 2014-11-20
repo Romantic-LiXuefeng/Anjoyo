@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+	//游戏详情页面
 public class GameDetailActivity extends Activity{
 	@ViewInject(R.id.gamedetail_comment)
 	private Button gamedetail_comment;
