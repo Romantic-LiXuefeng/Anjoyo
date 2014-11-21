@@ -27,7 +27,6 @@ import com.anjovo.textlodin.R;
 
 /**
  * @author Administrator 次fragment 用于主界面切换用
- * ff
  */
 public class HomeFragment extends TitleFragmentBase {
 	/** 指示器的View **/

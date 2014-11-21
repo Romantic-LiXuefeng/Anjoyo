@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.adapter.MyPhotoShareListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
-import com.anjovo.gamedownloadcenter.bean.SignInRecordBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.textlodin.R;
@@ -27,6 +25,10 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
+/**
+ * @author Administrator
+ * 照片分享
+ */
 public class PhotoShareFragment extends TitleFragmentBase {
 	private View rootView;
 	private ListView mListView;

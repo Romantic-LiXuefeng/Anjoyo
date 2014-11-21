@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 
 import com.anjovo.textlodin.R;
 
+/**
+ * @author Administrator
+ * 积分页面
+ */
 public class IntegralFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

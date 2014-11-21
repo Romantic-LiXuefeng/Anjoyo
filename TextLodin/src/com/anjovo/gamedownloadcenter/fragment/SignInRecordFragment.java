@@ -19,13 +19,16 @@ import com.anjovo.gamedownloadcenter.bean.SignInRecordBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.textlodin.R;
-import com.google.gson.JsonObject;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
+/**
+ * @author Administrator
+ * 签到记录
+ */
 public class SignInRecordFragment extends TitleFragmentBase {
 	private View rootView;
 	private ListView mListView;

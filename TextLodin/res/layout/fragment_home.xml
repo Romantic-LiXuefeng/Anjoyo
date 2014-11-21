@@ -9,12 +9,13 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="45dp" >
+        android:layout_height="35dp"
+        android:background="@drawable/small_title_bg"
+        android:gravity="center_vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/small_title_bg"
+            android:layout_height="20dp"
             android:orientation="horizontal" >
 
             <TextView
@@ -71,13 +72,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@drawable/horizontal_line"
-        android:gravity="center_vertical" >
+        android:background="@drawable/divider_line">
 
         <View
             android:id="@+id/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/slider" />
     </RelativeLayout>
 
