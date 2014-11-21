@@ -1,5 +1,6 @@
-package com.anjovo.gamedownloadcenter.fragment.base;
+package com.anjovo.gamedownloadcenter.activity.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,10 +11,10 @@ import com.anjovo.textlodin.R;
 
 /**
  * @author litangfei
- * 所有fragment都可以继承本父类 fragmentBase是自己封装的父类 用于获取当前继承子类的view 而TitleFragment则是所有子类继承后  调用
+ * 所有activity都可以继承本父类 TitleActivityBase是自己封装的父类 TitleActivityBase则是所有子类继承后  调用
  * 其中的方法则可以让fragment页面展现不一样的标题
  */
-public abstract class TitleFragmentBase extends FragmentBase{
+public abstract class TitleActivityBase extends Activity{
 
 	private View mTitleBackBtn,mTitleBackRightBtn,mTitleMapSearchLin;
 	private ImageView mTitleRightImgIv,mTitleLeftImgIv,mTitleRightMapBtn,mTitleRightSearchBtn;
@@ -37,33 +38,32 @@ public abstract class TitleFragmentBase extends FragmentBase{
 	 */
 	public abstract void onTitleLeftImgClick();
 	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		initTitle();
-	}
-	
 	/**
 	 * 继承TitleFragmentBase  初始化title将要显示什么出来  什么可以点击
 	 */
 	protected abstract void initTitle();
 	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		initTitle();
+	}
 	/** 设置标题栏左边的返回键 **/
 	public void setUpTitleBack() {
-		mTitleBackBtn = getView() .findViewById(R.id.common_title_bar_back_img);
+		mTitleBackBtn = this .findViewById(R.id.common_title_bar_back_img);
 		mTitleBackBtn.setVisibility(View.VISIBLE);
 		mTitleBackBtn.setOnClickListener(onClickListener);
 	} 
 	
 	/** 设置标题栏左边的返回键右边的图片 **/
 	public void setUpTitleBackRight() {
-		mTitleBackRightBtn = getView().findViewById(R.id.common_title_bar_back_right_view);
+		mTitleBackRightBtn = this.findViewById(R.id.common_title_bar_back_right_view);
 		mTitleBackRightBtn.setVisibility(View.VISIBLE);
 	} 
 	
 	/** 设置标题栏左边 显示图片 **/
 	public void setUpTitleLeftImg(int drawable) {
-		mTitleLeftImgIv = (ImageView) getView().findViewById(R.id.common_title_bar_left_img1);
+		mTitleLeftImgIv = (ImageView) this.findViewById(R.id.common_title_bar_left_img1);
 		mTitleLeftImgIv.setImageResource(drawable);
 		mTitleLeftImgIv.setVisibility(View.VISIBLE);
 		mTitleLeftImgIv.setOnClickListener(onClickListener);
@@ -71,14 +71,14 @@ public abstract class TitleFragmentBase extends FragmentBase{
 	
 	/** 设置标题栏中间的字 **/
 	public void setUpTitleCentreText(String titleCentreText) {
-		mTitleCentreTextTv = (TextView) getView().findViewById(R.id.common_title_bar_title_tv);
+		mTitleCentreTextTv = (TextView) this.findViewById(R.id.common_title_bar_title_tv);
 		mTitleCentreTextTv.setText(titleCentreText);
 		mTitleCentreTextTv.setVisibility(View.VISIBLE);
 	} 
 	
 	/** 设置标题栏中间 显示图片 **/
 	public void setUpTitleRightImg(int drawable) {
-		mTitleRightImgIv = (ImageView) getView().findViewById(R.id.common_title_bar_right_img);
+		mTitleRightImgIv = (ImageView) this.findViewById(R.id.common_title_bar_right_img);
 		mTitleRightImgIv.setImageResource(drawable);
 		mTitleRightImgIv.setVisibility(View.VISIBLE);
 		mTitleRightImgIv.setOnClickListener(onClickListener);
@@ -86,9 +86,9 @@ public abstract class TitleFragmentBase extends FragmentBase{
 	
 	/** 设置标题栏右边两张图片 显示图片 **/
 	public void setUpTitleRightTwoImg(int drawableLeft,int drawableRight) {
-		mTitleRightMapBtn = (ImageView) getView().findViewById(R.id.common_title_bar_right_map);
-		mTitleRightSearchBtn = (ImageView) getView().findViewById(R.id.common_title_bar_right_search);
-		mTitleMapSearchLin = getView().findViewById(R.id.common_title_bar_right_lay);
+		mTitleRightMapBtn = (ImageView) this.findViewById(R.id.common_title_bar_right_map);
+		mTitleRightSearchBtn = (ImageView) this.findViewById(R.id.common_title_bar_right_search);
+		mTitleMapSearchLin = this.findViewById(R.id.common_title_bar_right_lay);
 		mTitleRightMapBtn.setImageResource(drawableLeft);
 		mTitleRightSearchBtn.setImageResource(drawableRight);
 		mTitleMapSearchLin.setVisibility(View.VISIBLE);
