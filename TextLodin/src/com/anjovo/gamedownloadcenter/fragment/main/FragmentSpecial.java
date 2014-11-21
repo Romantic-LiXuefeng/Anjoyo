@@ -60,7 +60,7 @@ public class FragmentSpecial extends Fragment{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			if(position < listData.size()){
+			if(position <= listData.size()){
 				Intent intent=new Intent(getActivity(),GameSpecialDetailActivity.class);
 				intent.putExtra("gameInfo", listData.get(position-1));//因使用XlistView所以得除去上拉刷新和下拉加载
 				startActivity(intent);

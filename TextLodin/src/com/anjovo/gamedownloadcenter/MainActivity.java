@@ -25,7 +25,7 @@ import com.anjovo.textlodin.R;
 /**
  * 
  * @author Administrator
- *
+ * 主页面  主题框架  功能 双击返回键则退出应用 有侧滑  有和所有fragment的框架
  */
 public class MainActivity extends DoubleClickFinishActivity implements OnClickListener, OnClickChangeListener{
 
@@ -104,7 +104,11 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		return resideMenu.dispatchTouchEvent(ev);
 	}
-
+	
+	public ResideMenuItem getItemPersonalCenter() {
+		return itemPersonalCenter;
+	}
+	
 	public ResideMenu getResideMenu() {
 		return resideMenu;
 	}
@@ -162,7 +166,7 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	}
 
 	@SuppressLint("NewApi")
-	private void setTabSelection(View view) {
+	public void setTabSelection(View view) {
 		clearSelection();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		hideFragments(transaction);

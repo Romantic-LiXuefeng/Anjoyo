@@ -16,6 +16,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPagerAdapter;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment1;
@@ -185,6 +186,7 @@ public class HomeFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleLeftImgClick() {
-
+		((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemPersonalCenter());
+		((MainActivity) getActivity()).getResideMenu().closeMenu();
 	}
 }
