@@ -49,6 +49,25 @@ public class FragmentSpecial extends Fragment{
 		ViewUtils.inject(this,view);
 		
 		list_goods.setOnItemClickListener(onItemClickListener);
+		list_goods.setPullLoadEnable(true);
+		list_goods.setXListViewListener(new XListView.IXListViewListener() {
+
+			@Override
+			public void onRefresh() {
+				listData.clear();
+				currentPage=0;
+				loadDatas();
+				list_goods.stopRefresh();
+			}
+
+			@Override
+			public void onLoadMore() {
+				currentPage++;
+				loadDatas();
+				list_goods.stopLoadMore();
+			}
+			
+		});
 		adapter = new GameSpecialAdapter(getActivity(), listData);
 		list_goods.setAdapter(adapter);
 		loadDatas();
