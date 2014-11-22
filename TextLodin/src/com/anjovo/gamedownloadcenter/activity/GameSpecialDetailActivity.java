@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anjovo.gamedownloadcenter.activity.base.TitleActivityBase;
@@ -23,6 +24,8 @@ public class GameSpecialDetailActivity extends TitleActivityBase{
 	private TextView special_name;
 	@ViewInject(R.id.special_content)
 	private ImageView special_content;
+	@ViewInject(R.id.gamespecial_listvist)
+	private ListView gamespecial_listvist;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		ViewUtils.inject(this);//使用自定义标题父类则必须将此写在super.onCreate(savedInstanceState);之前
@@ -34,8 +37,14 @@ public class GameSpecialDetailActivity extends TitleActivityBase{
 		Picasso.with(this).load(gameInfo.get(Const.GAME_SPECIAL_IMG))
 		.placeholder(R.drawable.default_pic).into(special_img);
 		special_name.setText(gameInfo.get(Const.GAME_SPECIAL_NAME));
+		
+		//这是专题详情下面的Listview
+		initListview();
 	}
-	
+	private void initListview() {
+		
+	}
+
 	@Override
 	public void onTitleBackClick() {
 		this.finish();
