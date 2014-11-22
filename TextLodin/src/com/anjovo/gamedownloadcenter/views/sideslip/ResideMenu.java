@@ -542,6 +542,7 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 				ViewHelper.setScaleX(viewActivity, targetScale);
 				ViewHelper.setScaleY(viewActivity, 1.0f);//Y轴没有缩放效果
 				ViewHelper.setScaleY(imageViewShadow, 1.0f);
+				
 //				ViewHelper.setScaleY(viewActivity, targetScale);//Y轴有缩放效果
 //				ViewHelper.setScaleY(imageViewShadow, targetScale + shadowAdjustScaleY);
 				ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
