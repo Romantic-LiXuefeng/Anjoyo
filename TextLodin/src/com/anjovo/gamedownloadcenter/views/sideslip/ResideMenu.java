@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -28,9 +27,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -516,19 +513,16 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 			pressedState = PRESSED_DOWN;
 			break;
 		case MotionEvent.ACTION_MOVE:
-			if(SharedPreferencesUtil.getSharedPreferencesBooleanUtil(getContext(), "sideslip",FragmentActivity.MODE_PRIVATE, false)){
+			int xOffset = (int) (ev.getX() - lastActionDownX);
+			System.out.println("xOffset="+xOffset);
+			if(ev.getX() <= 200 && xOffset >= -50){
 				if (isInIgnoredView || isInDisableDirection(scaleDirection))
 					break;
 				
 				if (pressedState != PRESSED_DOWN && pressedState != PRESSED_MOVE_HORIZANTAL)
 					break;
 				
-				int xOffset = (int) (ev.getX() - lastActionDownX);
 				int yOffset = (int) (ev.getY() - lastActionDownY);
-				if(xOffset < -70){
-					SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(getContext(), "sideslip",FragmentActivity.MODE_PRIVATE, false);
-					break;
-				}
 				if (pressedState == PRESSED_DOWN) {
 					if (yOffset > 25 || yOffset < -25) {
 						pressedState = PRESSED_MOVE_VERTICAL;

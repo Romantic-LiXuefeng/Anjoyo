@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
@@ -24,7 +23,6 @@ import com.anjovo.gamedownloadcenter.fragment.main.Fragment2;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment3;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment5;
 import com.anjovo.gamedownloadcenter.fragment.main.FragmentSpecial;
-import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
 
 /**
@@ -134,11 +132,6 @@ public class HomeFragment extends TitleFragmentBase {
 		public void onPageSelected(int arg0) {
 			selectTab(arg0);
 			currentPage = arg0;
-			if(arg0 == 0){
-				SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(getActivity(), "sideslip",FragmentActivity.MODE_PRIVATE, true);
-			}else{
-				SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(getActivity(), "sideslip",FragmentActivity.MODE_PRIVATE, false);
-			}
 		}
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
