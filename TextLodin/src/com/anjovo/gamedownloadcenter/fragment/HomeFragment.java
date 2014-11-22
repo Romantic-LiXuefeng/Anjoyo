@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
@@ -14,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPagerAdapter;
@@ -24,6 +24,7 @@ import com.anjovo.gamedownloadcenter.fragment.main.Fragment2;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment3;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment5;
 import com.anjovo.gamedownloadcenter.fragment.main.FragmentSpecial;
+import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
 
 /**
@@ -65,7 +66,7 @@ public class HomeFragment extends TitleFragmentBase {
 		initViewPager();
 		initTabs();
 		selectTab(0);
-		toast = Toast.makeText(getActivity(), "", 0);
+//		toast = Toast.makeText(getActivity(), "", 0);
 	}
 
 	 /**初始化标签Tab**/
@@ -122,7 +123,7 @@ public class HomeFragment extends TitleFragmentBase {
     	viewPager.setAdapter(pagerAdapter);
 		viewPager.setOnPageChangeListener(pagerChangeListener);
 	}
-	private Toast toast;
+//	private Toast toast;
 	private int currentPage;
 	int leftLayout;
 	int rightLayout;
@@ -133,11 +134,16 @@ public class HomeFragment extends TitleFragmentBase {
 		public void onPageSelected(int arg0) {
 			selectTab(arg0);
 			currentPage = arg0;
+			if(arg0 == 0){
+				SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(getActivity(), "sideslip",FragmentActivity.MODE_PRIVATE, true);
+			}else{
+				SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(getActivity(), "sideslip",FragmentActivity.MODE_PRIVATE, false);
+			}
 		}
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
-			toast.setText(arg0+","+arg1+","+arg2);
-			toast.show();
+//			toast.setText(arg0+","+arg1+","+arg2);
+//			toast.show();
 			//(ViewPager往右移动的时候arg0为当前页-1，往左移的时候arg0值为当前页)，arg2代表移动的距离
 			if(arg0 == currentPage){
 				// ViewPage在往左移动，说明indicator应该向右移动

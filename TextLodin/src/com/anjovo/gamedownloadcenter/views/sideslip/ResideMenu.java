@@ -13,8 +13,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.v4.app.FragmentActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -28,7 +28,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -514,42 +516,44 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 			pressedState = PRESSED_DOWN;
 			break;
 		case MotionEvent.ACTION_MOVE:
-			if (isInIgnoredView || isInDisableDirection(scaleDirection))
-				break;
-
-			if (pressedState != PRESSED_DOWN && pressedState != PRESSED_MOVE_HORIZANTAL)
-				break;
-
-			int xOffset = (int) (ev.getX() - lastActionDownX);
-			int yOffset = (int) (ev.getY() - lastActionDownY);
-
-			if (pressedState == PRESSED_DOWN) {
-				Log.i("info", "PRESSED_DOWN");
-				if (yOffset > 25 || yOffset < -25) {
-					pressedState = PRESSED_MOVE_VERTICAL;
+			if(SharedPreferencesUtil.getSharedPreferencesBooleanUtil(getContext(), "sideslip",FragmentActivity.MODE_PRIVATE, false)){
+				if (isInIgnoredView || isInDisableDirection(scaleDirection))
+					break;
+				
+				if (pressedState != PRESSED_DOWN && pressedState != PRESSED_MOVE_HORIZANTAL)
+					break;
+				
+				int xOffset = (int) (ev.getX() - lastActionDownX);
+				int yOffset = (int) (ev.getY() - lastActionDownY);
+				if(xOffset < -70){
+					SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(getContext(), "sideslip",FragmentActivity.MODE_PRIVATE, false);
 					break;
 				}
-				if (xOffset < -50 || xOffset > 50) {
-					pressedState = PRESSED_MOVE_HORIZANTAL;
-					ev.setAction(MotionEvent.ACTION_CANCEL);
-				}
-			} else if (pressedState == PRESSED_MOVE_HORIZANTAL) {
-				Log.i("info", "PRESSED_MOVE_HORIZANTAL");
-				Log.i("currentActivityScaleX", currentActivityScaleX+"");
-				if (currentActivityScaleX < 0.95)
-					scrollViewMenu.setVisibility(VISIBLE);
-				float targetScale = getTargetScale(ev.getRawX());
-				ViewHelper.setScaleX(viewActivity, targetScale);
-				ViewHelper.setScaleY(viewActivity, 1.0f);//Y轴没有缩放效果
-				ViewHelper.setScaleY(imageViewShadow, 1.0f);
-				
+				if (pressedState == PRESSED_DOWN) {
+					if (yOffset > 25 || yOffset < -25) {
+						pressedState = PRESSED_MOVE_VERTICAL;
+						break;
+					}
+					if (xOffset < -50 || xOffset > 50) {
+						pressedState = PRESSED_MOVE_HORIZANTAL;
+						ev.setAction(MotionEvent.ACTION_CANCEL);
+					}
+				} else if (pressedState == PRESSED_MOVE_HORIZANTAL) {
+					if (currentActivityScaleX < 0.95)
+						scrollViewMenu.setVisibility(VISIBLE);
+					float targetScale = getTargetScale(ev.getRawX());
+					ViewHelper.setScaleX(viewActivity, targetScale);
+					ViewHelper.setScaleY(viewActivity, 1.0f);//Y轴没有缩放效果
+					ViewHelper.setScaleY(imageViewShadow, 1.0f);
+					
 //				ViewHelper.setScaleY(viewActivity, targetScale);//Y轴有缩放效果
 //				ViewHelper.setScaleY(imageViewShadow, targetScale + shadowAdjustScaleY);
-				ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
-				ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
-
-				lastRawX = ev.getRawX();
-				return true;
+					ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
+					ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
+					
+					lastRawX = ev.getRawX();
+					return true;
+				}
 			}
 			break;
 		case MotionEvent.ACTION_UP:
