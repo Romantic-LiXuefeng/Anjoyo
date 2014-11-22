@@ -535,6 +535,7 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 				}
 			} else if (pressedState == PRESSED_MOVE_HORIZANTAL) {
 				Log.i("info", "PRESSED_MOVE_HORIZANTAL");
+				Log.i("currentActivityScaleX", currentActivityScaleX+"");
 				if (currentActivityScaleX < 0.95)
 					scrollViewMenu.setVisibility(VISIBLE);
 				float targetScale = getTargetScale(ev.getRawX());
