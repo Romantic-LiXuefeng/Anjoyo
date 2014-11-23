@@ -1,13 +1,13 @@
 package com.anjovo.gamedownloadcenter;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.anjovo.gamedownloadcenter.activity.base.DoubleClickFinishActivity;
 import com.anjovo.gamedownloadcenter.fragment.HomeFragment;
 import com.anjovo.gamedownloadcenter.fragment.IntegralFragment;
 import com.anjovo.gamedownloadcenter.fragment.MannergerFragment;
@@ -25,9 +25,9 @@ import com.anjovo.textlodin.R;
 /**
  * 
  * @author Administrator
- *
+ * 主页面  主题框架  功能 双击返回键则退出应用 有侧滑  有和所有fragment的框架
  */
-public class MainActivity extends FragmentActivity implements OnClickListener, OnClickChangeListener{
+public class MainActivity extends DoubleClickFinishActivity implements OnClickListener, OnClickChangeListener{
 
 	private ResideMenu resideMenu;
 	
@@ -104,7 +104,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		return resideMenu.dispatchTouchEvent(ev);
 	}
-
+	
+	public ResideMenuItem getItemPersonalCenter() {
+		return itemPersonalCenter;
+	}
+	
 	public ResideMenu getResideMenu() {
 		return resideMenu;
 	}
@@ -162,7 +166,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 	}
 
 	@SuppressLint("NewApi")
-	private void setTabSelection(View view) {
+	public void setTabSelection(View view) {
 		clearSelection();
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		hideFragments(transaction);

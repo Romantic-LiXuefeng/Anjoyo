@@ -14,8 +14,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPagerAdapter;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment1;
@@ -27,7 +27,6 @@ import com.anjovo.textlodin.R;
 
 /**
  * @author Administrator 次fragment 用于主界面切换用
- * ff
  */
 public class HomeFragment extends TitleFragmentBase {
 	/** 指示器的View **/
@@ -65,7 +64,7 @@ public class HomeFragment extends TitleFragmentBase {
 		initViewPager();
 		initTabs();
 		selectTab(0);
-		toast = Toast.makeText(getActivity(), "", 0);
+//		toast = Toast.makeText(getActivity(), "", 0);
 	}
 
 	 /**初始化标签Tab**/
@@ -122,7 +121,7 @@ public class HomeFragment extends TitleFragmentBase {
     	viewPager.setAdapter(pagerAdapter);
 		viewPager.setOnPageChangeListener(pagerChangeListener);
 	}
-	private Toast toast;
+//	private Toast toast;
 	private int currentPage;
 	int leftLayout;
 	int rightLayout;
@@ -136,8 +135,8 @@ public class HomeFragment extends TitleFragmentBase {
 		}
 		@Override
 		public void onPageScrolled(int arg0, float arg1, int arg2) {
-			toast.setText(arg0+","+arg1+","+arg2);
-			toast.show();
+//			toast.setText(arg0+","+arg1+","+arg2);
+//			toast.show();
 			//(ViewPager往右移动的时候arg0为当前页-1，往左移的时候arg0值为当前页)，arg2代表移动的距离
 			if(arg0 == currentPage){
 				// ViewPage在往左移动，说明indicator应该向右移动
@@ -186,6 +185,7 @@ public class HomeFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleLeftImgClick() {
-
+		((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemPersonalCenter());
+		((MainActivity) getActivity()).getResideMenu().closeMenu();
 	}
 }

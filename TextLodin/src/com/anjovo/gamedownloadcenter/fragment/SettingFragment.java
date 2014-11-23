@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.textlodin.R;
 
+/**
+ * @author Administrator
+ * 设置页面
+ */
 public class SettingFragment extends TitleFragmentBase {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

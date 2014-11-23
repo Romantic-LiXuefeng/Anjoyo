@@ -3,6 +3,8 @@ package com.anjovo.gamedownloadcenter.fragment.main;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.maxwin.view.XListView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -31,9 +32,13 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 	//专题页面
+/**
+ * @author Administrator
+ * 主页中专题页面
+ */
 public class FragmentSpecial extends Fragment{
 	@ViewInject(R.id.list_goods)
-	private ListView list_goods;
+	private XListView list_goods;
 	private GameSpecialAdapter adapter;
 	ArrayList<HashMap<String, String>> listData=new ArrayList<HashMap<String,String>>();
 	int currentPage = 0;
@@ -44,20 +49,41 @@ public class FragmentSpecial extends Fragment{
 		ViewUtils.inject(this,view);
 		
 		list_goods.setOnItemClickListener(onItemClickListener);
+		list_goods.setPullLoadEnable(true);
+		list_goods.setXListViewListener(new XListView.IXListViewListener() {
+
+			@Override
+			public void onRefresh() {
+				listData.clear();
+				currentPage=0;
+				loadDatas();
+				list_goods.stopRefresh();
+			}
+
+			@Override
+			public void onLoadMore() {
+				currentPage++;
+				loadDatas();
+				list_goods.stopLoadMore();
+			}
+			
+		});
 		adapter = new GameSpecialAdapter(getActivity(), listData);
 		list_goods.setAdapter(adapter);
 		loadDatas();
 		return view;
 	}
 	//单击专题列表，跳转到专题详情
-	OnItemClickListener onItemClickListener=new OnItemClickListener(){
+	OnItemClickListener onItemClickListener = new OnItemClickListener(){
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Intent intent=new Intent(getActivity(),GameSpecialDetailActivity.class);
-			intent.putExtra("gameInfo", listData.get(position));
-			startActivity(intent);
+			if(position <= listData.size()){
+				Intent intent=new Intent(getActivity(),GameSpecialDetailActivity.class);
+				intent.putExtra("gameInfo", listData.get(position-1));//因使用XlistView所以得除去上拉刷新和下拉加载
+				startActivity(intent);
+			}
 		}
 		
 	};
