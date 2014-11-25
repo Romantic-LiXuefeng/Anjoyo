@@ -59,7 +59,6 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 	@SuppressWarnings("unused")
 	private GestureDetector gestureDetector;
 	private float shadowAdjustScaleX;
-	@SuppressWarnings("unused")
 	private float shadowAdjustScaleY;
 	/** the view which don't want to intercept touch event */
 	private List<View> ignoredViews;
@@ -279,10 +278,10 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 		setScaleDirection(direction);
 
 		isOpened = true;
-		AnimatorSet scaleDown_activity = buildScaleDownAnimation(viewActivity, mScaleValue, 1.0f);//Y轴没有缩放效果
-		AnimatorSet scaleDown_shadow = buildScaleDownAnimation(imageViewShadow, mScaleValue + shadowAdjustScaleX, 1.0f);
-//		AnimatorSet scaleDown_activity = buildScaleDownAnimation(viewActivity, mScaleValue, mScaleValue);//Y轴有缩放效果
-//		AnimatorSet scaleDown_shadow = buildScaleDownAnimation(imageViewShadow, mScaleValue + shadowAdjustScaleX, mScaleValue + shadowAdjustScaleY);
+//		AnimatorSet scaleDown_activity = buildScaleDownAnimation(viewActivity, mScaleValue, 1.0f);//Y轴没有缩放效果
+//		AnimatorSet scaleDown_shadow = buildScaleDownAnimation(imageViewShadow, mScaleValue + shadowAdjustScaleX, 1.0f);
+		AnimatorSet scaleDown_activity = buildScaleDownAnimation(viewActivity, mScaleValue, mScaleValue);//Y轴有缩放效果
+		AnimatorSet scaleDown_shadow = buildScaleDownAnimation(imageViewShadow, mScaleValue + shadowAdjustScaleX, mScaleValue + shadowAdjustScaleY);
 		AnimatorSet alpha_menu = buildMenuAnimation(scrollViewMenu, 1.0f);//设置透明度
 		scaleDown_shadow.addListener(animationListener);
 		scaleDown_activity.playTogether(scaleDown_shadow);
@@ -539,12 +538,12 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 					scrollViewMenu.setVisibility(VISIBLE);
 				float targetScale = getTargetScale(ev.getRawX());
 				ViewHelper.setScaleX(viewActivity, targetScale);
-				ViewHelper.setScaleY(viewActivity, 1.0f);// Y轴没有缩放效果
-				ViewHelper.setScaleY(imageViewShadow, 1.0f);
+//				ViewHelper.setScaleY(viewActivity, 1.0f);// Y轴没有缩放效果
+//				ViewHelper.setScaleY(imageViewShadow, 1.0f);
 
-				// ViewHelper.setScaleY(viewActivity, targetScale);//Y轴有缩放效果
-				// ViewHelper.setScaleY(imageViewShadow, targetScale +
-				// shadowAdjustScaleY);
+				 ViewHelper.setScaleY(viewActivity, targetScale);//Y轴有缩放效果
+				 ViewHelper.setScaleY(imageViewShadow, targetScale +
+				 shadowAdjustScaleY);
 				ViewHelper.setScaleX(imageViewShadow, targetScale
 						+ shadowAdjustScaleX);
 				ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
