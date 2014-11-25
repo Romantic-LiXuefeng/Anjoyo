@@ -11,4 +11,9 @@
         android:orientation="vertical" >
     </FrameLayout>
 
+    <View
+        android:id="@+id/menu_view"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/custom_height1d" />
+
 </LinearLayout>

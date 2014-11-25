@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anjovo.gamedownloadcenter.activity.base.TitleActivityBase;
-import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ContentView;
@@ -34,9 +34,9 @@ public class GameSpecialDetailActivity extends TitleActivityBase{
 		@SuppressWarnings("unchecked")
 		HashMap<String, String> gameInfo=
 				(HashMap<String, String>) getIntent().getSerializableExtra("gameInfo");
-		Picasso.with(this).load(gameInfo.get(Const.GAME_SPECIAL_IMG))
+		Picasso.with(this).load(gameInfo.get(Constant.GAME_SPECIAL_IMG))
 		.placeholder(R.drawable.default_pic).into(special_img);
-		special_name.setText(gameInfo.get(Const.GAME_SPECIAL_NAME));
+		special_name.setText(gameInfo.get(Constant.GAME_SPECIAL_NAME));
 		
 		//这是专题详情下面的Listview
 		initListview();

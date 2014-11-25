@@ -3,6 +3,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,9 @@ import com.anjovo.gamedownloadcenter.fragment.PhotoShareFragment;
 import com.anjovo.gamedownloadcenter.fragment.SettingFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInRecordFragment;
+import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu;
+import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomClickChangeListener;
+import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomDismissListener;
 import com.anjovo.gamedownloadcenter.views.sideslip.ResideMenu;
 import com.anjovo.gamedownloadcenter.views.sideslip.ResideMenu.OnClickChangeListener;
 import com.anjovo.gamedownloadcenter.views.sideslip.ResideMenuItem;
@@ -30,7 +34,7 @@ import com.anjovo.textlodin.R;
 public class MainActivity extends DoubleClickFinishActivity implements OnClickListener, OnClickChangeListener{
 
 	private ResideMenu resideMenu;
-	
+	private View mMenuView;
 	private ResideMenuItem itemHome;//主页
 	private ResideMenuItem itemPersonalCenter;//个人中心
 	private ResideMenuItem itemMessageCenter;//消息中心
@@ -98,6 +102,18 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 		itemIntegral.setOnClickListener(this);//积分换礼
 		itemPhotoShare.setOnClickListener(this);//照片分享
 		itemMannerger.setOnClickListener(this);//管理
+		initMenu();
+	}
+
+	private void initMenu() {
+		// 菜单相关
+		mMenuView = findViewById(R.id.menu_view);
+		onCustomPrepareOptionsMenu.getInstance().initpop(this,
+				onCustomPrepareOptionsMenu.MENU_SHOWOPTIONS_SETTING_EXIT);
+		onCustomPrepareOptionsMenu.getInstance()
+				.setOnCustomClickChangeListener(onCustomClickChangeListener);
+		onCustomPrepareOptionsMenu.getInstance().setOnCustomDismissListener(
+				onCustomDismissListener);
 	}
 
 	@Override
@@ -547,4 +563,38 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 			transaction.hide(signInFragment);
 		}
 	}
+
+	/**可以通过此方法动态的改变菜单的状态，比如加载不同的菜单等**/
+	/*必须重写，否则点击MENU无反应  为了让他不显示，下面onMenuOpened（）必须返回false*/  
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		return onCustomPrepareOptionsMenu.getInstance().onPrepareOptionsMenu(menu, super.onPrepareOptionsMenu(menu));
+	}
+	
+	@Override
+	public boolean onMenuOpened(int featureId, Menu menu) {
+		return onCustomPrepareOptionsMenu.getInstance().onMenuOpened(featureId, menu, false, mMenuView);
+	}
+	
+	private OnCustomClickChangeListener onCustomClickChangeListener = new OnCustomClickChangeListener() {
+		
+		@Override
+		public void onCustomClick(int who) {
+			if(who == 2){
+				setTabSelection(itemSetting);
+				resideMenu.closeMenu();
+			}else if(who == 0){
+			}else if(who == 1){
+				onCustomPrepareOptionsMenu.getInstance().ShowExitDialog(MainActivity.this);
+			}else if(who == 3){
+			}
+		}
+	};
+	
+	private OnCustomDismissListener onCustomDismissListener = new OnCustomDismissListener() {
+		@Override
+		public void onCustomDismiss() {
+			
+		}
+	};
 }

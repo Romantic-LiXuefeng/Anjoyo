@@ -21,7 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.anjovo.gamedownloadcenter.activity.GameSpecialDetailActivity;
 import com.anjovo.gamedownloadcenter.adapter.GameSpecialAdapter;
-import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -88,7 +88,7 @@ public class FragmentSpecial extends Fragment{
 		
 	};
 	private void loadDatas() {
-		String url =Const.GAME_SPECIAL+currentPage;
+		String url =Constant.GAME_SPECIAL+currentPage;
 		new HttpUtils().send(HttpMethod.GET,url, new RequestCallBack<String>() {
 
 			@Override
@@ -105,8 +105,8 @@ public class FragmentSpecial extends Fragment{
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject object = array.getJSONObject(i);
 						HashMap<String, String> hs=new HashMap<String, String>();
-						hs.put(Const.GAME_SPECIAL_NAME, object.getString(Const.GAME_SPECIAL_NAME));
-						hs.put(Const.GAME_SPECIAL_IMG, object.getString(Const.GAME_SPECIAL_IMG));
+						hs.put(Constant.GAME_SPECIAL_NAME, object.getString(Constant.GAME_SPECIAL_NAME));
+						hs.put(Constant.GAME_SPECIAL_IMG, object.getString(Constant.GAME_SPECIAL_IMG));
 						listData.add(hs);
 						adapter.notifyDataSetChanged();
 					}

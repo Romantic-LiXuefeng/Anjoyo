@@ -3,7 +3,7 @@ package com.anjovo.gamedownloadcenter.adapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -53,9 +53,9 @@ public class GameSpecialAdapter extends BaseAdapter{
 		}else {
 			holder=(ViewHolder) convertView.getTag();
 		}
-		holder.special_name.setText(listData.get(position).get(Const.GAME_SPECIAL_NAME));
+		holder.special_name.setText(listData.get(position).get(Constant.GAME_SPECIAL_NAME));
 		//异步加载图片
-		Picasso.with(context).load(listData.get(position).get(Const.GAME_SPECIAL_IMG))
+		Picasso.with(context).load(listData.get(position).get(Constant.GAME_SPECIAL_IMG))
 		.placeholder(R.drawable.default_pic).into(holder.special_img);
 		return convertView;
 	}

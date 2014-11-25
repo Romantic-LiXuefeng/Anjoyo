@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.adapter.MySignInRecordListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.SignInRecordBean;
-import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
@@ -59,7 +59,7 @@ public class SignInRecordFragment extends TitleFragmentBase {
 	}
 
 	private void getSignInRecoed() {
-		new HttpUtils().send(HttpMethod.GET, Const.SIGNINRECORD_URL,
+		new HttpUtils().send(HttpMethod.GET, Constant.SIGNINRECORD_URL,
 				new RequestCallBack<String>() {
 
 					@Override
@@ -75,14 +75,14 @@ public class SignInRecordFragment extends TitleFragmentBase {
 						try {
 							JSONObject object = new JSONObject(result);
 							JSONArray jsonArray = object
-									.getJSONArray(Const.SIGNINRECORD_ITEMS);
+									.getJSONArray(Constant.SIGNINRECORD_ITEMS);
 							for (int i = 0; i < jsonArray.length(); i++) {
 								JSONObject JSONobject = (JSONObject) jsonArray
 										.get(i);
 								String data = JSONobject
-										.getString(Const.SIGNINRECORD_DATA);
+										.getString(Constant.SIGNINRECORD_DATA);
 								String username = JSONobject
-										.getString(Const.SIGNINRECORD_USERNAME);
+										.getString(Constant.SIGNINRECORD_USERNAME);
 								SignInRecordBean bean = new SignInRecordBean(
 										data, username);
 								mList.add(bean);

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.adapter.MyPhotoShareListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
-import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
@@ -58,7 +58,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 	}
 
 	private void getPhotoShareData() {
-		new HttpUtils().send(HttpMethod.GET, Const.PHOTOSHAREURL,
+		new HttpUtils().send(HttpMethod.GET, Constant.PHOTOSHAREURL,
 				new RequestCallBack<String>() {
 
 					@Override
@@ -73,24 +73,24 @@ public class PhotoShareFragment extends TitleFragmentBase {
 						try {
 							JSONObject object = new JSONObject(result);
 							JSONArray jsonArray = object
-									.getJSONArray(Const.SIGNINRECORD_ITEMS);
+									.getJSONArray(Constant.SIGNINRECORD_ITEMS);
 							for (int i = 0; i < jsonArray.length(); i++) {
 								JSONObject JSONobject = (JSONObject) jsonArray
 										.get(i);
 								String userid = JSONobject
-										.getString(Const.PHOTOSHARE_userid);
+										.getString(Constant.PHOTOSHARE_userid);
 								String userpic = JSONobject
-										.getString(Const.PHOTOSHARE_userpic);
+										.getString(Constant.PHOTOSHARE_userpic);
 								String nickname = JSONobject
-										.getString(Const.PHOTOSHARE_nickname);
+										.getString(Constant.PHOTOSHARE_nickname);
 								String gxid = JSONobject
-										.getString(Const.PHOTOSHARE_gxid);
+										.getString(Constant.PHOTOSHARE_gxid);
 								String title = JSONobject
-										.getString(Const.PHOTOSHARE_title);
+										.getString(Constant.PHOTOSHARE_title);
 								String gxpic = JSONobject
-										.getString(Const.PHOTOSHARE_gxpic);
+										.getString(Constant.PHOTOSHARE_gxpic);
 								String time = JSONobject
-										.getString(Const.PHOTOSHARE_time);
+										.getString(Constant.PHOTOSHARE_time);
 								PhotoShareBean bean = new PhotoShareBean(
 										userid, userpic, nickname, gxid, title,
 										gxpic, time);

@@ -40,4 +40,11 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="common_Textview_Menu_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
 </resources>

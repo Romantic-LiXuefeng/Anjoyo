@@ -3,7 +3,7 @@ package com.anjovo.gamedownloadcenter.adapter;
 import java.util.List;
 
 import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
-import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
 import com.squareup.picasso.Picasso;
 
@@ -66,9 +66,9 @@ public class MyPhotoShareListViewAdapter extends BaseAdapter {
 		holder.tvTitle.setText(bean.getTitle());
 
 		// 使用Picasso异步缓存图片
-		Picasso.with(context).load(Const.HOSTNAME + bean.getGxpic())
+		Picasso.with(context).load(Constant.HOSTNAME + bean.getGxpic())
 				.placeholder(R.drawable.default_pic).into(holder.ivGxpic);
-		Picasso.with(context).load(Const.HOSTNAME + bean.getUserpic())
+		Picasso.with(context).load(Constant.HOSTNAME + bean.getUserpic())
 				.placeholder(R.drawable.default_pic).into(holder.ivUserpic);
 		return arg1;
 	}
