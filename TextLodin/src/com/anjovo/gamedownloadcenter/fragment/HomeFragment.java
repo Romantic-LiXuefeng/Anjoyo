@@ -185,7 +185,6 @@ public class HomeFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleLeftImgClick() {
-		((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemPersonalCenter());
-		((MainActivity) getActivity()).getResideMenu().closeMenu();
+		((MainActivity) getActivity()).getResideMenu().OpenMenu();
 	}
 }

@@ -514,40 +514,43 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 			break;
 		case MotionEvent.ACTION_MOVE:
 			int xOffset = (int) (ev.getX() - lastActionDownX);
-			System.out.println("xOffset="+xOffset);
-			if(ev.getX() <= 200 && xOffset >= -50){
-				if (isInIgnoredView || isInDisableDirection(scaleDirection))
+//			Toast.makeText(getContext(), "xOffset=" + xOffset,
+//					Toast.LENGTH_SHORT).show();
+			if (isInIgnoredView || isInDisableDirection(scaleDirection))
+				break;
+
+			if (pressedState != PRESSED_DOWN
+					&& pressedState != PRESSED_MOVE_HORIZANTAL)
+				break;
+
+			int yOffset = (int) (ev.getY() - lastActionDownY);
+			if (pressedState == PRESSED_DOWN) {
+				if (yOffset > 25 || yOffset < -25) {
+					pressedState = PRESSED_MOVE_VERTICAL;
 					break;
-				
-				if (pressedState != PRESSED_DOWN && pressedState != PRESSED_MOVE_HORIZANTAL)
-					break;
-				
-				int yOffset = (int) (ev.getY() - lastActionDownY);
-				if (pressedState == PRESSED_DOWN) {
-					if (yOffset > 25 || yOffset < -25) {
-						pressedState = PRESSED_MOVE_VERTICAL;
-						break;
-					}
-					if (xOffset < -50 || xOffset > 50) {
-						pressedState = PRESSED_MOVE_HORIZANTAL;
-						ev.setAction(MotionEvent.ACTION_CANCEL);
-					}
-				} else if (pressedState == PRESSED_MOVE_HORIZANTAL) {
-					if (currentActivityScaleX < 0.95)
-						scrollViewMenu.setVisibility(VISIBLE);
-					float targetScale = getTargetScale(ev.getRawX());
-					ViewHelper.setScaleX(viewActivity, targetScale);
-					ViewHelper.setScaleY(viewActivity, 1.0f);//Y轴没有缩放效果
-					ViewHelper.setScaleY(imageViewShadow, 1.0f);
-					
-//				ViewHelper.setScaleY(viewActivity, targetScale);//Y轴有缩放效果
-//				ViewHelper.setScaleY(imageViewShadow, targetScale + shadowAdjustScaleY);
-					ViewHelper.setScaleX(imageViewShadow, targetScale + shadowAdjustScaleX);
-					ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
-					
-					lastRawX = ev.getRawX();
-					return true;
 				}
+				if (xOffset < -50 || xOffset > 50) {
+					pressedState = PRESSED_MOVE_HORIZANTAL;
+//					ev.setAction(MotionEvent.ACTION_CANCEL);
+					break;
+				}
+			} else if (pressedState == PRESSED_MOVE_HORIZANTAL && ev.getX() <= 210) {
+				if (currentActivityScaleX < 0.95)
+					scrollViewMenu.setVisibility(VISIBLE);
+				float targetScale = getTargetScale(ev.getRawX());
+				ViewHelper.setScaleX(viewActivity, targetScale);
+				ViewHelper.setScaleY(viewActivity, 1.0f);// Y轴没有缩放效果
+				ViewHelper.setScaleY(imageViewShadow, 1.0f);
+
+				// ViewHelper.setScaleY(viewActivity, targetScale);//Y轴有缩放效果
+				// ViewHelper.setScaleY(imageViewShadow, targetScale +
+				// shadowAdjustScaleY);
+				ViewHelper.setScaleX(imageViewShadow, targetScale
+						+ shadowAdjustScaleX);
+				ViewHelper.setAlpha(scrollViewMenu, (1 - targetScale) * 2.0f);
+
+				lastRawX = ev.getRawX();
+				return true;
 			}
 			break;
 		case MotionEvent.ACTION_UP:
@@ -576,6 +579,10 @@ public class ResideMenu extends FrameLayout implements View.OnClickListener {
 		}
 		lastRawX = ev.getRawX();
 		return super.dispatchTouchEvent(ev);
+	}
+
+	public void OpenMenu() {
+		openMenu(scaleDirection);
 	}
 
 	public int getScreenHeight() {
