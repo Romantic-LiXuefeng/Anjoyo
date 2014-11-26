@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 
 import com.anjovo.textlodin.R;
 
+/**
+ * @author Administrator
+ * 主页中推荐页面
+ */
 public class Fragment1 extends Fragment{
 
 	@Override
