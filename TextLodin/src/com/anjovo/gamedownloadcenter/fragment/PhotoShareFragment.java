@@ -1,17 +1,23 @@
 package com.anjovo.gamedownloadcenter.fragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.MainActivity;
@@ -30,36 +36,77 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
  * @author Administrator
  * 照片分享
  */
-public class PhotoShareFragment extends TitleFragmentBase {
-	private View rootView;
-	private ListView mListView;
-	private List<PhotoShareBean> mList;
+public class PhotoShareFragment extends TitleFragmentBase implements IXListViewListener{
+	private XListView mListView;
+	private List<PhotoShareBean> mList = new ArrayList<PhotoShareBean>();;
+	private Handler mHandler;
 	private MyPhotoShareListViewAdapter mAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		rootView = inflater.inflate(R.layout.fragment_photo_sharing, container,
+		mContentView = inflater.inflate(R.layout.fragment_photo_sharing, container,
 				false);
-		return rootView;
+		return mContentView;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mListView = (ListView) rootView.findViewById(R.id.photoshare_listview);
+		mListView = (XListView) mContentView.findViewById(R.id.photoshare_listview);
+		mListView.setPullLoadEnable(true);//可下拉加载
+		mListView.setPullRefreshEnable(true);//可上拉加载
+		mListView.setXListViewListener(this);
+		mHandler = new Handler();
 		setAdapter();
+		getPhotoShareData(Constant.PHOTOSHAREURL+Constant.ON_LOAD_MORE_REFRESH);
 	}
 
+	private void onLoad() {
+		mListView.stopRefresh();
+		mListView.stopLoadMore();
+//		SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm:ss", Locale.CHINA);
+		SimpleDateFormat dateformat = new SimpleDateFormat("MM月dd日HH:mm:ss", Locale.CHINA);
+//		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss E ", Locale.CHINA);
+		String last_update=dateformat.format(new Date());
+		mListView.setRefreshTime(last_update);
+	}
+	
+	@Override
+	public void onRefresh() {
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mList.clear();
+				//加载刷新数据
+				Constant.ON_LOAD_MORE_REFRESH = 0;
+				//从新设置Adapter
+				getPhotoShareData(Constant.PHOTOSHAREURL+Constant.ON_LOAD_MORE_REFRESH);
+				onLoad();
+			}
+		}, 2000);
+	}
+
+	@Override
+	public void onLoadMore() {
+		mHandler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				//加载更多数据
+				Constant.ON_LOAD_MORE_LOAD = Constant.ON_LOAD_MORE_LOAD + 1;
+				getPhotoShareData(Constant.PHOTOSHAREURL+Constant.ON_LOAD_MORE_LOAD);
+				onLoad();
+			}
+		}, 2000);
+	}
+	
 	private void setAdapter() {
-		mList = new ArrayList<PhotoShareBean>();
 		mAdapter = new MyPhotoShareListViewAdapter(mList, getActivity());
 		mListView.setAdapter(mAdapter);
-		getPhotoShareData();
 	}
 
-	private void getPhotoShareData() {
-		new HttpUtils().send(HttpMethod.GET, Constant.PHOTOSHAREURL,
+	private void getPhotoShareData(String Url) {
+		new HttpUtils().send(HttpMethod.GET, Url,
 				new RequestCallBack<String>() {
 
 					@Override
@@ -105,7 +152,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 
 					}
 				});
-
+		setAdapter();
 	}
 
 	@Override

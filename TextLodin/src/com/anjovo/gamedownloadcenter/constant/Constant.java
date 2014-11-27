@@ -17,7 +17,7 @@ public class Constant {
 	public static final String SIGNINRECORD_USERNAME = "username";
 	public static final String SIGNINRECORD_ITEMS = "items";
 	// 分享照片列表接口
-	public static final String PHOTOSHAREURL = "http://www.gamept.cn/yx_gxlist.php?currentPage=1";
+	public static final String PHOTOSHAREURL = "http://www.gamept.cn/yx_gxlist.php?currentPage=";
 	public static final String PHOTOSHARE_userid = "userid";
 	public static final String PHOTOSHARE_username = "username";
 	public static final String PHOTOSHARE_userpic = "userpic";
@@ -26,6 +26,13 @@ public class Constant {
 	public static final String PHOTOSHARE_title = "title";
 	public static final String PHOTOSHARE_gxpic = "gxpic";
 	public static final String PHOTOSHARE_time = "time";
+	/**加载刷新数据**/
+	public static int ON_LOAD_MORE_REFRESH = 1;
+	/**加载更多数据**/
+	public static int ON_LOAD_MORE_LOAD = 1;
+	/**当前加载模式**/
+	public static int ON_LOAD_MORE_NOW = ON_LOAD_MORE_REFRESH;
+	
 	//SharedPreferences的配置信息
 	public static final int SHARED_PREFERENCES_MODE_DEFAULT = Context.MODE_PRIVATE;
 	
