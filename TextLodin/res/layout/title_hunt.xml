@@ -35,6 +35,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:hint="请输入搜索内容"
+                android:paddingLeft="@dimen/custom_height8d"
                 android:background="#00000000" />
 
             <ImageView
