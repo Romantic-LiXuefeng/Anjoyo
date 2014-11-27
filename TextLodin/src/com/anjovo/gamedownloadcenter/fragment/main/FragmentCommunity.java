@@ -12,11 +12,11 @@ import com.anjovo.textlodin.R;
  * @author Administrator
  * 主页中社区页面
  */
-public class Fragment5 extends Fragment{
+public class FragmentCommunity extends Fragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		 return inflater.inflate(R.layout.fragment5, null);
+		 return inflater.inflate(R.layout.fragment_community, null);
 	}
 }

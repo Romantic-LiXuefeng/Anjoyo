@@ -1,22 +1,20 @@
 package com.anjovo.gamedownloadcenter.activity;
 
-import com.anjovo.textlodin.R;
-import com.lidroid.xutils.view.annotation.ViewInject;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class IntegrationDetailActivity extends Activity {
+import com.anjovo.gamedownloadcenter.activity.base.TitleActivityBase;
+import com.anjovo.textlodin.R;
+import com.lidroid.xutils.view.annotation.ViewInject;
+
+public class IntegrationDetailActivity extends TitleActivityBase {
 	/*
 	 * 积分兑换详情界面
 	 */
 	
-	@ViewInject(R.id.iv_back_integration_details)
-	private ImageView mIvBack;
 	@ViewInject(R.id.iv_picture_integration_details)
 	private ImageView mIvPicture;
 	@ViewInject(R.id.tv_integration_details_test)
@@ -38,5 +36,28 @@ public class IntegrationDetailActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_integration_details);
+	}
+
+	@Override
+	public void onTitleBackClick() {
+		finish();
+	}
+
+	@Override
+	public void onTitleRightImgClick() {
+	}
+
+	@Override
+	public void onTitleRightTwoImgClick(int img) {
+	}
+
+	@Override
+	public void onTitleLeftImgClick() {
+	}
+
+	@Override
+	protected void initTitle() {
+		setUpTitleBack();
+		setUpTitleCentreText("Redeem");
 	}
 }

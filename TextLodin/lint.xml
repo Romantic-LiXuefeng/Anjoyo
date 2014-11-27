@@ -9,6 +9,7 @@
     <issue id="SpUsage" severity="ignore" />
     <issue id="TextFields" severity="ignore" />
     <issue id="TypographyEllipsis" severity="ignore" />
+    <issue id="UseCompoundDrawables" severity="ignore" />
     <issue id="UselessLeaf" severity="ignore" />
     <issue id="UselessParent" severity="ignore" />
 </lint>

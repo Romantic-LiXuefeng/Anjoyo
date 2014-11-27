@@ -2,54 +2,83 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECECEC"
     android:orientation="vertical"
-    android:weightSum="3"
-    android:background="#ECECEC" >
+    android:weightSum="3" >
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.25"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/custom_height10d"
         android:orientation="vertical" >
-        <RelativeLayout 
+
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <ImageView
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/custom_height10d"
+            android:layout_marginTop="@dimen/custom_height16d"
+            android:orientation="horizontal" >
+
+            <TextView
                 android:id="@+id/hot_activities"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/hot_activities" 
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"/>
-            <ImageView
+                android:layout_width="@dimen/custom_height140d"
+                android:layout_height="@dimen/custom_height60d"
+                android:background="@drawable/hot_activities"
+                android:gravity="center"
+                android:paddingLeft="@dimen/custom_height40d"
+                android:text="热门活动"
+                android:textColor="@color/grey_black"
+                android:textSize="@dimen/custom_height16d" />
+
+            <TextView
                 android:id="@+id/hot_topic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/custom_height140d"
+                android:layout_height="@dimen/custom_height60d"
                 android:background="@drawable/hot_topic"
-                android:layout_toRightOf="@id/hot_activities"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"/>
-            <ImageView
+                android:gravity="center"
+                android:paddingLeft="@dimen/custom_height40d"
+                android:layout_marginLeft="@dimen/custom_height20d"
+                android:text="热门话题"
+                android:textColor="@color/grey_black"
+                android:textSize="@dimen/custom_height16d" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/custom_height10d"
+            android:layout_marginTop="@dimen/custom_height16d"
+            android:orientation="horizontal" >
+
+            <TextView
                 android:id="@+id/hot_news"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/custom_height140d"
+                android:layout_height="@dimen/custom_height60d"
                 android:background="@drawable/news" 
-                android:layout_below="@id/hot_activities"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"/>
-            <ImageView
+                android:text="新闻资讯"
+                android:gravity="center"
+                android:paddingLeft="@dimen/custom_height40d"
+                android:textColor="@color/grey_black"
+                android:textSize="@dimen/custom_height16d"/>
+
+            <TextView
                 android:id="@+id/nearby"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/nearby_people"
-                android:layout_below="@id/hot_topic"
-                android:layout_toRightOf="@id/hot_news"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"/>
-        </RelativeLayout>       
+                android:layout_width="@dimen/custom_height140d"
+                android:layout_height="@dimen/custom_height60d"
+                android:background="@drawable/nearby_people" 
+                android:text="附近的人"
+                android:textColor="@color/grey_black"
+                android:gravity="center"
+                android:paddingLeft="@dimen/custom_height40d"
+                android:layout_marginLeft="@dimen/custom_height20d"
+                android:textSize="@dimen/custom_height16d"/>
+        </LinearLayout>
     </LinearLayout>
+
     <ListView
+        android:id="@+id/listView_SheQu"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.75" >
+        android:layout_height="fill_parent">
     </ListView>
+
 </LinearLayout>
