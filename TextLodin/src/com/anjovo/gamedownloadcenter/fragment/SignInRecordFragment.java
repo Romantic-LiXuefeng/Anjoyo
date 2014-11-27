@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.adapter.MySignInRecordListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.SignInRecordBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
@@ -115,6 +116,7 @@ public class SignInRecordFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleLeftImgClick() {
+		((MainActivity) getActivity()).getResideMenu().OpenMenu();
 	}
 
 	@Override

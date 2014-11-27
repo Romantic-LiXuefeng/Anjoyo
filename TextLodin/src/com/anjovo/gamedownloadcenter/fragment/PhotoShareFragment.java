@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPhotoShareListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
@@ -124,7 +125,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleLeftImgClick() {
-
+		((MainActivity) getActivity()).getResideMenu().OpenMenu();
 	}
 
 	@Override

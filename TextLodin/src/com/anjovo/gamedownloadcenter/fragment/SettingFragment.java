@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.textlodin.R;
 
@@ -23,6 +24,7 @@ public class SettingFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleBackClick() {
+		((MainActivity) getActivity()).getResideMenu().OpenMenu();
 	}
 
 	@Override
