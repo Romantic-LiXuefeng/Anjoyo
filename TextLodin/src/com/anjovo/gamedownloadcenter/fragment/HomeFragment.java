@@ -3,6 +3,7 @@ package com.anjovo.gamedownloadcenter.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.anjovo.gamedownloadcenter.MainActivity;
+import com.anjovo.gamedownloadcenter.activity.HuntActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPagerAdapter;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.gamedownloadcenter.fragment.main.Fragment1;
@@ -170,17 +172,15 @@ public class HomeFragment extends TitleFragmentBase {
 	
 	@Override
 	public void onTitleBackClick() {
-
 	}
 
 	@Override
 	public void onTitleRightImgClick() {
-
+		getActivity().startActivity(new Intent(getActivity(), HuntActivity.class));
 	}
 
 	@Override
 	public void onTitleRightTwoImgClick(int img) {
-
 	}
 
 	@Override
