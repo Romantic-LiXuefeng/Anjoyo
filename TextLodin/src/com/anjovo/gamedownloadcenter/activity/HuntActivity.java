@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.anjovo.textlodin.R;
+import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 public class HuntActivity extends Activity implements OnClickListener {
@@ -28,6 +29,7 @@ public class HuntActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hunt);
+		ViewUtils.inject(this);
 		
 		initView();
 	}
