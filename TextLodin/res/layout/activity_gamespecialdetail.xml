@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/list_hand_bg"
     android:orientation="vertical" >
 
     <include 
@@ -21,7 +22,8 @@
         android:background="#EAEAEA"
         android:padding="5dp"
         android:text="虚心很浮躁，该宣泄一下啦！！"
-        android:textColor="#000000"
+        android:textColor="@color/grey_black"
+        android:gravity="center"
         android:textSize="20sp" />
 
     <ImageView
@@ -33,9 +35,11 @@
         android:id="@+id/special_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/custom_height10d"
         android:background="@drawable/gamespecial_content"
         android:text="最近App store刮起了一阵虐心的风暴 ,玩的我们各种感伤"
-        android:textSize="18sp" />
+        android:padding="@dimen/custom_height5d"
+        android:textSize="16sp" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -55,6 +59,7 @@
     <ListView
         android:id="@+id/gamespecial_listvist"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent" 
+        android:background="@color/white"/>
 
 </LinearLayout>
