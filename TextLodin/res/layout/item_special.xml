@@ -2,27 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
+    android:background="@drawable/selector_special_color_fragment_main"
     android:orientation="vertical" >
-    
-	<ImageView
-	    android:id="@+id/special_img_item" 
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:scaleType="fitXY"
-	    android:src="@drawable/default_pic"/>
-	<TextView
-	    android:id="@+id/special_name_item" 
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:padding="5dp"
-	    android:textSize="20sp"
-	    android:textColor="#000000"
-	    android:text="虚心很浮躁，该宣泄一下啦！！"/>
-	<ImageView
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/custom_height6d"
+        android:layout_marginTop="@dimen/custom_height4d"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/nextTv_item_special"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/custom_height10d"
+            android:background="@drawable/right_arrow_category"
+            android:gravity="center" />
+
+        <ImageView
+            android:id="@+id/special_img_item"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/custom_height140d"
+            android:scaleType="fitXY"
+            android:layout_marginRight="@dimen/custom_height10d"
+            android:layout_toLeftOf="@id/nextTv_item_special"
+            android:src="@drawable/zhuan_ti" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/special_name_item"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_detail_divider" />
+        android:padding="5dp"
+        android:text="虚心很浮躁，该宣泄一下啦！"
+        android:textColor="@color/grey_black"
+        android:textSize="@dimen/custom_height16d" />
+
 </LinearLayout>

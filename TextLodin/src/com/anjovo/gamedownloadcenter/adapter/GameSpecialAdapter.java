@@ -47,7 +47,7 @@ public class GameSpecialAdapter extends BaseAdapter{
 		ViewHolder holder;
 		if(convertView==null){
 			convertView=LayoutInflater.from(context).inflate(R.layout.item_special, null);
-			holder=new ViewHolder();
+			holder = new ViewHolder();
 			ViewUtils.inject(holder,convertView);
 			convertView.setTag(holder);
 		}else {
@@ -55,8 +55,9 @@ public class GameSpecialAdapter extends BaseAdapter{
 		}
 		holder.special_name.setText(listData.get(position).get(Constant.GAME_SPECIAL_NAME));
 		//异步加载图片
-		Picasso.with(context).load(listData.get(position).get(Constant.GAME_SPECIAL_IMG))
-		.placeholder(R.drawable.default_pic).into(holder.special_img);
+		System.out.println(Constant.GAME_SPECIAL_URL+listData.get(position).get(Constant.GAME_SPECIAL_IMG));
+		Picasso.with(context).load(Constant.GAME_SPECIAL_URL+listData.get(position).get(Constant.GAME_SPECIAL_IMG))
+		.placeholder(R.drawable.zhuan_ti).into(holder.special_img);
 		return convertView;
 	}
 	private class ViewHolder{

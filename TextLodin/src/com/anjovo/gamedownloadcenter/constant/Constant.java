@@ -8,9 +8,11 @@ public class Constant {
 	// 主机名
 	public static final String HOSTNAME = "http://www.gamept.cn";
 	// 游戏专题的URL
-	public static final String GAME_SPECIAL = "http://www.gamept.cn/yx_zt.php?currentPage=";
+	public static final String GAME_SPECIAL_URL = "http://www.gamept.cn";
+	public static final String GAME_SPECIAL = GAME_SPECIAL_URL+"/yx_zt.php?currentPage=";
 	public static final String GAME_SPECIAL_NAME = "ztname";
 	public static final String GAME_SPECIAL_IMG = "ztimg";
+	public static final String GAME_SPECIAL_ID = "ztid";
 	// 签到记录url
 	public static final String SIGNINRECORD_URL = "http://www.gamept.cn/yx_sign.php?uid=163&type=list";
 	public static final String SIGNINRECORD_DATA = "date";

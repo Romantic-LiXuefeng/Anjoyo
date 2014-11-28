@@ -46,7 +46,7 @@ public class FragmentSpecial extends Fragment implements IXListViewListener{
 	private XListView mList_goods;
 	private Handler mHandler;
 	private GameSpecialAdapter adapter;
-	ArrayList<HashMap<String, String>> listData=new ArrayList<HashMap<String,String>>();
+	private ArrayList<HashMap<String, String>> listData=new ArrayList<HashMap<String,String>>();
 	static int currentPage = 1;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,7 +132,13 @@ public class FragmentSpecial extends Fragment implements IXListViewListener{
 						HashMap<String, String> hs=new HashMap<String, String>();
 						hs.put(Constant.GAME_SPECIAL_NAME, object.getString(Constant.GAME_SPECIAL_NAME));
 						hs.put(Constant.GAME_SPECIAL_IMG, object.getString(Constant.GAME_SPECIAL_IMG));
+						hs.put(Constant.GAME_SPECIAL_ID, object.getString(Constant.GAME_SPECIAL_ID));
 						if(string.equals(currentPage+"")){
+							listData.add(hs);
+							adapter.notifyDataSetChanged();
+						}else{
+							currentPage = Integer.valueOf(string);
+							listData.clear();
 							listData.add(hs);
 							adapter.notifyDataSetChanged();
 						}
