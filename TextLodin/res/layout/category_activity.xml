@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout style="@style/title_bar_style" >
+
+        <Button
+            android:id="@+id/category_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/category_back_arrow_selecter" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/category_back_arrow"
+            android:background="@color/grey_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/category_title_character"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/cateory_radoioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/category_newnest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:gravity="center"
+            android:background="@drawable/category_imgbutton_selector"
+            android:button="@null"
+            android:text="@string/category_newest_bt"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/category_hotest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/category_imgbutton_selector"
+            android:button="@null"
+            android:text="@string/category_hotest_bt"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <me.maxwin.view.XListView
+        android:id="@+id/category_activity_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+    </me.maxwin.view.XListView>
+
+</LinearLayout>

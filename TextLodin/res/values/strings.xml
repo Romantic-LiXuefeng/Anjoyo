@@ -10,5 +10,9 @@
     <string name="xlistview_header_last_time">上次更新时间：</string>
     <string name="xlistview_footer_hint_normal">查看更多</string>
     <string name="xlistview_footer_hint_ready">松开载入更多</string>
-
+    <string name="category_title_character">角色扮演</string>
+    <string name="category_newest_bt">最新</string>
+    <string name="category_hotest_bt">最热</string>
+    <string name="category_activity_item_bt">下载</string>
+    
 </resources>

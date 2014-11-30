@@ -43,4 +43,5 @@
     <dimen name="custom_height8d">8dp</dimen>
     <dimen name="list_image_width">113.0dip</dimen>
     <dimen name="list_image_heigh">81.0dip</dimen>
+        <dimen name="title_size">25sp</dimen>
 </resources>

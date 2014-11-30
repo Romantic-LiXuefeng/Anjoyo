@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <ImageView
+            android:layout_margin="5dp"
+            android:id="@+id/category_activity_img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            />
+
+        <TextView
+            android:id="@+id/category_activity_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/category_activity_img"
+            android:text="sdfsdf" />
+
+        <LinearLayout
+            android:id="@+id/star_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/category_activity_app_name"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/category_activity_img"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/check_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/star_radio_button"
+                android:button="@null"
+                android:padding="2dp" />
+
+            <CheckBox
+                android:id="@+id/check_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/star_radio_button"
+                android:button="@null"
+                android:padding="2dp" />
+
+            <CheckBox
+                android:id="@+id/check_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/star_radio_button"
+                android:button="@null"
+                android:padding="2dp" />
+
+            <CheckBox
+                android:id="@+id/check_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/star_radio_button"
+                android:button="@null"
+                android:padding="2dp" />
+
+            <CheckBox
+                android:id="@+id/check_five"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/star_radio_button"
+                android:button="@null"
+                android:padding="2dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dowload_counts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/star_group"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@id/star_group"
+            android:singleLine="true"
+            android:text="sdfsdf" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" >
+
+            <Button
+                android:id="@+id/dowdoal_category"
+                android:layout_width="83dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/dowload_img_selector"
+                android:text="@string/category_activity_item_bt"
+                android:textColor="@color/grey_black" />
+
+            <TextView
+                android:id="@+id/filesize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dowdoal_category"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:singleLine="true"
+                android:text="sdfsdf" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
