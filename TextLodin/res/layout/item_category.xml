@@ -15,6 +15,7 @@
             android:id="@+id/category_img"
             android:layout_width="72dp"
             android:layout_height="72dp"
+            android:layout_marginRight="10dp"
             />
         <TextView 
             android:layout_toRightOf="@id/category_img"
