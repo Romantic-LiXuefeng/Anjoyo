@@ -13,6 +13,7 @@ import com.anjovo.textlodin.R;
  * @author litangfei
  * 所有activity都可以继承本父类 TitleActivityBase是自己封装的父类 TitleActivityBase则是所有子类继承后  调用
  * 其中的方法则可以让fragment页面展现不一样的标题
+ * 
  */
 public abstract class TitleActivityBase extends Activity{
 
