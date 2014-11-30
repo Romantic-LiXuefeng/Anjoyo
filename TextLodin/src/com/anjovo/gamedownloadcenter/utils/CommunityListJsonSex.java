@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
 
 public class CommunityListJsonSex {
+	@SuppressWarnings("unused")
 	public List<CommunityListbean> startSex(String json){
 		List<CommunityListbean>  listdata=new ArrayList<CommunityListbean>();
 		try {

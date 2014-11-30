@@ -3,17 +3,16 @@ package com.anjovo.gamedownloadcenter.adapter;
 import java.util.HashMap;
 import java.util.List;
 
-import com.anjovo.textlodin.R;
-import com.squareup.picasso.Picasso;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
+
+import com.anjovo.textlodin.R;
+import com.squareup.picasso.Picasso;
 
 public class CategoryAdapter extends BaseAdapter{
 	List<HashMap<String, String>>  categorylists;

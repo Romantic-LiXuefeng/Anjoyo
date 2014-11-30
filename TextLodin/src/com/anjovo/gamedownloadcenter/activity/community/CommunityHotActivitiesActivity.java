@@ -2,18 +2,6 @@ package com.anjovo.gamedownloadcenter.activity.community;
 
 import java.util.List;
 
-import com.anjovo.gamedownloadcenter.adapter.CommunityHotAdapter;
-import com.anjovo.gamedownloadcenter.adapter.CommunityListAdapter;
-import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
-import com.anjovo.gamedownloadcenter.utils.CommunityHotActivitiesJsonSex;
-import com.anjovo.gamedownloadcenter.utils.CommunityListJsonSex;
-import com.anjovo.textlodin.R;
-import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.exception.HttpException;
-import com.lidroid.xutils.http.ResponseInfo;
-import com.lidroid.xutils.http.callback.RequestCallBack;
-import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +9,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import com.anjovo.gamedownloadcenter.adapter.CommunityHotAdapter;
+import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
+import com.anjovo.gamedownloadcenter.utils.CommunityHotActivitiesJsonSex;
+import com.anjovo.textlodin.R;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 public class CommunityHotActivitiesActivity extends Activity{
 

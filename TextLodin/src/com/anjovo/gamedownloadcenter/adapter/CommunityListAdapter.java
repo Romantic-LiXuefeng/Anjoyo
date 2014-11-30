@@ -3,12 +3,6 @@ package com.anjovo.gamedownloadcenter.adapter;
 import java.util.List;
 
 import net.tsz.afinal.FinalBitmap;
-
-import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
-import com.anjovo.gamedownloadcenter.constant.Constant;
-import com.anjovo.textlodin.R;
-import com.squareup.picasso.Picasso;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,12 +13,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
+import com.anjovo.gamedownloadcenter.constant.Constant;
+import com.anjovo.textlodin.R;
+
 public class CommunityListAdapter extends BaseAdapter {
 	private List<CommunityListbean> list;
 	private LayoutInflater inflater;
 	private FinalBitmap bitmap;
 	Bitmap loadingBitmap,laodfailBitmap;
+	@SuppressWarnings("unused")
 	private Context context;
+	@SuppressWarnings("static-access")
 	public CommunityListAdapter(Context context,List<CommunityListbean> list){
 		super();
 		this.context=context;
@@ -50,6 +50,7 @@ public class CommunityListAdapter extends BaseAdapter {
 		return position;
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder=new ViewHolder();
