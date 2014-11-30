@@ -14,6 +14,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.anjovo.gamedownloadcenter.adapter.CategoryActivityAdapter;
 import com.anjovo.textlodin.R;
@@ -25,17 +29,18 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 public class CategoryActivity extends Activity {
 	private XListView listview;
-	private Button buttonnewest;
-	private Button buttonhotnest;
+	private RadioButton buttonnewest;
+	private RadioGroup group;
+	private RadioButton buttonhotnest;
 	private String id;
 	private String pathnew = "http://www.gamept.cn/yx_lanmu_new.php?id=";
-	private ArrayList<HashMap<String, String>> categoryactivitylistsnew = new ArrayList<HashMap<String, String>>();
-	private ArrayList<HashMap<String, String>> categoryactivitylistshot = new ArrayList<HashMap<String, String>>();
+	private ArrayList<HashMap<String, String>> categoryactivitylist = new ArrayList<HashMap<String, String>>();
 	private HashMap<String, String> has;
 	CategoryActivityAdapter adapter;
 	String pathot = "http://www.gamept.cn/yx_lanmu_hot.php?id=";
 	String urlend = "&currentPage=";
-	int page = 1;
+	int pagenew = 1;
+	int pagenhou = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +48,40 @@ public class CategoryActivity extends Activity {
 		setContentView(R.layout.category_activity);
 		Intent intent = getIntent();
 		id = intent.getStringExtra("classid");
+		connet(pathnew + id);
 		initbt();
-		connetnew();
 		setAdapter();
 	}
 
 	private void setAdapter() {
-		adapter = new CategoryActivityAdapter(this, categoryactivitylistsnew);
+		adapter = new CategoryActivityAdapter(this, categoryactivitylist);
 		listview.setAdapter(adapter);
 	}
 
 	private void initbt() {
-		buttonnewest = (Button) findViewById(R.id.category_newnest);
-		buttonhotnest = (Button) findViewById(R.id.category_hotest);
+		group = (RadioGroup) findViewById(R.id.cateory_radoioGroup);
+		buttonnewest = (RadioButton) findViewById(R.id.category_newnest);
+		buttonnewest.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				categoryactivitylist.clear();
+				connet(pathnew + id);
+			}
+		});
+		buttonhotnest = (RadioButton) findViewById(R.id.category_hotest);
+		buttonhotnest.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				categoryactivitylist.clear();
+				connet(pathot + id);
+			}
+		});
 		listview = (XListView) findViewById(R.id.category_activity_list);
+		listview.setPullLoadEnable(true);
 		listview.setXListViewListener(new IXListViewListener() {
 
 			@Override
@@ -66,13 +91,22 @@ public class CategoryActivity extends Activity {
 
 			@Override
 			public void onLoadMore() {
+
+				if (group.getCheckedRadioButtonId() == R.id.category_newnest) {
+					pagenew++;
+					connet(pathnew + id+urlend+pagenew);
+				} else if (group.getCheckedRadioButtonId() == R.id.category_hotest) {
+                    pagenhou++;
+                    connet(pathnew+id+urlend+pagenhou);
+				}
+
 			}
 		});
 	}
 
-	private void connetnew() {
+	private void connet(String path) {
 
-		new HttpUtils().send(HttpMethod.GET,pathnew + id,
+		new HttpUtils().send(HttpMethod.GET, path,
 				new RequestCallBack<String>() {
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
@@ -81,12 +115,11 @@ public class CategoryActivity extends Activity {
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
 						Jsonnew(arg0.result);
-						System.out.println("!!!!!!!!!!!!"+arg0.result);
+						System.out.println("!!!!!!!!!!!!" + arg0.result);
 					}
 
 				});
 	}
-
 
 	private void Jsonnew(String category) {
 		try {
@@ -117,7 +150,7 @@ public class CategoryActivity extends Activity {
 				has.put("infopfen", infopfen);
 				has.put("infopfennum", infopfennum);
 				has.put("flashurl", flashurl);
-				categoryactivitylistsnew.add(has);
+				categoryactivitylist.add(has);
 			}
 			adapter.notifyDataSetChanged();
 			setAdapter();
@@ -125,8 +158,5 @@ public class CategoryActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
-
-		
-
 
 }
