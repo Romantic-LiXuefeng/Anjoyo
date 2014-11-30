@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/hotdetail" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:background="#EAEAEA"
+        android:gravity="center"
+        android:text="cosplay"
+        android:textSize="20dip" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="#EAEAEA"
+        android:gravity="center"
+        android:text="cosplay的妹纸总是这么令人向往，求关注。求点赞"
+        android:textSize="18dip" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#EAEAEA" >
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="2014-3-13"
+            android:layout_marginRight="5dp"
+            android:textSize="15dip" />
+        <Button 
+            android:layout_below="@id/time"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:text="已参加"
+            android:layout_marginRight="5dp"
+            android:textSize="13dip"
+            android:background="@drawable/canjia"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <ListView 
+        android:id="@+id/hot_details"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        
+    </ListView>
+
+</LinearLayout>
