@@ -82,7 +82,11 @@ public class CategoryActivity extends Activity {
 				connet(pathot + id);
 			}
 		});
+
 		listview = (XListView) findViewById(R.id.category_activity_list);
+		listview.setPullLoadEnable(true);
+		listview.setPullRefreshEnable(false);
+	
 		listview.setXListViewListener(new IXListViewListener() {
 
 			@Override
@@ -96,10 +100,11 @@ public class CategoryActivity extends Activity {
 				if (group.getCheckedRadioButtonId() == R.id.category_newnest) {
 					pagenew++;
 					connet(pathnew + id+urlend+pagenew);
+					System.out.println("!!!"+pagenew++);
 					
 				} else if (group.getCheckedRadioButtonId() == R.id.category_hotest) {
                     pagenhou++;
-                    connet(pathnew+id+urlend+pagenhou);
+                    connet(pathot+id+urlend+pagenhou);
 				}
                    listview.stopLoadMore();
 			}
@@ -153,9 +158,9 @@ public class CategoryActivity extends Activity {
 				has.put("infopfennum", infopfennum);
 				has.put("flashurl", flashurl);
 				categoryactivitylist.add(has);
+				adapter.notifyDataSetChanged();
 			}
-			adapter.notifyDataSetChanged();
-			setAdapter();
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
