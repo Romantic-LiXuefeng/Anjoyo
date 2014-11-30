@@ -36,7 +36,6 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-	//专题页面
 /**
  * @author Administrator
  * 主页中专题页面
