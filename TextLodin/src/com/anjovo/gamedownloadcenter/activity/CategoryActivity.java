@@ -44,11 +44,11 @@ public class CategoryActivity extends Activity {
 		Intent intent = getIntent();
 		id = intent.getStringExtra("classid");
 		initbt();
+		connetnew();
 		setAdapter();
 	}
 
 	private void setAdapter() {
-		connetnew();
 		adapter = new CategoryActivityAdapter(this, categoryactivitylistsnew);
 		listview.setAdapter(adapter);
 	}
