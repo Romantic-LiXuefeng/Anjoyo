@@ -34,7 +34,10 @@ public class Constant {
 	public static int ON_LOAD_MORE_LOAD = 1;
 	/**当前加载模式**/
 	public static int ON_LOAD_MORE_NOW = ON_LOAD_MORE_REFRESH;
-	
+	/***社区url***/
+	public static final String COMMUNITY_LIST_URL = "http://www.gamept.cn/yx_userdt.php";
+	public static final String COMMUNITY_IMAGE_URL = "http://www.gamept.cn";
+	public static final String COMMUNITY_HOT_URL = "http://www.gamept.cn/yx_action.php?currentpage=?";
 	//SharedPreferences的配置信息
 	public static final int SHARED_PREFERENCES_MODE_DEFAULT = Context.MODE_PRIVATE;
 	

@@ -43,6 +43,8 @@
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.HuntActivity"></activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.IntegrationDetailActivity"></activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityHotDetailsActivity"></activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityHotActivitiesActivity"></activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.CategoryActivity"></activity>
     </application>
 
