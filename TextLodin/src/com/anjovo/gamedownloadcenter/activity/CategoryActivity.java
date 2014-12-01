@@ -44,7 +44,7 @@ public class CategoryActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.category_activity);
+		setContentView(R.layout.activity_category);
 		Intent intent = getIntent();
 		id = intent.getStringExtra("classid");
 		connet(pathnew + id);
