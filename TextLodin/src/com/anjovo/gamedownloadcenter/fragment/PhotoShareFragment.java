@@ -34,9 +34,6 @@ import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-//github.com/GameDownloadCentre/Anjoyo.git
-//github.com/GameDownloadCentre/Anjoyo.git
-
 /**
  * @author Administrator 照片分享
  */
