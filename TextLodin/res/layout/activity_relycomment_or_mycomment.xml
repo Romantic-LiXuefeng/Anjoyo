@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10" >
+
+    
+
+        <include layout="@layout/common_title_bar" />
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        layout="@layout/item_photoshare_listview" />
+
+    <EditText
+        android:id="@+id/comment_or_relpy_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="4"
+        android:background="@drawable/edittext_bg"
+        android:gravity="top|left"
+        android:hint="回复"
+        android:maxLines="5" />
+
+    <Button
+        android:id="@+id/I_want_to_comment"
+        style="@style/bt_style"
+        android:text="@string/submit" />
+
+</LinearLayout>

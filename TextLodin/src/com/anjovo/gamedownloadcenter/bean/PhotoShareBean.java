@@ -21,6 +21,16 @@ public class PhotoShareBean {
 		this.time = time;
 	}
 
+	public PhotoShareBean(String userpic, String nickname, String title,
+			String gxpic, String time) {
+		super();
+		this.userpic = userpic;
+		this.nickname = nickname;
+		this.title = title;
+		this.gxpic = gxpic;
+		this.time = time;
+	}
+
 	public String getUserid() {
 		return userid;
 	}

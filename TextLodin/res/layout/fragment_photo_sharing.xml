@@ -2,15 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#ECECEC">
+    android:background="#ECECEC"
+    android:orientation="vertical" >
 
-    <include layout="@layout/common_title_bar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <include layout="@layout/common_title_bar" />
+
+        <Button
+            android:id="@+id/bt_sharephoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/custom_height5d"
+            android:background="@drawable/sharephoto_selector"
+            android:text="@string/sharephoto"
+            android:textColor="@color/app_white" />
+    </RelativeLayout>
 
     <me.maxwin.view.XListView
         android:id="@+id/photoshare_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
     </me.maxwin.view.XListView>
 
 </LinearLayout>

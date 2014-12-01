@@ -9,6 +9,9 @@
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -41,11 +44,22 @@
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.PeopleCenter" >
         </activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.HuntActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.IntegrationDetailActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityHotDetailsActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityHotActivitiesActivity"></activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.CategoryActivity"></activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.HuntActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.IntegrationDetailActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityHotDetailsActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityHotActivitiesActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.CategoryActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.SharePhotoActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.PhotoShareDetailActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.ReplyCommentOrMyCommentActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -13,16 +13,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.MainActivity;
+import com.anjovo.gamedownloadcenter.activity.PhotoShareDetailActivity;
+import com.anjovo.gamedownloadcenter.activity.SharePhotoActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPhotoShareListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
+import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.textlodin.R;
@@ -31,79 +39,60 @@ import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+//github.com/GameDownloadCentre/Anjoyo.git
+//github.com/GameDownloadCentre/Anjoyo.git
 
 /**
- * @author Administrator
- * 照片分享
+ * @author Administrator 照片分享
  */
-public class PhotoShareFragment extends TitleFragmentBase implements IXListViewListener{
+public class PhotoShareFragment extends TitleFragmentBase {
 	private XListView mListView;
 	private List<PhotoShareBean> mList = new ArrayList<PhotoShareBean>();;
-	private Handler mHandler;
 	private MyPhotoShareListViewAdapter mAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		mContentView = inflater.inflate(R.layout.fragment_photo_sharing, container,
-				false);
+		mContentView = inflater.inflate(R.layout.fragment_photo_sharing,
+				container, false);
 		return mContentView;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mListView = (XListView) mContentView.findViewById(R.id.photoshare_listview);
-		mListView.setPullLoadEnable(true);//可下拉加载
-		mListView.setPullRefreshEnable(true);//可上拉加载
-		mListView.setXListViewListener(this);
-		mHandler = new Handler();
+		mListView = (XListView) mContentView
+				.findViewById(R.id.photoshare_listview);
+		mListView.setPullLoadEnable(true);// 可下拉加载
+		mListView.setPullRefreshEnable(true);// 可上拉加载
 		setAdapter();
-		getPhotoShareData(Constant.PHOTOSHAREURL+Constant.ON_LOAD_MORE_REFRESH);
 	}
 
-	private void onLoad() {
-		mListView.stopRefresh();
-		mListView.stopLoadMore();
-//		SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm:ss", Locale.CHINA);
-		SimpleDateFormat dateformat = new SimpleDateFormat("MM月dd日HH:mm:ss", Locale.CHINA);
-//		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss E ", Locale.CHINA);
-		String last_update=dateformat.format(new Date());
-		mListView.setRefreshTime(last_update);
-	}
-	
-	@Override
-	public void onRefresh() {
-		mHandler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				mList.clear();
-				//加载刷新数据
-				Constant.ON_LOAD_MORE_REFRESH = 0;
-				//从新设置Adapter
-				getPhotoShareData(Constant.PHOTOSHAREURL+Constant.ON_LOAD_MORE_REFRESH);
-				onLoad();
-			}
-		}, 2000);
-	}
-
-	@Override
-	public void onLoadMore() {
-		mHandler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				//加载更多数据
-				Constant.ON_LOAD_MORE_LOAD = Constant.ON_LOAD_MORE_LOAD + 1;
-				getPhotoShareData(Constant.PHOTOSHAREURL+Constant.ON_LOAD_MORE_LOAD);
-				onLoad();
-			}
-		}, 2000);
-	}
-	
 	private void setAdapter() {
 		mAdapter = new MyPhotoShareListViewAdapter(mList, getActivity());
 		mListView.setAdapter(mAdapter);
+		getPhotoShareData(Const.PHOTOSHAREURL);
+		mListView.setOnItemClickListener(onItemClickListener);
 	}
+
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Intent intent = new Intent(getActivity(),
+					PhotoShareDetailActivity.class);
+			PhotoShareBean bean = mList.get(arg2);
+			intent.putExtra(Const.PHOTOSHARE_userid, bean.getUserid());
+			intent.putExtra(Const.PHOTOSHARE_userpic, bean.getUserpic());
+			intent.putExtra(Const.PHOTOSHARE_nickname, bean.getNickname());
+			intent.putExtra(Const.PHOTOSHARE_gxid, bean.getGxid());
+			intent.putExtra(Const.PHOTOSHARE_title, bean.getTitle());
+			intent.putExtra(Const.PHOTOSHARE_gxpic, bean.getGxpic());
+			intent.putExtra(Const.PHOTOSHARE_time, bean.getTime());
+			getActivity().startActivity(intent);
+		}
+	};
 
 	private void getPhotoShareData(String Url) {
 		new HttpUtils().send(HttpMethod.GET, Url,
@@ -145,14 +134,11 @@ public class PhotoShareFragment extends TitleFragmentBase implements IXListViewL
 								mList.add(bean);
 								mAdapter.notifyDataSetChanged();
 							}
-
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-
 					}
 				});
-		setAdapter();
 	}
 
 	@Override
@@ -172,12 +158,23 @@ public class PhotoShareFragment extends TitleFragmentBase implements IXListViewL
 
 	@Override
 	public void onTitleLeftImgClick() {
-		((MainActivity) getActivity()).getResideMenu().OpenMenu();
+
 	}
 
 	@Override
 	protected void initTitle() {
 		setUpTitleLeftImg(R.drawable.home_big_title_left_persion);
 		setUpTitleCentreText("照片分享");
+		Button btSharePhoto = (Button) mContentView
+				.findViewById(R.id.bt_sharephoto);
+		btSharePhoto.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),
+						SharePhotoActivity.class);
+				getActivity().startActivity(intent);
+			}
+		});
 	}
 }

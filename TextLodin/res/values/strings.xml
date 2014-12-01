@@ -14,5 +14,14 @@
     <string name="category_newest_bt">最新</string>
     <string name="category_hotest_bt">最热</string>
     <string name="category_activity_item_bt">下载</string>
-    
+    <string name="I_want_to_comment">我要评价</string>
+    <string name="submit">提交</string>
+    <string name="sharephoto_content">请填写你要分享的内容</string>
+    <string name="photograph">照相</string>
+    <string name="photo_album">相册</string>
+    <string name="cancel">取消</string>
+    <string name="comment">评论</string>
+    <string name="savephoto">保存照片</string>
+    <string name="sharephoto">分享照片</string>
+
 </resources>

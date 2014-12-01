@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="5" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <include layout="@layout/common_title_bar" />
+
+        <Button
+            android:id="@+id/bt_savephoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/custom_height5d"
+            android:background="@drawable/sharephoto_selector"
+            android:text="@string/savephoto"
+            android:textColor="@color/app_white" />
+    </RelativeLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/item_photoshare_listview" />
+
+    <ListView
+        android:id="@+id/photoshare_detail_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4" >
+    </ListView>
+
+    <Button
+        android:id="@+id/I_want_to_comment"
+        style="@style/bt_style"
+        android:text="@string/I_want_to_comment" />
+
+</LinearLayout>
