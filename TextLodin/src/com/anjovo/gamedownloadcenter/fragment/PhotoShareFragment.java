@@ -1,13 +1,9 @@
 package com.anjovo.gamedownloadcenter.fragment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +11,6 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -158,7 +153,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleLeftImgClick() {
-
+		((MainActivity) getActivity()).getResideMenu().OpenMenu();
 	}
 
 	@Override
