@@ -13,7 +13,7 @@ public class Const {
 	public static final String SIGNINRECORD_USERNAME = "username";
 	public static final String SIGNINRECORD_ITEMS = "items";
 	// 分享照片列表接口
-	public static final String PHOTOSHAREURL = "http://www.gamept.cn/yx_gxlist.php?currentPage=1";
+	public static final String PHOTOSHAREURL = "http://www.gamept.cn/yx_gxlist.php?currentPage=";
 	public static final String PHOTOSHARE_userid = "userid";
 	public static final String PHOTOSHARE_username = "username";
 	public static final String PHOTOSHARE_userpic = "userpic";

@@ -53,11 +53,10 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 	private void initView() {
 		ImageView ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
 		ivBack.setVisibility(View.VISIBLE);
-
+		ivBack.setOnClickListener(onClickListener);
 		TextView tvTitle = (TextView) findViewById(R.id.common_title_bar_title_tv);
 		tvTitle.setVisibility(View.VISIBLE);
 		tvTitle.setText("评论");
-		
 
 		etComment = (EditText) findViewById(R.id.comment_or_relpy_content);
 
@@ -67,4 +66,12 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 		tvTime = (TextView) findViewById(R.id.tv_time);
 		tvContent = (TextView) findViewById(R.id.tv_title);
 	}
+
+	private OnClickListener onClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			finish();
+		}
+	};
 }

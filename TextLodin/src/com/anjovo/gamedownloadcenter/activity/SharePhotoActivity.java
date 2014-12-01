@@ -41,9 +41,9 @@ public class SharePhotoActivity extends Activity {
 	}
 
 	private void initView() {
-		ImageView ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
+		ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
 		ivBack.setVisibility(View.VISIBLE);
-
+		ivBack.setOnClickListener(onClickListener);
 		TextView tvTitle = (TextView) findViewById(R.id.common_title_bar_title_tv);
 		tvTitle.setVisibility(View.VISIBLE);
 		tvTitle.setText("分享照片");
@@ -76,11 +76,12 @@ public class SharePhotoActivity extends Activity {
 				ll.setVisibility(View.GONE);
 				takePhoto();
 			} else if (v == btPhotoAlbum) {
-				// 添加相册 or sd卡的图片
 				addPic();
 				ll.setVisibility(View.GONE);
 			} else if (v == btCancel) {
 				ll.setVisibility(View.GONE);
+			} else if (v == ivBack) {
+				finish();
 			}
 
 		}
@@ -103,14 +104,19 @@ public class SharePhotoActivity extends Activity {
 	private void takePhoto() {
 		picName = System.currentTimeMillis() + ".jpg";
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		Uri imageUri = Uri.fromFile(new File(Environment
-				.getExternalStorageDirectory() + "/picture/", picName));
+		File dirFile = new File(Environment.getExternalStorageDirectory()
+				+ "/picture/", picName);
+		if (!dirFile.exists()) {
+			dirFile.mkdir();
+		}
+		Uri imageUri = Uri.fromFile(dirFile);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 		startActivityForResult(intent, 1);
 	}
 
 	/** 拍照图片的名字 **/
 	private String picName;
+	private ImageView ivBack;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

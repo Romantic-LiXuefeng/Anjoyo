@@ -114,9 +114,9 @@ public class PhotoShareDetailActivity extends Activity {
 	}
 
 	private void initView() {
-		ImageView ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
+		ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
 		ivBack.setVisibility(View.VISIBLE);
-
+		ivBack.setOnClickListener(onClickListener);
 		TextView tvTitle = (TextView) findViewById(R.id.common_title_bar_title_tv);
 		tvTitle.setVisibility(View.VISIBLE);
 		tvTitle.setText("照片分享");
@@ -185,6 +185,8 @@ public class PhotoShareDetailActivity extends Activity {
 				intent.putExtra("gxpic", gxpic);
 				intent.putExtra("time", time);
 				startActivity(intent);
+			} else if (v == ivBack) {
+				finish();
 			}
 		}
 	};
@@ -247,4 +249,6 @@ public class PhotoShareDetailActivity extends Activity {
 			}
 		}
 	};
+
+	private ImageView ivBack;
 }

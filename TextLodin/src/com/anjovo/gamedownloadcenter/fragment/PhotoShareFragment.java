@@ -1,10 +1,7 @@
 package com.anjovo.gamedownloadcenter.fragment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
@@ -15,7 +12,6 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +21,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.activity.PhotoShareDetailActivity;
 import com.anjovo.gamedownloadcenter.activity.SharePhotoActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPhotoShareListViewAdapter;
@@ -68,11 +63,31 @@ public class PhotoShareFragment extends TitleFragmentBase {
 		setAdapter();
 	}
 
+	private int page = 0;
+
 	private void setAdapter() {
 		mAdapter = new MyPhotoShareListViewAdapter(mList, getActivity());
 		mListView.setAdapter(mAdapter);
-		getPhotoShareData(Const.PHOTOSHAREURL);
+		getPhotoShareData(Const.PHOTOSHAREURL + page);
 		mListView.setOnItemClickListener(onItemClickListener);
+
+		mListView.setXListViewListener(new IXListViewListener() {
+
+			@Override
+			public void onRefresh() {
+				mList.clear();
+				page = 0;
+				getPhotoShareData(Const.PHOTOSHAREURL + page);
+				mListView.stopRefresh();
+			}
+
+			@Override
+			public void onLoadMore() {
+				page++;
+				getPhotoShareData(Const.PHOTOSHAREURL + page);
+				mListView.stopLoadMore();
+			}
+		});
 	}
 
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
