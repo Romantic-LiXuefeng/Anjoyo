@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.maxwin.view.XListView;
-import me.maxwin.view.XListView.IXListViewListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,9 +33,6 @@ import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-//github.com/GameDownloadCentre/Anjoyo.git
-//github.com/GameDownloadCentre/Anjoyo.git
-
 /**
  * @author Administrator 照片分享
  */
@@ -173,7 +169,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 
 	@Override
 	public void onTitleLeftImgClick() {
-
+		((MainActivity) getActivity()).getResideMenu().OpenMenu();
 	}
 
 	@Override
