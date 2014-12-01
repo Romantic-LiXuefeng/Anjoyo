@@ -113,7 +113,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
-						Toast.makeText(getActivity(), "获取数据失败!请检查网络连接!", 1)
+						Toast.makeText(getActivity(), "获取数据失败!请检查网络连接!", Toast.LENGTH_LONG)
 								.show();
 					}
 
