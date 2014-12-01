@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.activity.PhotoShareDetailActivity;
 import com.anjovo.gamedownloadcenter.activity.SharePhotoActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPhotoShareListViewAdapter;
