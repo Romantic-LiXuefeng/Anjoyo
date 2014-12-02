@@ -3,10 +3,12 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.activity.base.DoubleClickFinishActivity;
 import com.anjovo.gamedownloadcenter.fragment.HomeFragment;
