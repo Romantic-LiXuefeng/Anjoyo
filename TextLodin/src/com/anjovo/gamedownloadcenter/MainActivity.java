@@ -1,14 +1,13 @@
 package com.anjovo.gamedownloadcenter;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.activity.base.DoubleClickFinishActivity;
 import com.anjovo.gamedownloadcenter.fragment.HomeFragment;
@@ -20,6 +19,7 @@ import com.anjovo.gamedownloadcenter.fragment.PhotoShareFragment;
 import com.anjovo.gamedownloadcenter.fragment.SettingFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInRecordFragment;
+import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomClickChangeListener;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomDismissListener;
@@ -69,6 +69,7 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	}
 
 	public void initView() {
+		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false);
 		resideMenu = new ResideMenu(MainActivity.this);
 		resideMenu.setBackground(R.drawable.main_bg);
 		resideMenu.attachToActivity(this);

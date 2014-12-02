@@ -75,6 +75,7 @@ public class LoginActivity extends Activity {
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
+					SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(LoginActivity.this, "LogInSuccessfully", Context.MODE_PRIVATE, false);
 					Toast.makeText(LoginActivity.this, "登陆失败!请检查网络连接!", Toast.LENGTH_LONG)
 					.show();
 					mLoginBT.setClickable(true);
