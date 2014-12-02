@@ -7,6 +7,9 @@ import android.util.DisplayMetrics;
 public class Constant {
 	// 主机名
 	public static final String HOSTNAME = "http://www.gamept.cn";
+	/**登陆接口 http://www.gamept.cn/yx_login.php?email=?&password=?**/
+	public static final String Login = HOSTNAME+"/yx_login.php?";
+	
 	// 游戏专题的URL
 	public static final String GAME_SPECIAL_URL = "http://www.gamept.cn";
 	public static final String GAME_SPECIAL = GAME_SPECIAL_URL+"/yx_zt.php?currentPage=";
