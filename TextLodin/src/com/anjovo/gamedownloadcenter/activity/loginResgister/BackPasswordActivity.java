@@ -132,6 +132,6 @@ public class BackPasswordActivity extends Activity {
 	 * @param result
 	 */
 	protected void BackPasswrodSuccessful(String result) {
-		
+		finish();
 	}
 }
