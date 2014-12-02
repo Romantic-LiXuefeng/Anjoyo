@@ -12,6 +12,7 @@ import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
+import com.lidroid.xutils.ViewUtils;
 
 /**
  * @author Administrator
@@ -23,6 +24,7 @@ public class SignInFragment extends TitleFragmentBase {
 			Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.fragment_sign_in, container,
 				false);
+		ViewUtils.inject(this, mContentView);
 		return mContentView;
 	}
 
@@ -71,6 +73,6 @@ public class SignInFragment extends TitleFragmentBase {
 	 * Whether the user login
 	 */
 	private boolean IsUserNameLogin(){
-		return SharedPreferencesUtil.getSharedPreferencesBooleanUtil(null, "Log in successfully", Context.MODE_PRIVATE, false);
+		return SharedPreferencesUtil.getSharedPreferencesBooleanUtil(getActivity(), "Log in successfully", Context.MODE_PRIVATE, false);
 	}
 }
