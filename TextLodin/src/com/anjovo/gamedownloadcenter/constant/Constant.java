@@ -8,7 +8,13 @@ public class Constant {
 	// 主机名
 	public static final String HOSTNAME = "http://www.gamept.cn";
 	/**登陆接口 http://www.gamept.cn/yx_login.php?email=?&password=?**/
-	public static final String Login = HOSTNAME+"/yx_login.php?";
+	public static final String LOGIN = HOSTNAME+"/yx_login.php?";
+	/**http://www.gamept.cn/yx_register.php?email=?&password=?&nickname=?&phone=?**/
+	public static final String RESGISTER = HOSTNAME+"/yx_register.php?";
+	/**向邮箱发送验证码 http://www.gamept.cn/yx_pd.php?email=1195063924@qq.com**/
+	public static final String VERIFICATIONCODE = "http://www.gamept.cn/yx_pd.php?email=";
+	/**改密码接口:http://www.gamept.cn/yx_reset_pd.php?code=319452&new_pwd=1234&email=1195063924@qq.com**/
+	public static final String MODIFICATION_PASSWORD = "http://www.gamept.cn/yx_reset_pd.php?";
 	
 	// 游戏专题的URL
 	public static final String GAME_SPECIAL_URL = "http://www.gamept.cn";

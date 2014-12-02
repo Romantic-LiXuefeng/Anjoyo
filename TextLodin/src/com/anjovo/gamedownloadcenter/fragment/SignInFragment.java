@@ -51,7 +51,7 @@ public class SignInFragment extends TitleFragmentBase {
 		setUpTitleCentreText("签到");
 		
 		if(IsUserNameLogin()){
-			LoginSuccessfully();//已登录过   陈麟在这个方法里编写登陆成功后的签到页面
+			LoginSuccessfully();//已登录过   在这个方法里编写登陆成功后的签到页面
 		}else{
 			LoginFailure();//未登陆过
 		}
@@ -61,7 +61,7 @@ public class SignInFragment extends TitleFragmentBase {
 	 * Log in successfully
 	 */
 	private void LoginSuccessfully(){
-		
+		//在这里编写     证明用户已经登录过
 	}
 	/**
 	 * Logon failure
@@ -73,6 +73,6 @@ public class SignInFragment extends TitleFragmentBase {
 	 * Whether the user login
 	 */
 	private boolean IsUserNameLogin(){
-		return SharedPreferencesUtil.getSharedPreferencesBooleanUtil(getActivity(), "Log in successfully", Context.MODE_PRIVATE, false);
+		return SharedPreferencesUtil.getSharedPreferencesBooleanUtil(getActivity(), "LogInSuccessfully", Context.MODE_PRIVATE, false);
 	}
 }

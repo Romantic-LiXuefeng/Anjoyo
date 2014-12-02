@@ -71,7 +71,7 @@ public class LoginActivity extends Activity {
 			mLoginBT.setClickable(false);
 			String EmailText = mEmailET.getText().toString();
 			String PasswordText = mPasswordET.getText().toString();
-			new HttpUtils().send(HttpMethod.GET, Constant.Login+"email="+EmailText+"&password="+PasswordText, new RequestCallBack<String>() {
+			new HttpUtils().send(HttpMethod.GET, Constant.RESGISTER+"email="+EmailText+"&password="+PasswordText, new RequestCallBack<String>() {
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
@@ -120,7 +120,7 @@ public class LoginActivity extends Activity {
 	 * @param message The server returns the result
 	 */
 	private void UserNameOrPasswordError(String code , String message){
-		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "Log in successfully", Context.MODE_PRIVATE, false);
+		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false);
 	}
 	
 	/**
@@ -135,7 +135,7 @@ public class LoginActivity extends Activity {
 	 * @throws JSONException 
 	 */
 	private void LoginSuccessful(String successContent) throws JSONException{
-		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "Log in successfully", Context.MODE_PRIVATE, true);
+		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, true);
 		JSONObject jsonObject = new JSONObject(successContent);
 		SharedPreferencesUtil.saveSharedPreferencestStringUtil(this, "UserNameMesage", Context.MODE_PRIVATE, 
 		"code"+jsonObject.getString("code")
