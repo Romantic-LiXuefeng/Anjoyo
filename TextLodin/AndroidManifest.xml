@@ -60,6 +60,15 @@
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.ReplyCommentOrMyCommentActivity" >
         </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsGamesActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsProjectActivity" >
+        </activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsUserActivity" >
+        </activity>
+      <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityNewsActivity"></activity> 
+       <activity android:name="com.anjovo.gamedownloadcenter.activity.community.CommunityHotTopicActivity"></activity>
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoundFriendsActivity"></activity>
     </application>
 
 </manifest>

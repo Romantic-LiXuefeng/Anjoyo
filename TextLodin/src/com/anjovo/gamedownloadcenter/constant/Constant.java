@@ -41,6 +41,8 @@ public class Constant {
 	public static final String COMMUNITY_LIST_URL = "http://www.gamept.cn/yx_userdt.php";
 	public static final String COMMUNITY_IMAGE_URL = "http://www.gamept.cn";
 	public static final String COMMUNITY_HOT_URL = "http://www.gamept.cn/yx_action.php?currentpage=?";
+	public static final String COMMUNITY_HOT_TOPIC_URL="http://www.gamept.cn/yx_ht.php?currentPage=?";
+	public static final String COMMUNITY_NEWS_URL= "http://www.gamept.cn/yx_zixunlist.php?currentPage=?";
 	//SharedPreferences的配置信息
 	public static final int SHARED_PREFERENCES_MODE_DEFAULT = Context.MODE_PRIVATE;
 	

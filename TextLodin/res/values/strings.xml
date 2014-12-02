@@ -23,12 +23,20 @@
     <string name="comment">评论</string>
     <string name="savephoto">保存照片</string>
     <string name="sharephoto">分享照片</string>
-  <!-- personalCenter -->
+    <!-- personalCenter -->
     <string name="personal_center_username">昵称 :</string>
     <string name="personal_center_integral">积分 :</string>
     <string name="personal_center_gold">金币 :</string>
     <string name="personal_center">个人中心</string>
     <string name="personal_center_recharge">充值</string>
-        <string name="personal_center_edit">编辑</string>
-    
+    <string name="personal_center_edit">编辑</string>
+    <string name="personal_center_fund_friends">"查找好友"</string>
+    <string name="personal_center_focus_projects">关注专题</string>
+    <string name="personal_center_focus_games">关注游戏</string>
+    <string name="personal_center_fcous_user">关注用户</string>
+    <string name="personal_center_fcous_user_fcous_me">关注我的</string>
+    <string name="personal_center_fcous_user_fcous">关注</string>
+    <string name="personal_center_fund_friends_serch">"搜索好友"</string>
+    <string name="personal_center_fund_friends_serch_phone">"搜索通讯录好友"</string>
+
 </resources>

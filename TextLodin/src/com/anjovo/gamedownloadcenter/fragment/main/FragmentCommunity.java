@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.anjovo.gamedownloadcenter.activity.community.CommunityHotActivitiesActivity;
+import com.anjovo.gamedownloadcenter.activity.community.CommunityHotTopicActivity;
+import com.anjovo.gamedownloadcenter.activity.community.CommunityNewsActivity;
 import com.anjovo.gamedownloadcenter.adapter.CommunityListAdapter;
 import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
 import com.anjovo.gamedownloadcenter.utils.CommunityListJsonSex;
@@ -30,7 +32,7 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 public class FragmentCommunity extends Fragment{
 private ListView mListView;
 private View view;
-private TextView hot_activities;
+private TextView hot_activities,hot_topic,hot_news;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ private TextView hot_activities;
 		
 		mListView=(ListView) view.findViewById(R.id.listview_community);
 		hot_activities=(TextView) view.findViewById(R.id.hot_activities);
+		hot_topic=(TextView) view.findViewById(R.id.hot_topic);
+		hot_news=(TextView) view.findViewById(R.id.hot_news);
 		new HttpUtils().send(HttpMethod.POST, com.anjovo.gamedownloadcenter.constant.Constant.COMMUNITY_LIST_URL, new RequestCallBack<String>() {
 
 			@Override
@@ -67,6 +71,24 @@ private TextView hot_activities;
 			@Override
 			public void onClick(View arg0) {
 				Intent intent=new Intent(getActivity(),CommunityHotActivitiesActivity.class);
+				startActivity(intent);
+			}
+		});
+		/***热门话题点击事件***/
+		hot_topic.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent=new Intent(getActivity(),CommunityHotTopicActivity.class);
+				startActivity(intent);
+			}
+		});
+		/***新闻资讯点击事件**/
+		hot_news.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent=new Intent(getActivity(),CommunityNewsActivity.class);
 				startActivity(intent);
 			}
 		});

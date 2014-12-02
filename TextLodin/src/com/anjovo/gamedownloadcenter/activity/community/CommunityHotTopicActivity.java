@@ -2,14 +2,6 @@ package com.anjovo.gamedownloadcenter.activity.community;
 
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-
 import com.anjovo.gamedownloadcenter.adapter.CommunityHotAdapter;
 import com.anjovo.gamedownloadcenter.adapter.CommunityHotTopicAdapter;
 import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
@@ -22,20 +14,29 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
-public class CommunityHotActivitiesActivity extends Activity{
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
-	private ListView  mListView;
+public class CommunityHotTopicActivity extends Activity {
+	private TextView title_tv;
+	private ListView mListView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.community_hot_activities);
-		initView();
+		title_tv=(TextView) findViewById(R.id.title_tv);
+		title_tv.setText("热门话题");
+		mListView=(ListView) findViewById(R.id.hot_activities_list);
 		networking();
-
-
 	}
 	private void networking() {
-		new HttpUtils().send(HttpMethod.POST, com.anjovo.gamedownloadcenter.constant.Constant.COMMUNITY_HOT_URL, new RequestCallBack<String>() {
+		new HttpUtils().send(HttpMethod.POST, com.anjovo.gamedownloadcenter.constant.Constant.COMMUNITY_HOT_TOPIC_URL, new RequestCallBack<String>() {
 
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
@@ -45,11 +46,13 @@ public class CommunityHotActivitiesActivity extends Activity{
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				String result=arg0.result;
-				CommunityHotActivitiesJsonSex jsonSex=new CommunityHotActivitiesJsonSex();
-				List<CommunityListbean> startSex = jsonSex.startSex(result);
-				CommunityHotAdapter adapter=new CommunityHotAdapter(getApplication(), startSex);
+				
+				
+				CommunityJsonSex jsonSex=new CommunityJsonSex();
+				List<CommunityListbean> startSex = jsonSex.hotTopic(result);
+				CommunityHotTopicAdapter adapter=new CommunityHotTopicAdapter(getApplication(), startSex);
 				mListView.setAdapter(adapter);
-				mListView.setOnItemClickListener(listener);
+//				mListView.setOnItemClickListener(listener);
 			}
 		});		
 	}
@@ -58,12 +61,8 @@ public class CommunityHotActivitiesActivity extends Activity{
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
-			Intent intent=new Intent(CommunityHotActivitiesActivity.this,CommunityHotDetailsActivity.class);
+			Intent intent=new Intent(CommunityHotTopicActivity.this,CommunityHotDetailsActivity.class);
 			startActivity(intent);
 		}
 	};
-	private void initView() {
-		mListView=(ListView) findViewById(R.id.hot_activities_list);
-	}
-
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+<RelativeLayout 
+    style="@style/title_bar_style"
+    >
+    <TextView
+        android:id="@+id/personalprojectback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/left_arrow_selecter"
+        android:layout_centerVertical="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/title_size"
+        android:text="@string/personal_center_focus_projects"/>
+    
+</RelativeLayout>
+    
+ <me.maxwin.view.XListView 
+     android:id="@+id/personal_listview"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     ></me.maxwin.view.XListView>
+</LinearLayout>
