@@ -49,7 +49,7 @@ public class SignInFragment extends TitleFragmentBase {
 		setUpTitleCentreText("签到");
 		
 		if(IsUserNameLogin()){
-			LoginSuccessfully();//已登录过
+			LoginSuccessfully();//已登录过   陈麟在这个方法里编写登陆成功后的签到页面
 		}else{
 			LoginFailure();//未登陆过
 		}
