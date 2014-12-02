@@ -155,60 +155,62 @@
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         android:background="@color/grey" />
- 
 
-        <LinearLayout
-                    android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="140dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/whitecorners" 
-            android:orientation="vertical" >
+        android:background="@drawable/whitecorners"
+        android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/fcous_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/user"
-                android:drawablePadding="20dp"
-                android:drawableRight="@drawable/right_arrow"
-                android:gravity="center_vertical"
-                android:text="@string/personal_center_fcous_user" />
+        <Button
+            android:id="@+id/foucs_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/user"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/right_arrow"
+            android:gravity="center_vertical"
+            android:text="@string/personal_center_fcous_user" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CDCDCD" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CDCDCD" />
 
-            <TextView
-                android:id="@+id/focus_games"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/game"
-                android:drawablePadding="20dp"
-                android:drawableRight="@drawable/right_arrow"
-                android:gravity="center_vertical"
-                android:text="@string/personal_center_focus_games" />
+        <Button
+            android:id="@+id/focus_games"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/game"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/right_arrow"
+            android:gravity="center_vertical"
+            android:text="@string/personal_center_focus_games" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#CDCDCD" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CDCDCD" />
 
-            <TextView
-                android:id="@+id/focus_projects"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/zhuanti"
-                android:drawablePadding="20dp"
-                android:drawableRight="@drawable/right_arrow"
-                android:gravity="center_vertical"
-                android:text="@string/personal_center_focus_projects" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/focus_projects"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:drawableLeft="@drawable/zhuanti"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/right_arrow"
+            android:gravity="center_vertical"
+            android:text="@string/personal_center_focus_projects" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/fund_friends"
+    <Button
+        android:id="@+id/found_friends"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="20dp"
