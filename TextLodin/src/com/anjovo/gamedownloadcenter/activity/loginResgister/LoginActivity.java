@@ -64,7 +64,11 @@ public class LoginActivity extends Activity {
 		,R.id.IB_ThirdpartyQQ__activity_login_register_backPassword_thirdparty,R.id.IB_ThirdpartySina__activity_login_register_backPassword_thirdparty
 		,R.id.Tv_forget_password_activity_login_register_backPassword_thirdparty})
 	public void OnClickChange(View v){
+		Toast.makeText(LoginActivity.this, "登陆中...", Toast.LENGTH_LONG)
+		.show();
 		if(v == mLoginBT){//登陆
+			mLoginBT.setBackgroundColor(R.color.grey);
+			mLoginBT.setClickable(false);
 			String EmailText = mEmailET.getText().toString();
 			String PasswordText = mPasswordET.getText().toString();
 			new HttpUtils().send(HttpMethod.GET, Constant.Login+"email="+EmailText+"&password="+PasswordText, new RequestCallBack<String>() {
@@ -90,11 +94,10 @@ public class LoginActivity extends Activity {
 							.show();
 							UserNameOrPasswordError(code,jsonObject.getString("message"));
 						}
+						mLoginBT.setClickable(true);
+						mLoginBT.setBackgroundResource(R.drawable.selector_activity_login_buttom_bg);
 					} catch (JSONException e) {
 						e.printStackTrace();
-					}
-					if(result.equals("")){
-						
 					}
 				}
 			});
@@ -105,7 +108,7 @@ public class LoginActivity extends Activity {
 		}else if(v == mThirdpartySinaIB){
 	
 		}else if(v == mForgetPassword){
-			startActivity(new Intent(this, ResgisterActivity.class));
+			startActivity(new Intent(this, BackPasswordActivity.class));
 		}
 	}
 	
@@ -121,8 +124,23 @@ public class LoginActivity extends Activity {
 	/**
 	 * Log in successfully
 	 * @param successContent Login successful Json string returned by the server
+	 * 保持内容:	错误               code
+	 *		           消息		message
+	 *			用户名	username
+	 *			用户Id 	userid
+	 *	     	用户昵称	nickname
+	 *			用户图片	userpic
+	 * @throws JSONException 
 	 */
-	private void LoginSuccessful(String successContent){
+	private void LoginSuccessful(String successContent) throws JSONException{
 		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "Log in successfully", Context.MODE_PRIVATE, true);
+		JSONObject jsonObject = new JSONObject(successContent);
+		SharedPreferencesUtil.saveSharedPreferencestStringUtil(this, "UserNameMesage", Context.MODE_PRIVATE, 
+		"code"+jsonObject.getString("code")
+		+"message"+jsonObject.getString("message")
+		+"username"+jsonObject.getString("username")
+		+"userid"+jsonObject.getString("userid")
+		+"nickname"+jsonObject.getString("nickname")
+		+"userpic"+jsonObject.getString("userpic"));
 	}
 }
