@@ -24,10 +24,8 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 
 /**
  * @author Administrator 找回密码页面
- *         向邮箱发送验证码:http://www.gamept.cn/yx_pd.php?email=1195063924@qq.com
- *         改密码接口:
- *         http://www.gamept.cn/yx_reset_pd.php?code=319452&new_pwd=1234&email
- *         =1195063924@qq.com
+ *向邮箱发送验证码:http://www.gamept.cn/yx_pd.php?email=1195063924@qq.com
+ *改密码接口:http://www.gamept.cn/yx_reset_pd.php?code=319452&new_pwd=1234&email=1195063924@qq.com
  */
 @ContentView(R.layout.activity_register_password)
 public class BackPasswordActivity extends Activity {
