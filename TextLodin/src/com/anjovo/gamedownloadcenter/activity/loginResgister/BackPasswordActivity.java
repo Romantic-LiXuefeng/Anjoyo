@@ -58,7 +58,7 @@ public class BackPasswordActivity extends Activity {
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
-					Toast.makeText(BackPasswordActivity.this, "找回失败!请检查网络连接!", Toast.LENGTH_LONG)
+					Toast.makeText(BackPasswordActivity.this, "找回密码失败!请检查网络连接!", Toast.LENGTH_LONG)
 					.show();
 				}
 

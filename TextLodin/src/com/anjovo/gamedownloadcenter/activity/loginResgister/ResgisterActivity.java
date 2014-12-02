@@ -54,7 +54,7 @@ public class ResgisterActivity extends Activity{
 	
 	@OnClick({R.id.BT_Resgister_activity_register1})
 	public void OnClickResgister(View v){
-		Toast.makeText(ResgisterActivity.this, "注册中...", Toast.LENGTH_LONG)
+		Toast.makeText(ResgisterActivity.this, "注册中,请稍候...", Toast.LENGTH_LONG)
 		.show();
 		String EmailText = mEmailET.getText().toString();
 		String PasswordText = mPasswordET.getText().toString();
@@ -86,11 +86,11 @@ public class ResgisterActivity extends Activity{
 						JSONObject jsonObject = new JSONObject(result);
 						String code = jsonObject.getString("code");
 						if(code.equals("0")){
-							Toast.makeText(ResgisterActivity.this, "登陆成功!", Toast.LENGTH_LONG)
+							Toast.makeText(ResgisterActivity.this, "注册成功!", Toast.LENGTH_LONG)
 							.show();
 							ResgisterSuccessful(result);
 						}else{
-							Toast.makeText(ResgisterActivity.this, "登陆失败!"+jsonObject.getString("message"), Toast.LENGTH_LONG)
+							Toast.makeText(ResgisterActivity.this, "注册失败!"+jsonObject.getString("message"), Toast.LENGTH_LONG)
 							.show();
 							RestisgerError(code,jsonObject.getString("message"));
 						}
