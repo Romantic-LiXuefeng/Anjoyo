@@ -16,7 +16,7 @@ public class CommunityListJsonSex {
 		try {
 			JSONObject obj=new JSONObject(json);
 			JSONArray jsonArray=obj.getJSONArray("items");
-			for (int i = 0; i < jsonArray.length(); i++) {
+			for (int i = 0; i <8; i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				String nickname = jsonObject.getString("nickname");
 				String userpic = jsonObject.getString("userpic");
