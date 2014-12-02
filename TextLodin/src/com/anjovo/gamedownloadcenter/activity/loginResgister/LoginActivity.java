@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.anjovo.gamedownloadcenter.constant.Constant;
+import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -16,6 +17,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -110,7 +112,7 @@ public class LoginActivity extends Activity {
 	 * @param message The server returns the result
 	 */
 	private void UserNameOrPasswordError(String code , String message){
-		
+		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "Log in successfully", Context.MODE_PRIVATE, false);
 	}
 	
 	/**
@@ -118,6 +120,6 @@ public class LoginActivity extends Activity {
 	 * @param successContent Login successful Json string returned by the server
 	 */
 	private void LoginSuccessful(String successContent){
-		
+		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "Log in successfully", Context.MODE_PRIVATE, true);
 	}
 }
