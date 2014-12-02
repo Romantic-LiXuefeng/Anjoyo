@@ -16,7 +16,7 @@ public class PersonalCenterEditorUerActivity  extends  Activity {
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_personal_focesgame);
+	setContentView(R.layout.activity_personal_editoruser);
 	ViewUtils.inject(this);
 	personalgameback.setOnClickListener(new OnClickListener() {
 		

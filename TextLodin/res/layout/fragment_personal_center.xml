@@ -22,6 +22,7 @@
             android:textSize="@dimen/title_size" />
 
         <Button
+            android:id="@+id/edtor_user"
             android:layout_width="65dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
