@@ -30,6 +30,7 @@
     <string name="personal_center">个人中心</string>
     <string name="personal_center_recharge">充值</string>
     <string name="personal_center_edit">编辑</string>
+    <string name="personal_center_edit_finsh">完成</string>
     <string name="personal_center_fund_friends">"查找好友"</string>
     <string name="personal_center_focus_projects">关注专题</string>
     <string name="personal_center_focus_games">关注游戏</string>
@@ -38,5 +39,15 @@
     <string name="personal_center_fcous_user_fcous">关注</string>
     <string name="personal_center_fund_friends_serch">"搜索好友"</string>
     <string name="personal_center_fund_friends_serch_phone">"搜索通讯录好友"</string>
-
+    <string name="personal_center_updatpic">上传头像</string>
+    <string name="personal_center_nickname">昵称：</string>
+    <string name="personal_center_nickname_nick">nick</string>
+    <string name="personal_center_youxiang">邮箱：</string>
+    <string name="personal_center_youxinged">qq.com</string>
+    <string name="personal_center_phonenumber">电话号码：</string>
+    <string name="personal_center_phonenumbered">138********</string>
+    <string name="personal_center_qq">QQ</string>
+    <string name="personal_center_qq_ed">108********</string>
+    <string name="personal_center_adress">地址</string>
+    <string name="personal_center_adress_ed">银河系太阳系地球公民</string>
 </resources>
