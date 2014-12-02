@@ -71,7 +71,7 @@ public class LoginActivity extends Activity {
 			mLoginBT.setClickable(false);
 			String EmailText = mEmailET.getText().toString();
 			String PasswordText = mPasswordET.getText().toString();
-			new HttpUtils().send(HttpMethod.GET, Constant.RESGISTER+"email="+EmailText+"&password="+PasswordText, new RequestCallBack<String>() {
+			new HttpUtils().send(HttpMethod.GET, Constant.LOGIN+"email="+EmailText+"&password="+PasswordText, new RequestCallBack<String>() {
 
 				@Override
 				public void onFailure(HttpException arg0, String arg1) {
