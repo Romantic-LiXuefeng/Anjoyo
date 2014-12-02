@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterEditorUerActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsGamesActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsProjectActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsUserActivity;
@@ -34,7 +35,8 @@ public class PersonalCenterFragment extends Fragment {
 
 	@ViewInject(R.id.found_friends)
 	Button foundfriends;
-
+	@ViewInject(R.id.edtor_user)
+	Button edtoruser;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class PersonalCenterFragment extends Fragment {
 		focusgames.setOnClickListener(onClickListener);
 		focusprojects.setOnClickListener(onClickListener);
 		foundfriends.setOnClickListener(onClickListener);
+		edtoruser.setOnClickListener(onClickListener);
 	}
 
 	private OnClickListener onClickListener = new OnClickListener() {
@@ -73,6 +76,10 @@ public class PersonalCenterFragment extends Fragment {
 			case R.id.found_friends:
 				startActivity(new Intent(getActivity(),
 						PersonalCenterFoundFriendsActivity.class));
+				break;
+			case R.id.edtor_user:
+				startActivity(new Intent(getActivity(),
+						PersonalCenterEditorUerActivity.class));
 				break;
 			}
 		}
