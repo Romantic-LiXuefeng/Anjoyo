@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 
 	@ViewInject(R.id.ET_nickname_activity_login_register_backPassword_thirdparty)
 	private EditText mEmailET;//注册邮箱
-	@ViewInject(R.id.ET_nickname_activity_login_register_backPassword_thirdparty)
+	@ViewInject(R.id.ET_newPassword_activity_login_register_backPassword_thirdparty)
 	private EditText mPasswordET;//注册密码
 	@ViewInject(R.id.BT_login__activity_login_register_backPassword_thirdparty)
 	private Button mLoginBT;//登陆按钮
@@ -60,14 +60,14 @@ public class LoginActivity extends Activity {
 
 	}
 	
-	@OnClick({R.id.BT_Resgister__activity_login_register_backPassword_thirdparty,R.id.BT_Resgister__activity_login_register_backPassword_thirdparty
+	@OnClick({R.id.BT_login__activity_login_register_backPassword_thirdparty,R.id.BT_Resgister__activity_login_register_backPassword_thirdparty
 		,R.id.IB_ThirdpartyQQ__activity_login_register_backPassword_thirdparty,R.id.IB_ThirdpartySina__activity_login_register_backPassword_thirdparty
 		,R.id.Tv_forget_password_activity_login_register_backPassword_thirdparty})
-	public void OnClickChange(View v){
-		Toast.makeText(LoginActivity.this, "登陆中...", Toast.LENGTH_LONG)
-		.show();
+	public void OnClickLoginResgister(View v){
 		if(v == mLoginBT){//登陆
-			mLoginBT.setBackgroundColor(R.color.grey);
+			Toast.makeText(LoginActivity.this, "登陆中...", Toast.LENGTH_LONG)
+			.show();
+			mLoginBT.setBackgroundResource(R.drawable.login_button_click);
 			mLoginBT.setClickable(false);
 			String EmailText = mEmailET.getText().toString();
 			String PasswordText = mPasswordET.getText().toString();
@@ -77,6 +77,8 @@ public class LoginActivity extends Activity {
 				public void onFailure(HttpException arg0, String arg1) {
 					Toast.makeText(LoginActivity.this, "登陆失败!请检查网络连接!", Toast.LENGTH_LONG)
 					.show();
+					mLoginBT.setClickable(true);
+					mLoginBT.setBackgroundResource(R.drawable.selector_activity_login_buttom_bg);
 				}
 
 				@Override
@@ -142,5 +144,6 @@ public class LoginActivity extends Activity {
 		+"userid"+jsonObject.getString("userid")
 		+"nickname"+jsonObject.getString("nickname")
 		+"userpic"+jsonObject.getString("userpic"));
+		finish();
 	}
 }
