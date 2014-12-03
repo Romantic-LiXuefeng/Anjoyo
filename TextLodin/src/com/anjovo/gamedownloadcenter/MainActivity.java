@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.anjovo.gamedownloadcenter.activity.base.DoubleClickFinishActivity;
+import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
 import com.anjovo.gamedownloadcenter.fragment.HomeFragment;
 import com.anjovo.gamedownloadcenter.fragment.IntegralFragment;
 import com.anjovo.gamedownloadcenter.fragment.MannergerFragment;
@@ -19,6 +20,7 @@ import com.anjovo.gamedownloadcenter.fragment.PhotoShareFragment;
 import com.anjovo.gamedownloadcenter.fragment.SettingFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInRecordFragment;
+import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomClickChangeListener;
@@ -135,17 +137,18 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	@Override
 	public void onChangeClick(View v) {
 		if(v.getId() == R.id.homeIv_residemenu){
-			setTabSelection(itemHome);
-			resideMenu.closeMenu();
+			setTabSelection(itemHome);//已登录过   在这个方法里编写登陆成功后
 		}
 		else if(v.getId() == R.id.settingIv_residemenu){
 			setTabSelection(itemSetting);
-			resideMenu.closeMenu();
 		}
 		else if(v.getId() == R.id.sign_in_residemenu){
 			setTabSelection(itemSignIn);
-			resideMenu.closeMenu();
+			if(!IsUserNameLoginUtils.IsUserNameLogin(this)){
+				IsUserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
+			}
 		}
+		resideMenu.closeMenu();
 	}
 	
 	@Override
@@ -154,24 +157,21 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 //			setTabSelection(itemHome);
 //			resideMenu.closeMenu();
 //		} else 
+		if(!IsUserNameLoginUtils.IsUserNameLogin(this)){
+			IsUserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
+		}
 		if (arg0 == itemPersonalCenter) {
-			setTabSelection(itemPersonalCenter);
-			resideMenu.closeMenu();
+			setTabSelection(itemPersonalCenter);//已登录过   在这个方法里编写登陆成功后
 		} else if (arg0 == itemMessageCenter) {
-			setTabSelection(itemMessageCenter);
-			resideMenu.closeMenu();
+			setTabSelection(itemMessageCenter);//已登录过   在这个方法里编写登陆成功后
 		} else if (arg0 == itemSignInRecord) {
-			setTabSelection(itemSignInRecord);
-			resideMenu.closeMenu();
+			setTabSelection(itemSignInRecord);//已登录过   在这个方法里编写登陆成功后
 		}else if (arg0 == itemIntegral) {
-			setTabSelection(itemIntegral);
-			resideMenu.closeMenu();
+			setTabSelection(itemIntegral);//已登录过   在这个方法里编写登陆成功后
 		}else if (arg0 == itemPhotoShare) {
-			setTabSelection(itemPhotoShare);
-			resideMenu.closeMenu();
+			setTabSelection(itemPhotoShare);//已登录过   在这个方法里编写登陆成功后
 		}else if (arg0 == itemMannerger) {
-			setTabSelection(itemMannerger);
-			resideMenu.closeMenu();
+			setTabSelection(itemMannerger);//已登录过   在这个方法里编写登陆成功后
 		}
 //		else if (arg0 == itemSetting) {
 //			setTabSelection(itemSetting);
@@ -182,6 +182,7 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 //			resideMenu.closeMenu();
 //		}
 //		initView();
+		resideMenu.closeMenu();
 	}
 
 	@SuppressLint("NewApi")

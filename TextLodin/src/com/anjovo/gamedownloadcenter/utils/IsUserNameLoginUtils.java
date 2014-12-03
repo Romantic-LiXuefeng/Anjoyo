@@ -3,6 +3,8 @@ package com.anjovo.gamedownloadcenter.utils;
 import android.content.Context;
 import android.content.Intent;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
+
 public class IsUserNameLoginUtils {
 	/**
 	 * Whether the user login
@@ -16,7 +18,7 @@ public class IsUserNameLoginUtils {
 	/**
 	 * Logon failure
 	 */
-	public static void LoginFailure(Context context,Class<?> cls){
-		context.startActivity(new Intent(context, cls));//用户未登陆过则跳转登陆界面
+	public static void LoginFailure(Context a,Class<?> cls){
+		((MainActivity) a).startActivity(new Intent(a, cls));
 	}
 }

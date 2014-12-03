@@ -9,13 +9,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterEditorUerActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsGamesActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsProjectActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsUserActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoundFriendsActivity;
-import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -52,27 +50,12 @@ public class PersonalCenterFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		initView();
 		fcoususer.setOnClickListener(onClickListener);
 		focusgames.setOnClickListener(onClickListener);
 		focusprojects.setOnClickListener(onClickListener);
 		foundfriends.setOnClickListener(onClickListener);
 		edtoruser.setOnClickListener(onClickListener);
 	}
-
-	private void initView() {
-		if(IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
-			LoginSuccessfully();//已登录过   在这个方法里编写登陆成功后的签到页面
-		}else{
-			IsUserNameLoginUtils.LoginFailure(getActivity(),LoginActivity.class);//未登陆过
-		}
-	}
-	/**
-	 * Log in successfully
-	 */
-	private void LoginSuccessfully(){
-		//在这里编写     证明用户已经登录过
-	}		
 
 	private OnClickListener onClickListener = new OnClickListener() {
 

@@ -24,13 +24,11 @@ import android.widget.Toast;
 import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.activity.PhotoShareDetailActivity;
 import com.anjovo.gamedownloadcenter.activity.SharePhotoActivity;
-import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPhotoShareListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
-import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -57,27 +55,12 @@ public class PhotoShareFragment extends TitleFragmentBase {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		
-		initView();
 		mListView = (XListView) mContentView
 				.findViewById(R.id.photoshare_listview);
 		mListView.setPullLoadEnable(true);// 可下拉加载
 		mListView.setPullRefreshEnable(true);// 可上拉加载
 		setAdapter();
 	}
-
-	private void initView() {
-		if(IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
-			LoginSuccessfully();//已登录过   在这个方法里编写登陆成功后的签到页面
-		}else{
-			IsUserNameLoginUtils.LoginFailure(getActivity(),LoginActivity.class);//未登陆过
-		}
-	}
-	/**
-	 * Log in successfully
-	 */
-	private void LoginSuccessfully(){
-		//在这里编写     证明用户已经登录过
-	}		
 
 	private int page = 0;
 
