@@ -29,7 +29,7 @@ import com.squareup.picasso.Picasso;
 
 /**
  * @author Administrator 主页中排行页面
- * 
+ * zz
  */
 public class FragmentRanking extends Fragment {
 	@ViewInject(R.id.ranking_left)
@@ -46,7 +46,7 @@ public class FragmentRanking extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment2, null);
+		View view = inflater.inflate(R.layout.ranking, null);
 		ViewUtils.inject(this, view);
 		loadAdData();
 		ranking.setPullLoadEnable(true);
