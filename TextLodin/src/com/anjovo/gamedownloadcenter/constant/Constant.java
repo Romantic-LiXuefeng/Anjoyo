@@ -21,6 +21,26 @@ public class Constant {
 	public static final String GAME_SPECIAL = GAME_SPECIAL_URL+"/yx_zt.php?currentPage=";
 	public static final String GAME_SPECIAL_NAME = "ztname";
 	public static final String GAME_SPECIAL_IMG = "ztimg";
+	//推荐界面
+	public static final String GAME_RECOMMEND = "http://www.gamept.cn/yx_recommend.php?currentPage=";
+    //推荐、排行用同一套常量	
+	public static final String RECOMMEND_ID = "id";
+	public static final String RECOMMEND_STAR = "star";
+	public static final String RECOMMEND_PRICE = "price";
+	public static final String RECOMMEND_TITLE = "title";
+	public static final String RECOMMEND_ICON = "icon";
+	public static final String RECOMMEND_VERSION = "version";
+	public static final String RECOMMEND_FILESIZE = "filesize";
+	public static final String RECOMMEND_FLASHRL = "flashurl";
+	public static final String RECOMMEND_PACHAGENAME = "pachagename";
+	public static final String RECOMMEND_ONCLICK = "onclick";
+	public static final String RECOMMEND_INFOPFEN = "infopfen";
+	public static final String RECOMMEND_INFOPFENNUM = "infopfennum";
+	public static final String RECOMMEND_TITLEPIC = "titlepic";
+	//排行界面
+	public static final String RANKING = "http://www.gamept.cn/yx_hot.php?currentPage=";
+	public static final String RANKINGAD = "http://www.gamept.cn/yx_adver.php";
+	public static final String RANKING_TITLEPIC = "titlepic";
 	public static final String GAME_SPECIAL_ID = "ztid";
 	// 签到记录url
 	public static final String SIGNINRECORD_URL = "http://www.gamept.cn/yx_sign.php?uid=163&type=list";

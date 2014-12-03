@@ -31,7 +31,6 @@ import com.anjovo.gamedownloadcenter.views.sideslip.ResideMenuItem;
 import com.anjovo.textlodin.R;
 
 /**
- * 
  * @author Administrator
  * 主页面  主题框架  功能 双击返回键则退出应用 有侧滑  有和所有fragment的框架
  */
