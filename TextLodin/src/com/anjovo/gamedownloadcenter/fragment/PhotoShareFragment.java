@@ -29,6 +29,7 @@ import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
+import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -190,5 +191,13 @@ public class PhotoShareFragment extends TitleFragmentBase {
 				getActivity().startActivity(intent);
 			}
 		});
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(!IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
+			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
+		}
 	}
 }

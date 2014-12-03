@@ -9,11 +9,13 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterEditorUerActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsGamesActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsProjectActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsUserActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoundFriendsActivity;
+import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -86,4 +88,11 @@ public class PersonalCenterFragment extends Fragment {
 		}
 	};
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(!IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
+			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
+		}
+	}
 }

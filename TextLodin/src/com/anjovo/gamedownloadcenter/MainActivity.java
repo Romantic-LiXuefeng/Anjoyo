@@ -40,6 +40,9 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	private ResideMenu resideMenu;
 	private View mMenuView;
 	private ResideMenuItem itemHome;//主页
+	public ResideMenuItem getItemHome() {
+		return itemHome;
+	}
 	private ResideMenuItem itemPersonalCenter;//个人中心
 	private ResideMenuItem itemMessageCenter;//消息中心
 	private ResideMenuItem itemSignInRecord;//签到记录

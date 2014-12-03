@@ -19,6 +19,7 @@ import com.anjovo.gamedownloadcenter.adapter.MySignInRecordListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.SignInRecordBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
+import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -126,4 +127,11 @@ public class SignInRecordFragment extends TitleFragmentBase {
 		setUpTitleLeftImg(R.drawable.home_big_title_left_persion);
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(!IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
+			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
+		}
+	}
 }
