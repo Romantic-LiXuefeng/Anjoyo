@@ -31,7 +31,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
  * @author Administrator
  * 主页中推荐页面
  */
-public class Fragment1 extends Fragment{
+public class FragmentRecommend extends Fragment{
     @ViewInject(R.id.tuijian_list)
     XListView recommend;
     int currentPage = 0;

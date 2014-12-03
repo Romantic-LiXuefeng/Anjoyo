@@ -29,8 +29,9 @@ import com.squareup.picasso.Picasso;
 
 /**
  * @author Administrator 主页中排行页面
+ * 
  */
-public class Fragment2 extends Fragment {
+public class FragmentRanking extends Fragment {
 	@ViewInject(R.id.ranking_left)
 	ImageView rankingLeft;
 	@ViewInject(R.id.ranking_right)
