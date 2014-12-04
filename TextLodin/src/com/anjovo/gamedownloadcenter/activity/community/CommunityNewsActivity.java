@@ -26,7 +26,7 @@ public class CommunityNewsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.community_news_information);
 		title_tv=(TextView) findViewById(R.id.title_tv);
-		title_tv.setText("热门话题");
+		title_tv.setText("新闻资讯");
 		mGridView=(GridView) findViewById(R.id.news_gridview);
 		networking();
 	}

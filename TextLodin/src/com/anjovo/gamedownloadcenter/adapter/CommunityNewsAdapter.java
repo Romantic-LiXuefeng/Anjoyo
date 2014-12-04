@@ -65,7 +65,7 @@ public class CommunityNewsAdapter extends BaseAdapter{
 			holder.title.setText(listbean.getTitle());
 			String actimg = list.get(position).getActimg();
 //		    Picasso.with(context).load(Constant.COMMUNITY_IMAGE_URL+userpic).into(holder.userpic);
-			bitmap.display(holder.actimg, Constant.COMMUNITY_IMAGE_URL+actimg, 91, 36, loadingBitmap, laodfailBitmap);
+			bitmap.display(holder.actimg, Constant.COMMUNITY_IMAGE_URL+actimg, 91, 100, loadingBitmap, laodfailBitmap);
 		}
 		return convertView;
 	}
