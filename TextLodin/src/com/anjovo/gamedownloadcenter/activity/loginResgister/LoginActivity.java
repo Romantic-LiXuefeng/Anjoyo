@@ -140,7 +140,10 @@ public class LoginActivity extends Activity {
 	 * String string = SharedPreferencesUtil.getSharedPreferencestStringUtil(this, "UserNameMesage", Context.MODE_PRIVATE,"");
 	 *	Gson gsone = new Gson();
 	 *	UserNameMessageBean info = gsone.fromJson(string, UserNameMessageBean.class);
-	 *	String userid = info.getUserid();......
+	 *	if(!TextUtils.isEmpty(info)){
+	 *		//此方法类向以下方式获得用户信息
+	 *		String userid = info.getUserid();......
+	 *	}
 	 * @throws JSONException 
 	 */
 	private void LoginSuccessful(String successContent) throws JSONException{
