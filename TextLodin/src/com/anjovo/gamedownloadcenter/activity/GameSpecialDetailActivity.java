@@ -121,16 +121,10 @@ public class GameSpecialDetailActivity extends TitleActivityBase implements OnIt
 
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
-				SpecicalParticularsBean particulars = new SpecicalParticularsBean();
 				String result = arg0.result;
 				try {
 					JSONObject jsonObject=new JSONObject(result);
-					particulars.setIntro(jsonObject.getString("intro"));
 					
-					particulars.setZtimg(jsonObject.getString("ztimg"));
-
-					particulars.setZtname(jsonObject.getString("ztname"));
-
 					JSONArray jsonArray = jsonObject.getJSONArray("items");
 					for (int i = 0; i < jsonArray.length(); i++) {
 						SpecicalParticularsItemsBean items = new SpecicalParticularsItemsBean();
@@ -144,7 +138,9 @@ public class GameSpecialDetailActivity extends TitleActivityBase implements OnIt
 						items.setTitle(object.getString("title"));
 						items.setTotaldown(object.getString("totaldown"));
 						items.setVersion(object.getString("version"));
-						particulars.setItems(items);
+						SpecicalParticularsBean particulars = new SpecicalParticularsBean(
+								jsonObject.getString("ztname"), jsonObject.getString("intro"),
+								jsonObject.getString("ztimg"), items);
 						mSpecical.add(particulars);
 					}
 					initView();

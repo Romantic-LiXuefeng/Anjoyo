@@ -8,6 +8,15 @@ public class SpecicalParticularsBean {
 	private String ztimg;
 	private SpecicalParticularsItemsBean items;
 
+	public SpecicalParticularsBean(String ztname, String intro, String ztimg,
+			SpecicalParticularsItemsBean items) {
+		super();
+		this.ztname = ztname;
+		this.intro = intro;
+		this.ztimg = ztimg;
+		this.items = items;
+	}
+
 	public String getZtname() {
 		return ztname;
 	}
