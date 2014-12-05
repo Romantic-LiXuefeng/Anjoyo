@@ -74,7 +74,6 @@ public class PhotoShareDetailActivity extends Activity {
 
 	/** 获取评论信息 **/
 	private void getDate(String id) {
-		Log.d("vivi", id);
 		new HttpUtils().send(HttpMethod.GET, Const.PHOTOSHARECOMMENT_URL + id,
 				new RequestCallBack<String>() {
 
@@ -87,7 +86,6 @@ public class PhotoShareDetailActivity extends Activity {
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
 						String result = arg0.result;
-						Log.d("vivi", result);
 						try {
 							JSONObject jsonObject = new JSONObject(result);
 							JSONArray jsonArray = jsonObject
@@ -112,7 +110,6 @@ public class PhotoShareDetailActivity extends Activity {
 					}
 				});
 	}
-
 	private void initView() {
 		ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
 		ivBack.setVisibility(View.VISIBLE);
@@ -140,6 +137,7 @@ public class PhotoShareDetailActivity extends Activity {
 		tvContent = (TextView) findViewById(R.id.tv_title);
 
 		commentListView = (ListView) findViewById(R.id.photoshare_detail_listview);
+		setcommentListViewAdapter();
 		// 填充数据
 		tvNickName.setText(nickname);
 		tvTime.setText(time);
@@ -148,15 +146,13 @@ public class PhotoShareDetailActivity extends Activity {
 				.placeholder(R.drawable.ic_launcher).into(ivUserPic);
 		Picasso.with(this).load(Const.HOSTNAME + gxpic)
 				.placeholder(R.drawable.default_pic).into(ivGxpic);
-
-		setcommentListViewAdapter();
-		getDate(userid);
 	}
 
 	private void setcommentListViewAdapter() {
 		mList = new ArrayList<PhotoShareCommentBean>();
 		mAdapter = new MyCommentListViewAdapter(mList, this, bean);
 		commentListView.setAdapter(mAdapter);
+		getDate(gxid);
 	}
 
 	private void getIntentExtras() {
@@ -164,11 +160,11 @@ public class PhotoShareDetailActivity extends Activity {
 		userid = intent.getStringExtra(Const.PHOTOSHARE_userid);
 		userpic = intent.getStringExtra(Const.PHOTOSHARE_userpic);
 		nickname = intent.getStringExtra(Const.PHOTOSHARE_nickname);
-		String gxid = intent.getStringExtra(Const.PHOTOSHARE_gxid);
+		gxid = intent.getStringExtra(Const.PHOTOSHARE_gxid);
 		title = intent.getStringExtra(Const.PHOTOSHARE_title);
 		gxpic = intent.getStringExtra(Const.PHOTOSHARE_gxpic);
 		time = intent.getStringExtra(Const.PHOTOSHARE_time);
-		bean = new PhotoShareBean(userpic, nickname, title, gxpic, time);
+		bean = new PhotoShareBean(userpic, nickname, title, gxpic, time, gxid);
 	}
 
 	private OnClickListener onClickListener = new OnClickListener() {
@@ -184,7 +180,10 @@ public class PhotoShareDetailActivity extends Activity {
 				intent.putExtra("title", title);
 				intent.putExtra("gxpic", gxpic);
 				intent.putExtra("time", time);
+				intent.putExtra("userid", userid);
+				intent.putExtra("gxid", gxid);
 				startActivity(intent);
+				finish();
 			} else if (v == ivBack) {
 				finish();
 			}
@@ -251,4 +250,5 @@ public class PhotoShareDetailActivity extends Activity {
 	};
 
 	private ImageView ivBack;
+	private String gxid;
 }

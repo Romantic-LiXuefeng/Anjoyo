@@ -84,10 +84,10 @@ public class MyCommentListViewAdapter extends BaseAdapter {
 				intent.putExtra("title", bean.getTitle());
 				intent.putExtra("gxpic", bean.getGxpic());
 				intent.putExtra("time", bean.getTime());
+				intent.putExtra("gxid", bean.getGxid());
 				context.startActivity(intent);
 			}
 		});
 		return arg1;
 	}
-
 }

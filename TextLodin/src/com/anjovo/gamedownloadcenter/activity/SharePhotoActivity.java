@@ -103,12 +103,12 @@ public class SharePhotoActivity extends Activity {
 	// 调用系统相机拍照
 	private void takePhoto() {
 		picName = System.currentTimeMillis() + ".jpg";
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		File dirFile = new File(Environment.getExternalStorageDirectory()
+		dirFile = new File(Environment.getExternalStorageDirectory()
 				+ "/picture/", picName);
 		if (!dirFile.exists()) {
 			dirFile.mkdir();
 		}
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		Uri imageUri = Uri.fromFile(dirFile);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 		startActivityForResult(intent, 1);
@@ -117,6 +117,7 @@ public class SharePhotoActivity extends Activity {
 	/** 拍照图片的名字 **/
 	private String picName;
 	private ImageView ivBack;
+	private File dirFile;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

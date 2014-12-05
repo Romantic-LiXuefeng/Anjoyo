@@ -22,13 +22,14 @@ public class PhotoShareBean {
 	}
 
 	public PhotoShareBean(String userpic, String nickname, String title,
-			String gxpic, String time) {
+			String gxpic, String time, String gxid) {
 		super();
 		this.userpic = userpic;
 		this.nickname = nickname;
 		this.title = title;
 		this.gxpic = gxpic;
 		this.time = time;
+		this.gxid = gxid;
 	}
 
 	public String getUserid() {

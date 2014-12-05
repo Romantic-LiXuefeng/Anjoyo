@@ -35,6 +35,7 @@ import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+
 /**
  * @author Administrator 照片分享
  */
@@ -95,7 +96,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 				long arg3) {
 			Intent intent = new Intent(getActivity(),
 					PhotoShareDetailActivity.class);
-			PhotoShareBean bean = mList.get(arg2);
+			PhotoShareBean bean = mList.get(arg2 - 1);
 			intent.putExtra(Const.PHOTOSHARE_userid, bean.getUserid());
 			intent.putExtra(Const.PHOTOSHARE_userpic, bean.getUserpic());
 			intent.putExtra(Const.PHOTOSHARE_nickname, bean.getNickname());
@@ -103,6 +104,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 			intent.putExtra(Const.PHOTOSHARE_title, bean.getTitle());
 			intent.putExtra(Const.PHOTOSHARE_gxpic, bean.getGxpic());
 			intent.putExtra(Const.PHOTOSHARE_time, bean.getTime());
+			intent.putExtra(Const.PHOTOSHARE_gxid, bean.getGxid());
 			getActivity().startActivity(intent);
 		}
 	};

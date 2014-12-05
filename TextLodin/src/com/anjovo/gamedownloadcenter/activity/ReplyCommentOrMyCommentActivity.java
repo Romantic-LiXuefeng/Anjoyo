@@ -1,8 +1,12 @@
 package com.anjovo.gamedownloadcenter.activity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,6 +17,11 @@ import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.textlodin.R;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.squareup.picasso.Picasso;
 
 public class ReplyCommentOrMyCommentActivity extends Activity {
@@ -39,6 +48,9 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 		String title = intent.getStringExtra("title");
 		String gxpic = intent.getStringExtra("gxpic");
 		String time = intent.getStringExtra("time");
+		String id = intent.getStringExtra("userid");
+		gxid = intent.getStringExtra("gxid");
+		Log.d("vivi", "" + gxid);
 		etComment.setHint(hintstr);
 		tvTime.setText(time);
 		tvNickName.setText(nickname);
@@ -51,7 +63,7 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 	}
 
 	private void initView() {
-		ImageView ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
+		ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
 		ivBack.setVisibility(View.VISIBLE);
 		ivBack.setOnClickListener(onClickListener);
 		TextView tvTitle = (TextView) findViewById(R.id.common_title_bar_title_tv);
@@ -60,6 +72,8 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 
 		etComment = (EditText) findViewById(R.id.comment_or_relpy_content);
 
+		btSubmit = (Button) findViewById(R.id.I_want_to_comment);
+		btSubmit.setOnClickListener(onClickListener);
 		ivUserPic = (ImageView) findViewById(R.id.iv_userpic);
 		ivGxpic = (ImageView) findViewById(R.id.iv_gxpic);
 		tvNickName = (TextView) findViewById(R.id.tv_nickname);
@@ -71,7 +85,42 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			finish();
+			if (v == btSubmit) {
+				String content = etComment.getText().toString();
+				new HttpUtils().send(HttpMethod.GET,
+						"http://www.gamept.cn/yx_reconment.php?id=" + gxid
+								+ "&uid=32&content=" + content + "&type=gxpic",
+						new RequestCallBack<String>() {
+
+							@Override
+							public void onFailure(HttpException arg0,
+									String arg1) {
+
+							}
+
+							@Override
+							public void onSuccess(ResponseInfo<String> arg0) {
+								String result = arg0.result;
+								try {
+									JSONObject object = new JSONObject(result);
+									int code = Integer.parseInt(object
+											.getString("code"));
+									if (code == 0) {
+										Toast.makeText(
+												ReplyCommentOrMyCommentActivity.this,
+												"评论成功!", 1).show();
+									}
+								} catch (JSONException e) {
+									e.printStackTrace();
+								}
+							}
+						});
+			} else if (v == ivBack) {
+				finish();
+			}
 		}
 	};
+	private Button btSubmit;
+	private ImageView ivBack;
+	private String gxid;
 }

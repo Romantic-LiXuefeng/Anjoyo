@@ -23,7 +23,6 @@ public class Const {
 	public static final String PHOTOSHARE_gxpic = "gxpic";
 	public static final String PHOTOSHARE_time = "time";
 	// 获取分享的照片 评论列表接口
-	
 	public static final String PHOTOSHARECOMMENT_URL = "http://www.gamept.cn/yx_conment.php?currentPage=1&type=gxpic&id=";
 	// 获取分享的照片 详情接口
 	public static final String PHOTOSHAREDETAIL_URL = "http://www.gamept.cn/yx_gxdetail.php?id=";
