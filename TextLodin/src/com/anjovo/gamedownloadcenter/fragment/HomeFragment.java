@@ -20,8 +20,8 @@ import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.activity.HuntActivity;
 import com.anjovo.gamedownloadcenter.adapter.MyPagerAdapter;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
-import com.anjovo.gamedownloadcenter.fragment.main.Fragment1;
-import com.anjovo.gamedownloadcenter.fragment.main.Fragment2;
+import com.anjovo.gamedownloadcenter.fragment.main.FragmentRecommend;
+import com.anjovo.gamedownloadcenter.fragment.main.FragmentRanking;
 import com.anjovo.gamedownloadcenter.fragment.main.FragmentCategory;
 import com.anjovo.gamedownloadcenter.fragment.main.FragmentCommunity;
 import com.anjovo.gamedownloadcenter.fragment.main.FragmentSpecial;
@@ -114,8 +114,8 @@ public class HomeFragment extends TitleFragmentBase {
 	private void initViewPager() {
     	viewPager = (ViewPager) mContentView.findViewById(R.id.viewPager);
     	List<Fragment> fragments = new ArrayList<Fragment>();
-    	fragments.add(new Fragment1());
-    	fragments.add(new Fragment2());
+    	fragments.add(new FragmentRecommend());
+    	fragments.add(new FragmentRanking());
     	fragments.add(new FragmentCategory());
     	fragments.add(new FragmentSpecial());
     	fragments.add(new FragmentCommunity());

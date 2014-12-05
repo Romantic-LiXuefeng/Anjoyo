@@ -7,11 +7,40 @@ import android.util.DisplayMetrics;
 public class Constant {
 	// 主机名
 	public static final String HOSTNAME = "http://www.gamept.cn";
+	/**登陆接口 http://www.gamept.cn/yx_login.php?email=?&password=?**/
+	public static final String LOGIN = HOSTNAME+"/yx_login.php?";
+	/**http://www.gamept.cn/yx_register.php?email=?&password=?&nickname=?&phone=?**/
+	public static final String RESGISTER = HOSTNAME+"/yx_register.php?";
+	/**向邮箱发送验证码 http://www.gamept.cn/yx_pd.php?email=1195063924@qq.com**/
+	public static final String VERIFICATIONCODE = "http://www.gamept.cn/yx_pd.php?email=";
+	/**改密码接口:http://www.gamept.cn/yx_reset_pd.php?code=319452&new_pwd=1234&email=1195063924@qq.com**/
+	public static final String MODIFICATION_PASSWORD = "http://www.gamept.cn/yx_reset_pd.php?";
+	
 	// 游戏专题的URL
 	public static final String GAME_SPECIAL_URL = "http://www.gamept.cn";
 	public static final String GAME_SPECIAL = GAME_SPECIAL_URL+"/yx_zt.php?currentPage=";
 	public static final String GAME_SPECIAL_NAME = "ztname";
 	public static final String GAME_SPECIAL_IMG = "ztimg";
+	//推荐界面
+	public static final String GAME_RECOMMEND = "http://www.gamept.cn/yx_recommend.php?currentPage=";
+    //推荐、排行用同一套常量	
+	public static final String RECOMMEND_ID = "id";
+	public static final String RECOMMEND_STAR = "star";
+	public static final String RECOMMEND_PRICE = "price";
+	public static final String RECOMMEND_TITLE = "title";
+	public static final String RECOMMEND_ICON = "icon";
+	public static final String RECOMMEND_VERSION = "version";
+	public static final String RECOMMEND_FILESIZE = "filesize";
+	public static final String RECOMMEND_FLASHRL = "flashurl";
+	public static final String RECOMMEND_PACHAGENAME = "pachagename";
+	public static final String RECOMMEND_ONCLICK = "onclick";
+	public static final String RECOMMEND_INFOPFEN = "infopfen";
+	public static final String RECOMMEND_INFOPFENNUM = "infopfennum";
+	public static final String RECOMMEND_TITLEPIC = "titlepic";
+	//排行界面
+	public static final String RANKING = "http://www.gamept.cn/yx_hot.php?currentPage=";
+	public static final String RANKINGAD = "http://www.gamept.cn/yx_adver.php";
+	public static final String RANKING_TITLEPIC = "titlepic";
 	public static final String GAME_SPECIAL_ID = "ztid";
 	// 签到记录url
 	public static final String SIGNINRECORD_URL = "http://www.gamept.cn/yx_sign.php?uid=163&type=list";
@@ -38,6 +67,8 @@ public class Constant {
 	public static final String COMMUNITY_LIST_URL = "http://www.gamept.cn/yx_userdt.php";
 	public static final String COMMUNITY_IMAGE_URL = "http://www.gamept.cn";
 	public static final String COMMUNITY_HOT_URL = "http://www.gamept.cn/yx_action.php?currentpage=?";
+	public static final String COMMUNITY_HOT_TOPIC_URL="http://www.gamept.cn/yx_ht.php?currentPage=?";
+	public static final String COMMUNITY_NEWS_URL= "http://www.gamept.cn/yx_zixunlist.php?currentPage=?";
 	//SharedPreferences的配置信息
 	public static final int SHARED_PREFERENCES_MODE_DEFAULT = Context.MODE_PRIVATE;
 	

@@ -11,8 +11,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.anjovo.gamedownloadcenter.adapter.CommunityHotAdapter;
+import com.anjovo.gamedownloadcenter.adapter.CommunityHotTopicAdapter;
 import com.anjovo.gamedownloadcenter.bean.CommunityListbean;
 import com.anjovo.gamedownloadcenter.utils.CommunityHotActivitiesJsonSex;
+import com.anjovo.gamedownloadcenter.utils.CommunityJsonSex;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;

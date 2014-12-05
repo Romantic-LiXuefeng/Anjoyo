@@ -1,5 +1,6 @@
 package com.anjovo.gamedownloadcenter;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.anjovo.gamedownloadcenter.activity.base.DoubleClickFinishActivity;
+import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
 import com.anjovo.gamedownloadcenter.fragment.HomeFragment;
 import com.anjovo.gamedownloadcenter.fragment.IntegralFragment;
 import com.anjovo.gamedownloadcenter.fragment.MannergerFragment;
@@ -18,6 +20,8 @@ import com.anjovo.gamedownloadcenter.fragment.PhotoShareFragment;
 import com.anjovo.gamedownloadcenter.fragment.SettingFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInRecordFragment;
+import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
+import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomClickChangeListener;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomDismissListener;
@@ -27,7 +31,6 @@ import com.anjovo.gamedownloadcenter.views.sideslip.ResideMenuItem;
 import com.anjovo.textlodin.R;
 
 /**
- * 
  * @author Administrator
  * 主页面  主题框架  功能 双击返回键则退出应用 有侧滑  有和所有fragment的框架
  */
@@ -36,6 +39,9 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	private ResideMenu resideMenu;
 	private View mMenuView;
 	private ResideMenuItem itemHome;//主页
+	public ResideMenuItem getItemHome() {
+		return itemHome;
+	}
 	private ResideMenuItem itemPersonalCenter;//个人中心
 	private ResideMenuItem itemMessageCenter;//消息中心
 	private ResideMenuItem itemSignInRecord;//签到记录
@@ -67,6 +73,7 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	}
 
 	public void initView() {
+		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false);
 		resideMenu = new ResideMenu(MainActivity.this);
 		resideMenu.setBackground(R.drawable.main_bg);
 		resideMenu.attachToActivity(this);
@@ -132,17 +139,18 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 	@Override
 	public void onChangeClick(View v) {
 		if(v.getId() == R.id.homeIv_residemenu){
-			setTabSelection(itemHome);
-			resideMenu.closeMenu();
+			setTabSelection(itemHome);//已登录过   在这个方法里编写登陆成功后
 		}
 		else if(v.getId() == R.id.settingIv_residemenu){
 			setTabSelection(itemSetting);
-			resideMenu.closeMenu();
 		}
 		else if(v.getId() == R.id.sign_in_residemenu){
 			setTabSelection(itemSignIn);
-			resideMenu.closeMenu();
+			if(!IsUserNameLoginUtils.IsUserNameLogin(this)){
+				IsUserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
+			}
 		}
+		resideMenu.closeMenu();
 	}
 	
 	@Override
@@ -151,24 +159,21 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 //			setTabSelection(itemHome);
 //			resideMenu.closeMenu();
 //		} else 
+		if(!IsUserNameLoginUtils.IsUserNameLogin(this)){
+			IsUserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
+		}
 		if (arg0 == itemPersonalCenter) {
-			setTabSelection(itemPersonalCenter);
-			resideMenu.closeMenu();
+			setTabSelection(itemPersonalCenter);//已登录过   在这个方法里编写登陆成功后
 		} else if (arg0 == itemMessageCenter) {
-			setTabSelection(itemMessageCenter);
-			resideMenu.closeMenu();
+			setTabSelection(itemMessageCenter);//已登录过   在这个方法里编写登陆成功后
 		} else if (arg0 == itemSignInRecord) {
-			setTabSelection(itemSignInRecord);
-			resideMenu.closeMenu();
+			setTabSelection(itemSignInRecord);//已登录过   在这个方法里编写登陆成功后
 		}else if (arg0 == itemIntegral) {
-			setTabSelection(itemIntegral);
-			resideMenu.closeMenu();
+			setTabSelection(itemIntegral);//已登录过   在这个方法里编写登陆成功后
 		}else if (arg0 == itemPhotoShare) {
-			setTabSelection(itemPhotoShare);
-			resideMenu.closeMenu();
+			setTabSelection(itemPhotoShare);//已登录过   在这个方法里编写登陆成功后
 		}else if (arg0 == itemMannerger) {
-			setTabSelection(itemMannerger);
-			resideMenu.closeMenu();
+			setTabSelection(itemMannerger);//已登录过   在这个方法里编写登陆成功后
 		}
 //		else if (arg0 == itemSetting) {
 //			setTabSelection(itemSetting);
@@ -179,6 +184,7 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 //			resideMenu.closeMenu();
 //		}
 //		initView();
+		resideMenu.closeMenu();
 	}
 
 	@SuppressLint("NewApi")

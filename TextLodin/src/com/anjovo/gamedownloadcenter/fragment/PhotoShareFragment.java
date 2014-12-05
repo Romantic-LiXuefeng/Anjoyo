@@ -29,6 +29,7 @@ import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
+import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -55,6 +56,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
 		mListView = (XListView) mContentView
 				.findViewById(R.id.photoshare_listview);
 		mListView.setPullLoadEnable(true);// 可下拉加载
@@ -115,7 +117,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
-						Toast.makeText(getActivity(), "获取数据失败!请检查网络连接!", 1)
+						Toast.makeText(getActivity(), "获取数据失败!请检查网络连接!", Toast.LENGTH_LONG)
 								.show();
 					}
 
@@ -191,5 +193,13 @@ public class PhotoShareFragment extends TitleFragmentBase {
 				getActivity().startActivity(intent);
 			}
 		});
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(!IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
+			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
+		}
 	}
 }

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#ECECEC" >
 
     <include
         android:layout_width="fill_parent"
@@ -10,6 +11,8 @@
         layout="@layout/community_head" />
 
     <ListView
+        android:scrollbars="none"
+        android:background="#ECECEC"
         android:id="@+id/hot_activities_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" >

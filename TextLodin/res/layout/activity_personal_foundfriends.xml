@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/personage_center"
+    android:orientation="vertical" >
+
+    <RelativeLayout style="@style/title_bar_style" >
+
+        <TextView
+                        android:id="@+id/personalfoundback"
+            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/left_arrow_selecter" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/personal_center_fund_friends"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_size" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="95dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/whitecorners"
+        android:orientation="vertical" >
+
+        <Button
+            android:textColor="@color/grey_black"
+            android:id="@+id/fcous_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp"
+            android:background="@color/transparent"
+            android:drawableRight="@drawable/arrows_right"
+            android:gravity="center_vertical"
+            android:text="@string/personal_center_fund_friends_serch" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CDCDCD" />
+
+        <Button
+            android:textColor="@color/grey_black"
+            android:id="@+id/focus_games"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/transparent"
+            android:drawablePadding="20dp"
+            android:textSize="15sp"
+            android:drawableRight="@drawable/arrows_right"
+            android:gravity="center_vertical"
+            android:text="@string/personal_center_fund_friends_serch_phone" />
+    </LinearLayout>
+
+</LinearLayout>
