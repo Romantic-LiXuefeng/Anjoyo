@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
+    android:background="@drawable/selector_zhuanti_listview_item_bg"
     android:padding="@dimen/custom_height10d" >
 
     <ImageView
@@ -60,7 +62,7 @@
             android:id="@+id/bt_recommend_loaddown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/download_bt_d" 
+            android:background="@drawable/dowload_img_selector" 
             android:text="下载"/>
 
         <TextView

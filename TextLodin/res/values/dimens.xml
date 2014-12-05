@@ -9,6 +9,8 @@
     <dimen name="custom_height10d">10dp</dimen>
     <dimen name="custom_height14d">14dp</dimen>
     <dimen name="custom_height100d">100dp</dimen>
+    <dimen name="custom_height110d">110dp</dimen>
+    <dimen name="custom_height120d">120dp</dimen>
     <dimen name="custom_height12d">12dp</dimen>
     <dimen name="custom_height12s">12sp</dimen>
     <dimen name="custom_height22d">22dp</dimen>

@@ -7,17 +7,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.activity.base.TitleActivityBase;
+import com.anjovo.gamedownloadcenter.adapter.Special.GameSpecialDetailAdapter;
 import com.anjovo.gamedownloadcenter.bean.SpecicalParticularsBean;
 import com.anjovo.gamedownloadcenter.bean.SpecicalParticularsItemsBean;
-import com.anjovo.gamedownloadcenter.bean.SpecicalParticularsMorepicBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
+import com.anjovo.gamedownloadcenter.views.customListview.InnerListView;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
@@ -31,7 +38,7 @@ import com.squareup.picasso.Picasso;
 
 //游戏专题详情页面
 @ContentView(R.layout.activity_gamespecialdetail)
-public class GameSpecialDetailActivity extends TitleActivityBase{
+public class GameSpecialDetailActivity extends TitleActivityBase implements OnItemClickListener{
 	@ViewInject(R.id.special_img)
 	private ImageView special_img;
 	@ViewInject(R.id.special_name)
@@ -39,7 +46,9 @@ public class GameSpecialDetailActivity extends TitleActivityBase{
 	@ViewInject(R.id.special_content)
 	private TextView special_content;
 	@ViewInject(R.id.gamespecial_listvist)
-	private ListView gamespecial_listvist;
+	private InnerListView gamespecial_listvist;
+	@ViewInject(R.id.scroll_view)
+	private ScrollView mScrollView;
 	private String mZtid;
 	private List<SpecicalParticularsBean> mSpecical = new ArrayList<SpecicalParticularsBean>();
 	@Override
@@ -55,17 +64,52 @@ public class GameSpecialDetailActivity extends TitleActivityBase{
 	
 	private void initView() {
 		if(mSpecical.size() > 0){
-			System.out.println("进来了。。。");
 			Picasso.with(this).load(Constant.GAME_SPECIAL_URL+mSpecical.get(0).getZtimg())
 			.placeholder(R.drawable.zhuan_ti).into(special_img);
-			System.out.println(Constant.GAME_SPECIAL_URL+mSpecical.get(0).getZtimg());
-			System.out.println(mSpecical.get(0).getZtname());
-			System.out.println(mSpecical.get(0).getIntro());
 			special_name.setText(mSpecical.get(0).getZtname());
 			special_content.setText(mSpecical.get(0).getIntro());
 		}
+		initListView();
 	}
 	
+	@SuppressWarnings("deprecation")
+	private void initListView() {
+		GameSpecialDetailAdapter adapter = new GameSpecialDetailAdapter(this, mSpecical);
+		gamespecial_listvist.setAdapter(adapter);
+		gamespecial_listvist.setOnItemClickListener(this);
+//		setListViewHeightBasedOnChildren(gamespecial_listvist);
+		gamespecial_listvist.setCacheColorHint(0x00000000);
+		gamespecial_listvist.setBackgroundDrawable(null);
+		gamespecial_listvist.setBackgroundColor(Color.WHITE);
+		gamespecial_listvist.setParentScrollView(mScrollView);
+		gamespecial_listvist.setMaxHeight(200);//400
+	}
+
+	public void setListViewHeightBasedOnChildren(ListView listView) {
+		// 获取ListView对应的Adapter
+		GameSpecialDetailAdapter listAdapter = (GameSpecialDetailAdapter) gamespecial_listvist.getAdapter();
+		if (listAdapter == null) {
+			return;
+		}
+
+		int totalHeight = 0;
+		for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+			// listAdapter.getCount()返回数据项的数目
+			View listItem = listAdapter.getView(i, null, listView);
+			// 计算子项View 的宽高
+			listItem.measure(0, 0);
+			// 统计所有子项的总高度
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		// listView.getDividerHeight()获取子项间分隔符占用的高度
+		// params.height最后得到整个ListView完整显示需要的高度
+		listView.setLayoutParams(params);
+	}
+
 	private void loadDatas() {
 		String url =Constant.GAME_SPECIAL_URL+"/yx_zt.php?ztid="+mZtid;
 		new HttpUtils().send(HttpMethod.GET,url, new RequestCallBack<String>() {
@@ -104,22 +148,8 @@ public class GameSpecialDetailActivity extends TitleActivityBase{
 						items.setTitle(object.getString("title"));
 						items.setTotaldown(object.getString("totaldown"));
 						items.setVersion(object.getString("version"));
-						JSONArray array = object.getJSONArray("morepic");
-						SpecicalParticularsMorepicBean morepic = new SpecicalParticularsMorepicBean();
-						for (int j = 0; j < array.length(); j++) {
-							JSONObject object2 = array.getJSONObject(j);
-							morepic.setUrlImg1(object2.getString(""));
-							morepic.setUrlImg2(object2.getString(""));
-							morepic.setUrlImg3(object2.getString(""));
-							morepic.setUrlImg4(object2.getString(""));
-							morepic.setUrlImg5(object2.getString(""));
-							morepic.setUrlImg6(object2.getString(""));
-							morepic.setUrlImg7(object2.getString(""));
-							morepic.setUrlImg8(object2.getString(""));
-							items.setMorepic(morepic);
-							particulars.setItems(items);
-							mSpecical.add(particulars);
-						}
+						particulars.setItems(items);
+						mSpecical.add(particulars);
 					}
 					initView();
 				} catch (JSONException e) {
@@ -150,5 +180,11 @@ public class GameSpecialDetailActivity extends TitleActivityBase{
 		setUpTitleBack();
 		setUpTitleBackRight();
 		setUpTitleCentreText("专题推荐");		
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		
 	}
 }
