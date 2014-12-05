@@ -15,6 +15,8 @@ public class Constant {
 	public static final String VERIFICATIONCODE = "http://www.gamept.cn/yx_pd.php?email=";
 	/**改密码接口:http://www.gamept.cn/yx_reset_pd.php?code=319452&new_pwd=1234&email=1195063924@qq.com**/
 	public static final String MODIFICATION_PASSWORD = "http://www.gamept.cn/yx_reset_pd.php?";
+	/**授权登录接口:http://www.gamept.cn/yx_oauth2_login.php?openid=?&nickname=?&type=?**/
+	public static final String AUTHORIZATION_LOGIN = "http://www.gamept.cn/yx_oauth2_login.php?";
 	
 	// 游戏专题的URL
 	public static final String GAME_SPECIAL_URL = "http://www.gamept.cn";

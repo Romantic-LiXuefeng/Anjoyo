@@ -74,6 +74,7 @@ public class LoginActivity extends Activity implements PlatformActionListener{
 		ShareSDK.stopSDK(this);
 	}
 	
+	private String mType;
 	@OnClick({R.id.BT_login__activity_login_register_backPassword_thirdparty,R.id.BT_Resgister__activity_login_register_backPassword_thirdparty
 		,R.id.IB_ThirdpartyQQ__activity_login_register_backPassword_thirdparty,R.id.IB_ThirdpartySina__activity_login_register_backPassword_thirdparty
 		,R.id.Tv_forget_password_activity_login_register_backPassword_thirdparty})
@@ -121,23 +122,25 @@ public class LoginActivity extends Activity implements PlatformActionListener{
 		}else if(v == mResgisterBT){
 			startActivity(new Intent(this, ResgisterActivity.class));
 		}else if(v == mThirdpartyQQIB){
+			mType = "QQ";
 			Platform platform = ShareSDK.getPlatform(this, QZone.NAME);//得到某个第三方平台
 			platform.setPlatformActionListener(this);
 			if(platform.isValid()){//是否已授权过  则直接登录
 				String openId = platform.getDb().getUserId();
 				String nickName = platform.getDb().getUserName();
-				socialLogin(nickName, openId);
+				socialLogin(nickName, openId,"QQ");
 				return;
 			}else{
 				platform.showUser(null);//弹出授权登录窗口
 			}
 		}else if(v == mThirdpartySinaIB){
+			mType = "新浪";
 			Platform platform1 = ShareSDK.getPlatform(this, SinaWeibo.NAME);//得到某个第三方平台
 			platform1.setPlatformActionListener(this);
 			if(platform1.isValid()){//是否已授权过  则直接登录
 				String openId = platform1.getDb().getUserId();
 				String nickName = platform1.getDb().getUserName();
-				socialLogin(nickName, openId);
+				socialLogin(nickName, openId,"新浪");
 				return;
 			}else{
 				platform1.showUser(null);//弹出授权登录窗口
@@ -198,7 +201,7 @@ public class LoginActivity extends Activity implements PlatformActionListener{
 
 	@Override
 	public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
-		socialLogin(arg0.getDb().getUserName(),arg0.getDb().getUserId());
+		socialLogin(arg0.getDb().getUserName(),arg0.getDb().getUserId(),mType);
 	}
 
 	@Override
@@ -208,11 +211,39 @@ public class LoginActivity extends Activity implements PlatformActionListener{
 	}
 	
 	/**
-	 * 第三方登录成功后调用  取名为社交登录
+	 * 第三方登录成功后调用  取名为社交登录 
 	 * @param nickName 对应平台昵称
 	 * @param uid      对应平台uid
 	 */
-	private void socialLogin(String nickName,String uid){
-		System.out.println(nickName+"<--------------->"+uid);
+	private void socialLogin(String nickName,String uid,String type){
+		new HttpUtils().send(HttpMethod.GET, Constant.AUTHORIZATION_LOGIN+"openid="+uid+"&nickname="+nickName+"&type="+type, new RequestCallBack<String>() {
+
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(LoginActivity.this, "LogInSuccessfully", Context.MODE_PRIVATE, false);
+				Toast.makeText(LoginActivity.this, "授权失败!请检查网络连接!", Toast.LENGTH_LONG)
+				.show();
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				String result = arg0.result;
+				try {
+					JSONObject jsonObject = new JSONObject(result);
+					String code = jsonObject.getString("code");
+					if(code.equals("0")){
+						Toast.makeText(LoginActivity.this, "登陆成功!", Toast.LENGTH_LONG)
+						.show();
+						LoginSuccessful(result);
+					}else{
+						Toast.makeText(LoginActivity.this, "登陆失败!"+jsonObject.getString("message"), Toast.LENGTH_LONG)
+						.show();
+						UserNameOrPasswordError(code,jsonObject.getString("message"));
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
