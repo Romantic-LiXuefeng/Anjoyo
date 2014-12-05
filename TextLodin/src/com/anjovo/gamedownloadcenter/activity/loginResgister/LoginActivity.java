@@ -144,7 +144,6 @@ public class LoginActivity extends Activity {
 	 *		//此方法类向以下方式获得用户信息
 	 *		String userid = info.getUserid();......
 	 *	}
-	 * @throws JSONException 
 	 */
 	private void LoginSuccessful(String successContent) throws JSONException{
 		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, true);
