@@ -42,6 +42,8 @@ public class Constant {
 	public static final String RANKINGAD = "http://www.gamept.cn/yx_adver.php";
 	public static final String RANKING_TITLEPIC = "titlepic";
 	public static final String GAME_SPECIAL_ID = "ztid";
+	//签到接口
+	public static final String SIGNIN_URL="http://www.gamept.cn/yx_sign.php?uid=";
 	// 签到记录url
 	public static final String SIGNINRECORD_URL = "http://www.gamept.cn/yx_sign.php?uid=163&type=list";
 	public static final String SIGNINRECORD_DATA = "date";

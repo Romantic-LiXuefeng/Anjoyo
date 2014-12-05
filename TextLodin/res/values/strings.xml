@@ -50,4 +50,6 @@
     <string name="personal_center_qq_ed">108********</string>
     <string name="personal_center_adress">地址</string>
     <string name="personal_center_adress_ed">银河系太阳系地球公民</string>
+    <string name="integral">签到</string>
+
 </resources>
