@@ -1,5 +1,7 @@
 package com.anjovo.gamedownloadcenter.activity.loginResgister;
 
+import java.util.HashMap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +15,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qzone.QZone;
 
 import com.anjovo.gamedownloadcenter.bean.UserNameMessageBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
@@ -34,7 +41,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
  * 登录页面
  */
 @ContentView(R.layout.activity_login_register_backpassword_thirdparty)
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements PlatformActionListener{
 
 	@ViewInject(R.id.ET_nickname_activity_login_register_backPassword_thirdparty)
 	private EditText mEmailET;//注册邮箱
@@ -53,13 +60,18 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		initSDK();
 		ViewUtils.inject(this);
-
-		initView();
 	}
 
-	private void initView() {
-
+	private void initSDK() {
+		 ShareSDK.initSDK(this);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ShareSDK.stopSDK(this);
 	}
 	
 	@OnClick({R.id.BT_login__activity_login_register_backPassword_thirdparty,R.id.BT_Resgister__activity_login_register_backPassword_thirdparty
@@ -109,9 +121,27 @@ public class LoginActivity extends Activity {
 		}else if(v == mResgisterBT){
 			startActivity(new Intent(this, ResgisterActivity.class));
 		}else if(v == mThirdpartyQQIB){
-		
+			Platform platform = ShareSDK.getPlatform(this, QZone.NAME);//得到某个第三方平台
+			platform.setPlatformActionListener(this);
+			if(platform.isValid()){//是否已授权过  则直接登录
+				String openId = platform.getDb().getUserId();
+				String nickName = platform.getDb().getUserName();
+				socialLogin(nickName, openId);
+				return;
+			}else{
+				platform.showUser(null);//弹出授权登录窗口
+			}
 		}else if(v == mThirdpartySinaIB){
-	
+			Platform platform1 = ShareSDK.getPlatform(this, SinaWeibo.NAME);//得到某个第三方平台
+			platform1.setPlatformActionListener(this);
+			if(platform1.isValid()){//是否已授权过  则直接登录
+				String openId = platform1.getDb().getUserId();
+				String nickName = platform1.getDb().getUserName();
+				socialLogin(nickName, openId);
+				return;
+			}else{
+				platform1.showUser(null);//弹出授权登录窗口
+			}
 		}else if(v == mForgetPassword){
 			startActivity(new Intent(this, BackPasswordActivity.class));
 		}
@@ -158,5 +188,31 @@ public class LoginActivity extends Activity {
 		String jsonMessage = gson.toJson(bean);
 		SharedPreferencesUtil.saveSharedPreferencestStringUtil(this, "UserNameMesage", Context.MODE_PRIVATE,jsonMessage);
 		finish();
+	}
+
+	@Override
+	public void onCancel(Platform arg0, int arg1) {
+		Toast.makeText(LoginActivity.this, arg0.getName()+"授权已取消!", Toast.LENGTH_LONG)
+		.show();
+	}
+
+	@Override
+	public void onComplete(Platform arg0, int arg1, HashMap<String, Object> arg2) {
+		socialLogin(arg0.getDb().getUserName(),arg0.getDb().getUserId());
+	}
+
+	@Override
+	public void onError(Platform arg0, int arg1, Throwable arg2) {
+		Toast.makeText(LoginActivity.this, arg0.getName()+"授权失败,请重试!", Toast.LENGTH_LONG)
+		.show();
+	}
+	
+	/**
+	 * 第三方登录成功后调用  取名为社交登录
+	 * @param nickName 对应平台昵称
+	 * @param uid      对应平台uid
+	 */
+	private void socialLogin(String nickName,String uid){
+		System.out.println(nickName+"<--------------->"+uid);
 	}
 }
