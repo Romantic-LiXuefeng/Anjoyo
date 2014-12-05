@@ -14,9 +14,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.bean.UserNameMessageBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
+import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -133,18 +135,26 @@ public class LoginActivity extends Activity {
 	 *			用户Id 	userid
 	 *	     	用户昵称	nickname
 	 *			用户图片	userpic
+	 * 用Gson保存用户登录成功返回的用户所有信息相关 用SharedPreferences保存
+	 * 获得用户登录后返回的信息方法
+	 * String string = SharedPreferencesUtil.getSharedPreferencestStringUtil(this, "UserNameMesage", Context.MODE_PRIVATE,"");
+	 *	Gson gsone = new Gson();
+	 *	UserNameMessageBean info = gsone.fromJson(string, UserNameMessageBean.class);
+	 *	String userid = info.getUserid();......
 	 * @throws JSONException 
 	 */
 	private void LoginSuccessful(String successContent) throws JSONException{
 		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, true);
 		JSONObject jsonObject = new JSONObject(successContent);
-		SharedPreferencesUtil.saveSharedPreferencestStringUtil(this, "UserNameMesage", Context.MODE_PRIVATE, 
-		"code"+jsonObject.getString("code")
-		+"message"+jsonObject.getString("message")
-		+"username"+jsonObject.getString("username")
-		+"userid"+jsonObject.getString("userid")
-		+"nickname"+jsonObject.getString("nickname")
-		+"userpic"+jsonObject.getString("userpic"));
+		UserNameMessageBean bean = new UserNameMessageBean(jsonObject.getString("code"), 
+				jsonObject.getString("message"), 
+				jsonObject.getString("username"), 
+				jsonObject.getString("userid"), 
+				jsonObject.getString("nickname"), 
+				jsonObject.getString("userpic"));
+		Gson gson = new Gson();
+		String jsonMessage = gson.toJson(bean);
+		SharedPreferencesUtil.saveSharedPreferencestStringUtil(this, "UserNameMesage", Context.MODE_PRIVATE,jsonMessage);
 		finish();
 	}
 }
