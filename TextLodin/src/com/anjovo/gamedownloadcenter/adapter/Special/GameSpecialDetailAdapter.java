@@ -61,7 +61,7 @@ public class GameSpecialDetailAdapter extends BaseAdapter{
 			holder.recommendNum.setText(loadDownNum+"次");
 		}	
 		holder.rbStar.setRating((float)Integer.parseInt(mSpecical.get(position).getItems().getStar()));
-		Picasso.with(context).load("http://www.gamept.cn" + mSpecical.get(position).getItems().getFlashurl()).placeholder(R.drawable.head).into(holder.recommendHead);
+		Picasso.with(context).load("http://www.gamept.cn" + mSpecical.get(position).getItems().getIcon()).placeholder(R.drawable.head).into(holder.recommendHead);
 		return convertView;
 	}
 	private class ViewHolder{

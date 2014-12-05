@@ -123,21 +123,17 @@ public class GameSpecialDetailActivity extends TitleActivityBase implements OnIt
 			public void onSuccess(ResponseInfo<String> arg0) {
 				SpecicalParticularsBean particulars = new SpecicalParticularsBean();
 				String result = arg0.result;
-				System.out.println(result);
 				try {
 					JSONObject jsonObject=new JSONObject(result);
 					particulars.setIntro(jsonObject.getString("intro"));
-					System.out.println(jsonObject.getString("intro"));
 					
 					particulars.setZtimg(jsonObject.getString("ztimg"));
-					System.out.println(jsonObject.getString("ztimg"));
 
 					particulars.setZtname(jsonObject.getString("ztname"));
-					System.out.println(jsonObject.getString("ztname"));
 
 					JSONArray jsonArray = jsonObject.getJSONArray("items");
-					SpecicalParticularsItemsBean items = new SpecicalParticularsItemsBean();
 					for (int i = 0; i < jsonArray.length(); i++) {
+						SpecicalParticularsItemsBean items = new SpecicalParticularsItemsBean();
 						JSONObject object = jsonArray.getJSONObject(i);
 						items.setFilesize(object.getString("filesize"));
 						items.setFlashurl(object.getString("flashurl"));
