@@ -238,7 +238,7 @@
 
                     <GridView
                         android:id="@+id/morepic_activity_detail"
-                        android:layout_width="500dp"
+                        android:layout_width="488dp"
                         android:layout_height="180dp"
                         android:numColumns="4"
                         android:horizontalSpacing="4dp"
