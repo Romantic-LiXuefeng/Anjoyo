@@ -239,10 +239,10 @@
                     <GridView
                         android:id="@+id/morepic_activity_detail"
                         android:layout_width="488dp"
-                        android:layout_height="180dp"
-                        android:numColumns="4"
+                        android:layout_height="160dp"
                         android:horizontalSpacing="4dp"
-                        android:scrollbars="@null"/>
+                        android:numColumns="4"
+                        android:scrollbars="@null" />
 
                 </LinearLayout>
             </HorizontalScrollView>

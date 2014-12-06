@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import com.squareup.picasso.Picasso;
 
 public class GameDetailMorepicAdapter extends BaseAdapter{
@@ -22,6 +24,9 @@ public class GameDetailMorepicAdapter extends BaseAdapter{
 		this.context = context;
 		this.mMorepics = mMorepics;
 		from = LayoutInflater.from(context);
+		for (int i = 0; i < mMorepics.size(); i++) {
+			System.out.println(mMorepics.get(i));
+		}
 	}
 
 	@Override
@@ -41,13 +46,23 @@ public class GameDetailMorepicAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		convertView = from.inflate(R.layout.item_game_detail_morepic, null);
-		ImageView game_detail_morepic = (ImageView) convertView.findViewById(R.id.Tv_GameDetailMorepic);
+		ViewHolder holder;
+		if(convertView == null){
+			convertView = from.inflate(R.layout.item_game_detail_morepic, null);
+			holder = new ViewHolder();
+			ViewUtils.inject(holder, convertView);
+			convertView.setTag(holder);
+		}else{
+			holder = (ViewHolder) convertView.getTag();
+		}
 		// 异步加载图片
-		Picasso.with(context)
-				.load(Constant.GAME_SPECIAL_URL + mMorepics.get(position))
-				.placeholder(R.drawable.zhuan_ti)
-				.into(game_detail_morepic);
+		Picasso.with(context).load(Constant.GAME_SPECIAL_URL+ mMorepics.get(position))
+		.placeholder(R.drawable.zhuan_ti).into(holder.game_detail_morepic);
 		return convertView;
+	}
+
+	class ViewHolder{
+		@ViewInject(R.id.Tv_GameDetailMorepic)
+		ImageView game_detail_morepic;
 	}
 }
