@@ -37,7 +37,11 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnCheckedChange;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.squareup.picasso.Picasso;
-	//游戏详情页面
+
+/**
+ * @author Administrator
+ * 游戏详情页面
+ */
 @ContentView(R.layout.activity_detail)
 public class GameDetailActivity extends TitleActivityBase{
 	@ViewInject(R.id.Bt_attention_activity_detail1)
@@ -156,11 +160,7 @@ public class GameDetailActivity extends TitleActivityBase{
 		setUpTitleCentreText("全面炸翻天");
 		setUpTitleRightImg(R.drawable.detail_share_selector);
 		String id = getIntent().getStringExtra("id");
-		String uid = "";
-		if(SharedPreferencesUtil.getSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false)){
-			uid = (UserNameLoginUtils.GetLoginUserMessage(this))[0];
-		}
-		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id+"&uid="+uid, 0);
+		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id, 0);
 		NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 	}
 
@@ -173,7 +173,6 @@ public class GameDetailActivity extends TitleActivityBase{
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					Picasso.with(GameDetailActivity.this).load(Constant.GAME_SPECIAL_URL+jsonObject.getString("icon")).placeholder(R.drawable.head).into(mIcon);
-					System.out.println("G进来了...");
 					ztid = jsonObject.getString("id");
 					mTitle.setText(jsonObject.getString("title"));
 					mFilesize.setText("大小:"+jsonObject.getString("filesize"));
@@ -186,18 +185,12 @@ public class GameDetailActivity extends TitleActivityBase{
 					mStar.setRating((float)Integer.parseInt(jsonObject.getString("star")));
 					mMorepics.clear();
 					JSONArray array = jsonObject.getJSONArray("morepic");
-					System.out.println("Gamapter进来了..."+array);
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject object = array.getJSONObject(i);
 						mMorepics.add(object.getString("pic"));
-						mMorepics.add(object.getString("pic"));
-						mMorepics.add(object.getString("pic"));
-						mMorepics.add(object.getString("pic"));
 					}
-					System.out.println("GameDetailMorepicAdapter进来了...");
 					GameDetailMorepicAdapter adapter = new GameDetailMorepicAdapter(GameDetailActivity.this,mMorepics);
 					mMorepic.setAdapter(adapter);
-					System.out.println("adapter出去了...");
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

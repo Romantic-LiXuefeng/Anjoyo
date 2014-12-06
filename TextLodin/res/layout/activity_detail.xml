@@ -240,9 +240,9 @@
                         android:id="@+id/morepic_activity_detail"
                         android:layout_width="488dp"
                         android:layout_height="160dp"
+                        android:horizontalSpacing="4dp"
                         android:numColumns="4"
-                        android:horizontalSpacing="10dp"
-                        android:smoothScrollbar="@null" />
+                        android:scrollbars="@null" />
 
                 </LinearLayout>
             </HorizontalScrollView>

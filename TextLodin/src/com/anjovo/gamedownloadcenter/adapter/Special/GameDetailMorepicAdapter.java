@@ -6,7 +6,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
@@ -21,11 +20,13 @@ public class GameDetailMorepicAdapter extends BaseAdapter{
 	private Context context;
 	private List<String> mMorepics;
 	private LayoutInflater from;
-	private LayoutParams params;
 	public GameDetailMorepicAdapter(Context context,List<String> mMorepics) {
 		this.context = context;
 		this.mMorepics = mMorepics;
 		from = LayoutInflater.from(context);
+		for (int i = 0; i < mMorepics.size(); i++) {
+			System.out.println(mMorepics.get(i));
+		}
 	}
 
 	@Override
@@ -54,11 +55,9 @@ public class GameDetailMorepicAdapter extends BaseAdapter{
 		}else{
 			holder = (ViewHolder) convertView.getTag();
 		}
-		params = new LayoutParams(4*90, 280);
 		// 异步加载图片
 		Picasso.with(context).load(Constant.GAME_SPECIAL_URL+ mMorepics.get(position))
 		.placeholder(R.drawable.zhuan_ti).into(holder.game_detail_morepic);
-		convertView.setLayoutParams(params);
 		return convertView;
 	}
 
