@@ -9,8 +9,8 @@
 	<classpathentry kind="lib" path="libs/gson-1.7.1.jar"/>
 	<classpathentry kind="lib" path="libs/xUtils.jar"/>
 	<classpathentry kind="lib" path="libs/afinal_0.5_bin.jar"/>
-	<classpathentry kind="lib" path="libs/ShareSDK-Core-2.4.1.jar"/>
-	<classpathentry kind="lib" path="libs/ShareSDK-QZone-2.4.1.jar"/>
-	<classpathentry kind="lib" path="libs/ShareSDK-SinaWeibo-2.4.1.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-Core-2.5.4.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-QZone-2.5.4.jar"/>
+	<classpathentry kind="lib" path="libs/ShareSDK-SinaWeibo-2.5.4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
