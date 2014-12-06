@@ -29,8 +29,8 @@ public class CommunityHotAdapter extends BaseAdapter {
 		super();
 		this.context=context;
 		this.list = list;
-		bitmap=bitmap.create(context);
 		inflater=LayoutInflater.from(context);
+		bitmap=bitmap.create(context);
 		laodfailBitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.head);
 		loadingBitmap=BitmapFactory.decodeResource(context.getResources(), R.drawable.head);
 	}

@@ -103,6 +103,7 @@ public class GameSpecialDetailActivity extends TitleActivityBase implements OnIt
 	@OnClick({R.id.gamespecial_attention})
 	public void OnGameSpecialClick(View v){
 		if(v == mGamespecialAttention){
+			is = true;
 			if(!SharedPreferencesUtil.getSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false)){
 				startActivity(new Intent(this,LoginActivity.class));
 				return ;
@@ -114,11 +115,13 @@ public class GameSpecialDetailActivity extends TitleActivityBase implements OnIt
 	/**
 	 * 关注  相关方法
 	 */
+	private boolean is = false;
 	private OnNetWorkInforListener onNetWorkInforListener = new OnNetWorkInforListener() {
 		
 		@Override
 		public void onNetWorkInfor(String result,int position) {
 			if(position == 1){
+				is = true;
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					String code = jsonObject.getString("code");
@@ -167,22 +170,26 @@ public class GameSpecialDetailActivity extends TitleActivityBase implements OnIt
 			}
 		}
 	};
+	
 	private void GetGameSpecialAttention() {
-		if(SharedPreferencesUtil.getSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false)){
-			String[] userMessage = UserNameLoginUtils.GetLoginUserMessage(this);
-			String type = "";
-			if(mGamespecialAttention.getText().equals("关注")){
-				type = "";
-				Toast.makeText(GameSpecialDetailActivity.this, "关注中，请稍后...", Toast.LENGTH_LONG)
-				.show();
-			}else{
-				Toast.makeText(GameSpecialDetailActivity.this, "正在取消关注，请稍后...", Toast.LENGTH_LONG)
-				.show();
-				type = "del";
+		if(is){
+			is = !is;
+			if(SharedPreferencesUtil.getSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false)){
+				String[] userMessage = UserNameLoginUtils.GetLoginUserMessage(this);
+				String type = "";
+				if(mGamespecialAttention.getText().equals("关注")){
+					type = "";
+					Toast.makeText(GameSpecialDetailActivity.this, "关注中，请稍后...", Toast.LENGTH_LONG)
+					.show();
+				}else{
+					Toast.makeText(GameSpecialDetailActivity.this, "正在取消关注，请稍后...", Toast.LENGTH_LONG)
+					.show();
+					type = "del";
+				}
+				NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, 
+						Constant.GAME_SPECIAL_ATTENTION+"uid="+userMessage[0]+"&type="+type+"&ztid="+getIntent().getStringExtra("ztid"),1);
+				NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 			}
-			NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, 
-			Constant.GAME_SPECIAL_ATTENTION+"uid="+userMessage[0]+"&type="+type+"&ztid="+getIntent().getStringExtra("ztid"),1);
-			NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 		}
 	}
 	
