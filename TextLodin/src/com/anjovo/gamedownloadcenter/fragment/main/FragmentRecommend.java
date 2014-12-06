@@ -69,7 +69,7 @@ public class FragmentRecommend extends Fragment{
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent = new Intent(getActivity(),GameDetailActivity.class);
-				intent.putExtra("id", recommendList.get(position).get(Constant.RECOMMEND_ID));
+				intent.putExtra("id", recommendList.get(position-1).get(Constant.RECOMMEND_ID));
 				startActivity(intent);
 			}
 		});

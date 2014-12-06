@@ -8,13 +8,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.maxwin.view.XListView;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
+import com.anjovo.gamedownloadcenter.activity.game_details.GameDetailActivity;
 import com.anjovo.gamedownloadcenter.adapter.RankingAdapter;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
@@ -28,8 +31,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.squareup.picasso.Picasso;
 
 /**
- * @author Administrator 主页中排行页面
- * zz
+ * @author Administrator 主页中排行页面 zz
  */
 public class FragmentRanking extends Fragment {
 	@ViewInject(R.id.ranking_left)
@@ -67,6 +69,19 @@ public class FragmentRanking extends Fragment {
 				ranking.stopLoadMore();
 			}
 		});
+		ranking.setOnItemClickListener(new XListView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(getActivity(),
+						GameDetailActivity.class);
+				intent.putExtra("id",
+						rankingList.get(position - 1)
+								.get(Constant.RECOMMEND_ID));
+				startActivity(intent);
+			}
+		});
 		rankAdapter = new RankingAdapter(getActivity(), rankingList);
 		ranking.setAdapter(rankAdapter);
 		loadData();
@@ -97,6 +112,7 @@ public class FragmentRanking extends Fragment {
 									.load("http://www.gamept.cn"
 											+ objLift
 													.getString(Constant.RANKING_TITLEPIC))
+									.resize(Constant.screenWidth/2, 200).centerCrop()
 									.placeholder(R.drawable.paihang_left)
 									.into(rankingLeft);
 							JSONObject objRight = jsonary.getJSONObject(1);
@@ -104,6 +120,8 @@ public class FragmentRanking extends Fragment {
 									.load("http://www.gamept.cn"
 											+ objRight
 													.getString(Constant.RANKING_TITLEPIC))
+									.resize(Constant.screenWidth/2, 200).centerCrop()
+
 									.placeholder(R.drawable.paihang_right)
 									.into(rankingRight);
 

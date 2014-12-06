@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:background="@drawable/x_game" >
 
         <android.support.v4.view.ViewPager
@@ -45,7 +45,7 @@
         android:id="@+id/tuijian_list"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="2" >
+        android:layout_weight="1.8" >
     </me.maxwin.view.XListView>
 
 </LinearLayout>
