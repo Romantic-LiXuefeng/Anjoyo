@@ -156,7 +156,10 @@ public class GameDetailActivity extends TitleActivityBase{
 		setUpTitleCentreText("全面炸翻天");
 		setUpTitleRightImg(R.drawable.detail_share_selector);
 		String id = getIntent().getStringExtra("id");
-		String uid = (UserNameLoginUtils.GetLoginUserMessage(this))[0];
+		String uid = "";
+		if(SharedPreferencesUtil.getSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false)){
+			uid = (UserNameLoginUtils.GetLoginUserMessage(this))[0];
+		}
 		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id+"&uid="+uid, 0);
 		NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 	}
@@ -179,6 +182,7 @@ public class GameDetailActivity extends TitleActivityBase{
 					mVersion.setText("下载次数:"+jsonObject.getString("version")+"次");
 					mNewstime.setText("更新日期:"+jsonObject.getString("newstime"));
 					mFlashsay.setText(jsonObject.getString("flashsay"));
+					System.out.println(jsonObject.getString("star"));
 					mStar.setRating((float)Integer.parseInt(jsonObject.getString("star")));
 					mMorepics.clear();
 					JSONArray array = jsonObject.getJSONArray("morepic");

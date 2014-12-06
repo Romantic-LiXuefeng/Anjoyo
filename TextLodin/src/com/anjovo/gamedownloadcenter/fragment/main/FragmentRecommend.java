@@ -10,12 +10,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.maxwin.view.XListView;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
+import com.anjovo.gamedownloadcenter.activity.game_details.GameDetailActivity;
 import com.anjovo.gamedownloadcenter.adapter.RecommendAdapter;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
@@ -60,9 +63,21 @@ public class FragmentRecommend extends Fragment{
 				recommend.stopLoadMore();
 			}
 		});
+		recommend.setOnItemClickListener(new XListView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(getActivity(),GameDetailActivity.class);
+				intent.putExtra("id", recommendList.get(position).get(Constant.RECOMMEND_ID));
+				startActivity(intent);
+			}
+		});
+		
 		recAdapter = new RecommendAdapter(getActivity(), recommendList);
 		recommend.setAdapter(recAdapter);
 		loadData();
+		
 		return view;
 	}
 	private void loadData(){

@@ -47,12 +47,12 @@ public class UserNameLoginUtils {
 		 		String username = info.getUserid();// 用户名	username
 		 		String nickname = info.getUserid();// 用户昵称	nickname
 		 		String userpic = info.getUserid();//用户图片	userpic
-		 		loginUserMessage[0] = userid;
-		 		loginUserMessage[1] = code;
-		 		loginUserMessage[2] = message;
-		 		loginUserMessage[3] = username;
-		 		loginUserMessage[4] = nickname;
-		 		loginUserMessage[5] = userpic;
+		 		loginUserMessage[0] = userid+"";
+		 		loginUserMessage[1] = code+"";
+		 		loginUserMessage[2] = message+"";
+		 		loginUserMessage[3] = username+"";
+		 		loginUserMessage[4] = nickname+"";
+		 		loginUserMessage[5] = userpic+"";
 		 	}
 			return loginUserMessage;
 	}
