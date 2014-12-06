@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_checked="true"   android:drawable="@drawable/category_bt_img_pressed"></item>
-     <item android:drawable="@drawable/category_bt_img_normal"></item>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/category_bt_img_pressed" android:state_checked="true"></item>
+    <item android:drawable="@drawable/category_bt_img_normal"></item>
+
 </selector>

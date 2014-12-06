@@ -24,7 +24,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-import com.anjovo.gamedownloadcenter.activity.GameSpecialDetailActivity;
+import com.anjovo.gamedownloadcenter.activity.Special.GameSpecialDetailActivity;
 import com.anjovo.gamedownloadcenter.adapter.Special.GameSpecialAdapter;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;

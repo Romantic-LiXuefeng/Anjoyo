@@ -20,7 +20,7 @@ import com.anjovo.gamedownloadcenter.fragment.PhotoShareFragment;
 import com.anjovo.gamedownloadcenter.fragment.SettingFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInRecordFragment;
-import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
+import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomClickChangeListener;
@@ -146,8 +146,8 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 		}
 		else if(v.getId() == R.id.sign_in_residemenu){
 			setTabSelection(itemSignIn);
-			if(!IsUserNameLoginUtils.IsUserNameLogin(this)){
-				IsUserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
+			if(!UserNameLoginUtils.IsUserNameLogin(this)){
+				UserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
 			}
 		}
 		resideMenu.closeMenu();
@@ -159,8 +159,8 @@ public class MainActivity extends DoubleClickFinishActivity implements OnClickLi
 //			setTabSelection(itemHome);
 //			resideMenu.closeMenu();
 //		} else 
-		if(!IsUserNameLoginUtils.IsUserNameLogin(this)){
-			IsUserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
+		if(!UserNameLoginUtils.IsUserNameLogin(this)){
+			UserNameLoginUtils.LoginFailure(this,LoginActivity.class);//未登陆过
 		}
 		if (arg0 == itemPersonalCenter) {
 			setTabSelection(itemPersonalCenter);//已登录过   在这个方法里编写登陆成功后

@@ -23,6 +23,8 @@ public class Constant {
 	public static final String GAME_SPECIAL = GAME_SPECIAL_URL+"/yx_zt.php?currentPage=";
 	public static final String GAME_SPECIAL_NAME = "ztname";
 	public static final String GAME_SPECIAL_IMG = "ztimg";
+	/**关注接口：http://www.gamept.cn/yx_addzt.php?uid=25&type=del&ztid=25**/
+	public static final String GAME_SPECIAL_ATTENTION = HOSTNAME+"/yx_addzt.php?";
 	//推荐界面
 	public static final String GAME_RECOMMEND = "http://www.gamept.cn/yx_recommend.php?currentPage=";
     //推荐、排行用同一套常量	

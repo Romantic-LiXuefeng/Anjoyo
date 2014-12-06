@@ -15,7 +15,7 @@ import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucs
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsProjectActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoucsUserActivity;
 import com.anjovo.gamedownloadcenter.activity.personalcenter.PersonalCenterFoundFriendsActivity;
-import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
+import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -91,7 +91,7 @@ public class PersonalCenterFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(!IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
+		if(!UserNameLoginUtils.IsUserNameLogin(getActivity())){
 			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
 		}
 	}

@@ -14,10 +14,11 @@
         <ImageButton
             android:id="@+id/detail_back"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/back" />
+            android:background="#00ffffff"
+            android:src="@drawable/selector_btn_back" />
 
         <TextView
             android:id="@+id/detail_gameName"
@@ -37,6 +38,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/detail_share_selector" />
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/detail_layout1"
         android:layout_width="fill_parent"
@@ -91,23 +93,29 @@
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
-                    <TextView
+                    <RatingBar
+                        android:id="@+id/paihang_comment_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="星星星星" />
+                        android:layout_marginBottom="5.0dip"
+                        android:layout_marginTop="5.0dip"
+                        android:clickable="false"
+                        android:isIndicator="true"
+                        android:maxHeight="11.0dip"
+                        android:minHeight="11.0dip"
+                        android:numStars="5"
+                        android:progressDrawable="@drawable/layer_list_start"
+                        android:rating="3.5" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:singleLine="true"
                         android:text="大小:13.10MB" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:singleLine="true"
                         android:text="版本:2.71" />
                 </LinearLayout>
@@ -142,7 +150,8 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-	<ImageView
+
+    <ImageView
         android:id="@+id/detail_layout2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -190,38 +199,42 @@
         android:layout_below="@id/detail_layout3"
         android:scaleType="fitXY"
         android:src="@drawable/ic_detail_divider" />
+
     <LinearLayout
-        android:id="@+id/detail_install" 
+        android:id="@+id/detail_install"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom"
         android:layout_alignParentBottom="true"
-        android:gravity="center_vertical">
-        
+        android:background="@drawable/bottom"
+        android:gravity="center_vertical" >
+
         <Button
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:background="@drawable/detail_install_selector"
-        android:text="我要评论" />
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/detail_install_selector"
+            android:text="我要评论" />
     </LinearLayout>
-    <TextView 
+
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:text="暂无数据"
-        android:textSize="18sp"
         android:layout_above="@id/detail_install"
         android:layout_below="@id/detail_layout4"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:paddingTop="5dp"
+        android:text="暂无数据"
+        android:textSize="18sp" />
+
     <ListView
-        android:visibility="gone"
         android:id="@+id/comment_listvist"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@id/detail_install"
-        android:layout_below="@id/detail_layout4" />
+        android:layout_below="@id/detail_layout4"
+        android:visibility="gone" />
+
 </RelativeLayout>

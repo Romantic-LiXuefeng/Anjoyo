@@ -39,13 +39,13 @@
             </intent-filter>
         </activity>
         <!-- 游戏详情 -->
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.GameDetailActivity" >
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.game_details.GameDetailActivity" >
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.CommentActivity" >
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.AboutActivity" >
         </activity>
-        <activity android:name="com.anjovo.gamedownloadcenter.activity.GameSpecialDetailActivity" >
+        <activity android:name="com.anjovo.gamedownloadcenter.activity.Special.GameSpecialDetailActivity" >
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.PeopleNearbyActivity" >
         </activity>

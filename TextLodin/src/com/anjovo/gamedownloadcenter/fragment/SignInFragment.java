@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
-import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
+import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
@@ -54,7 +54,7 @@ public class SignInFragment extends TitleFragmentBase {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		isLogin = IsUserNameLoginUtils.IsUserNameLogin(getActivity());
+		isLogin = UserNameLoginUtils.IsUserNameLogin(getActivity());
 		initView();
 	}
 
@@ -169,7 +169,7 @@ public class SignInFragment extends TitleFragmentBase {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (!IsUserNameLoginUtils.IsUserNameLogin(getActivity())) {
+		if (!UserNameLoginUtils.IsUserNameLogin(getActivity())) {
 			((MainActivity) getActivity())
 					.setTabSelection(((MainActivity) getActivity())
 							.getItemHome());

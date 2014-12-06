@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
-import com.anjovo.gamedownloadcenter.utils.IsUserNameLoginUtils;
+import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.textlodin.R;
 
 /**
@@ -49,7 +49,7 @@ public class MannergerFragment extends TitleFragmentBase {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(!IsUserNameLoginUtils.IsUserNameLogin(getActivity())){
+		if(!UserNameLoginUtils.IsUserNameLogin(getActivity())){
 			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
 		}
 	}
