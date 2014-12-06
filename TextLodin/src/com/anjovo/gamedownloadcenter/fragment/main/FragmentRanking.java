@@ -31,7 +31,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.squareup.picasso.Picasso;
 
 /**
- * @author Administrator 主页中排行页面 zz
+ * @author Administrator 主页中排行页面 aa
  */
 public class FragmentRanking extends Fragment {
 	@ViewInject(R.id.ranking_left)
