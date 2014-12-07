@@ -17,8 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.MainActivity;
+import com.anjovo.gamedownloadcenter.bean.UserNameMessageBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
+import com.anjovo.gamedownloadcenter.utils.AnalysisUserMessage;
 import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
@@ -68,7 +70,6 @@ public class SignInFragment extends TitleFragmentBase {
 		etLeaveMessage = (EditText) mContentView
 				.findViewById(R.id.et_leave_a_message);
 		btSignIn = (Button) mContentView.findViewById(R.id.bt_sign_in);
-		fillInView();
 
 		btSignIn.setOnClickListener(new OnClickListener() {
 
@@ -84,31 +85,16 @@ public class SignInFragment extends TitleFragmentBase {
 	private void fillInView() {
 		if (isLogin) {
 			tvOverView.setVisibility(View.GONE);
-			String string = SharedPreferencesUtil
-					.getSharedPreferencestStringUtil(getActivity(),
-							"UserNameMesage", Context.MODE_PRIVATE, "");
-			Log.d("vivi", string);
-			getUserMessage(string);
-
+			UserNameMessageBean bean = AnalysisUserMessage
+					.getUserMessageBean(getActivity());
+			tvUserName.setText(bean.getUsername());
+			Picasso.with(getActivity())
+					.load(Constant.HOSTNAME + bean.getUserpic())
+					.placeholder(R.drawable.apk).into(userPic);
 		} else {
 			tvOverView.setVisibility(View.VISIBLE);
 			btSignIn.setEnabled(false);
 			etLeaveMessage.setEnabled(false);
-		}
-	}
-
-	private void getUserMessage(String string) {
-		try {
-			JSONObject object = new JSONObject(string);
-			String username = object.getString("username");
-			userid = object.getString("userid");
-			String userpic = object.getString("userpic");
-			tvUserName.setText(username);
-			Picasso.with(getActivity()).load(Constant.HOSTNAME + userpic)
-					.placeholder(R.drawable.apk).into(userPic);
-			// TODO 获取用户详细信息
-		} catch (JSONException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -169,6 +155,7 @@ public class SignInFragment extends TitleFragmentBase {
 	@Override
 	public void onResume() {
 		super.onResume();
+		fillInView();
 		if (!UserNameLoginUtils.IsUserNameLogin(getActivity())) {
 			((MainActivity) getActivity())
 					.setTabSelection(((MainActivity) getActivity())
