@@ -1,6 +1,7 @@
 package com.anjovo.gamedownloadcenter.activity.game_details;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -10,21 +11,24 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anjovo.gamedownloadcenter.activity.AboutActivity;
-import com.anjovo.gamedownloadcenter.activity.CommentActivity;
 import com.anjovo.gamedownloadcenter.activity.base.TitleActivityBase;
 import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
-import com.anjovo.gamedownloadcenter.adapter.Special.GameDetailMorepicAdapter;
 import com.anjovo.gamedownloadcenter.constant.Constant;
+import com.anjovo.gamedownloadcenter.fragment.gamedetail.CommentFragment;
+import com.anjovo.gamedownloadcenter.fragment.gamedetail.CorrelationFragment;
+import com.anjovo.gamedownloadcenter.fragment.gamedetail.DetailFragment;
 import com.anjovo.gamedownloadcenter.utils.NetWorkInforUtils;
 import com.anjovo.gamedownloadcenter.utils.NetWorkInforUtils.OnNetWorkInforListener;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
@@ -60,39 +64,75 @@ public class GameDetailActivity extends TitleActivityBase{
 	private TextView mVersion;//下载次数
 	@ViewInject(R.id.Tv_newstime_activity_detail)
 	private TextView mNewstime;//更新日期
-	@ViewInject(R.id.flashsay_activity_detail)
-	private TextView mFlashsay;
 	@ViewInject(R.id.Rb_star_activity_detail)
 	private RatingBar mStar;//星星数
 	@ViewInject(R.id.detail_layout3)
-	private RadioGroup detail_layout;//星星数
-	@ViewInject(R.id.morepic_activity_detail)
-	private GridView mMorepic;//星星数
-	private List<String> mMorepics = new ArrayList<String>();
+	private RadioGroup detail_layout;//
+	@ViewInject(R.id.details)
+	private RadioButton details;//
+	
+	@ViewInject(R.id.frameLayout_activity_main)
+	FrameLayout layout_frame;
+	private List<Fragment> mFragments;
+	private List<HashMap<String, String>> mMorepics = new ArrayList<HashMap<String, String>>();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		ViewUtils.inject(this);
 		super.onCreate(savedInstanceState);
+		InitFragments();
+		details.setChecked(true);
 	}
 	
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		detail_layout.setClickable(true);
+	private void InitFragments() {
+		mFragments = new ArrayList<Fragment>();
+		mFragments.add(new DetailFragment());
+		mFragments.add(new CommentFragment());
+		mFragments.add(new CorrelationFragment());
 	}
+	
+	FragmentStatePagerAdapter mFragmentStatePagerAdapter = new FragmentStatePagerAdapter(
+			getSupportFragmentManager()) {
+
+		@Override
+		public int getCount() {
+			return mFragments.size();
+		}
+
+		@Override
+		public Fragment getItem(int arg0) {
+			return mFragments.get(arg0);
+		}
+	};
 	
 	@OnCheckedChange(R.id.detail_layout3)
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		int index = -1;
 		switch (checkedId) {
 		case R.id.details:
+			index = 0;
+			String id = getIntent().getStringExtra("id");
+			NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id, 0);
+			NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 			break;
 		case R.id.gamedetail_comment:
-			startActivity(new Intent(this,CommentActivity.class));
+			index = 1;
+//			startActivity(new Intent(this,CommentActivity.class));
 			break;
 		case R.id.gamedetail_about:
-			startActivity(new Intent(this,AboutActivity.class));
+			index = 2;
+//			startActivity(new Intent(this,AboutActivity.class));
 			break;
 		}
+		SettingFragment(index);
+	}
+
+	private void SettingFragment(int index) {
+		// 设置fragment适配器的一些参数
+		Fragment fragment = (Fragment) mFragmentStatePagerAdapter
+				.instantiateItem(layout_frame, index);
+		mFragmentStatePagerAdapter.setPrimaryItem(layout_frame, 0, fragment);
+		mFragmentStatePagerAdapter.finishUpdate(layout_frame);
 	}
 	
 	@OnClick({R.id.Bt_attention_activity_detail1})
@@ -159,9 +199,6 @@ public class GameDetailActivity extends TitleActivityBase{
 		setUpTitleBack();
 		setUpTitleCentreText("全面炸翻天");
 		setUpTitleRightImg(R.drawable.detail_share_selector);
-		String id = getIntent().getStringExtra("id");
-		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id, 0);
-		NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 	}
 
 	private boolean is = false;
@@ -180,17 +217,17 @@ public class GameDetailActivity extends TitleActivityBase{
 					mClassname.setText("分类:"+jsonObject.getString("classname"));
 					mVersion.setText("下载次数:"+jsonObject.getString("version")+"次");
 					mNewstime.setText("更新日期:"+jsonObject.getString("newstime"));
-					mFlashsay.setText(jsonObject.getString("flashsay"));
-					System.out.println(jsonObject.getString("star"));
 					mStar.setRating((float)Integer.parseInt(jsonObject.getString("star")));
 					mMorepics.clear();
 					JSONArray array = jsonObject.getJSONArray("morepic");
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject object = array.getJSONObject(i);
-						mMorepics.add(object.getString("pic"));
+						HashMap<String, String> hashMap = new HashMap<String, String>();
+						hashMap.put("flashsay", jsonObject.getString("flashsay"));
+						hashMap.put("pic", object.getString("pic"));
+						mMorepics.add(hashMap);
 					}
-					GameDetailMorepicAdapter adapter = new GameDetailMorepicAdapter(GameDetailActivity.this,mMorepics);
-					mMorepic.setAdapter(adapter);
+					((DetailFragment) mFragments.get(0)).setAdapter(mMorepics);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

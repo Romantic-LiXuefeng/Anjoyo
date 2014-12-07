@@ -1,5 +1,6 @@
 package com.anjovo.gamedownloadcenter.adapter.Special;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -18,15 +19,12 @@ import com.squareup.picasso.Picasso;
 public class GameDetailMorepicAdapter extends BaseAdapter{
 
 	private Context context;
-	private List<String> mMorepics;
+	private List<HashMap<String, String>> mMorepics;
 	private LayoutInflater from;
-	public GameDetailMorepicAdapter(Context context,List<String> mMorepics) {
-		this.context = context;
-		this.mMorepics = mMorepics;
-		from = LayoutInflater.from(context);
-		for (int i = 0; i < mMorepics.size(); i++) {
-			System.out.println(mMorepics.get(i));
-		}
+	public GameDetailMorepicAdapter(Context context1,List<HashMap<String, String>> mMorepics1) {
+		this.context = context1;
+		this.mMorepics = mMorepics1;
+		from = LayoutInflater.from(context1);
 	}
 
 	@Override
@@ -56,7 +54,7 @@ public class GameDetailMorepicAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		// 异步加载图片
-		Picasso.with(context).load(Constant.GAME_SPECIAL_URL+ mMorepics.get(position))
+		Picasso.with(context).load(Constant.GAME_SPECIAL_URL+ mMorepics.get(position).get("pic"))
 		.placeholder(R.drawable.zhuan_ti).into(holder.game_detail_morepic);
 		return convertView;
 	}
