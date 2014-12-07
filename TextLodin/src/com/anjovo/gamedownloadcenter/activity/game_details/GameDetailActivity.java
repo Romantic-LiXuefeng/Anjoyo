@@ -44,7 +44,7 @@ import com.squareup.picasso.Picasso;
 
 /**
  * @author Administrator
- * 游戏详情页面
+ * 游戏详情页面   
  */
 @ContentView(R.layout.activity_detail)
 public class GameDetailActivity extends TitleActivityBase{
