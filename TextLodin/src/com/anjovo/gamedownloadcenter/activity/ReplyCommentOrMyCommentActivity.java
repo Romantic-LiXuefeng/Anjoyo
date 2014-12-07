@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.bean.UserNameMessageBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.utils.AnalysisUserMessage;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -87,9 +89,12 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 		public void onClick(View v) {
 			if (v == btSubmit) {
 				String content = etComment.getText().toString();
+				UserNameMessageBean bean = AnalysisUserMessage
+						.getUserMessageBean(ReplyCommentOrMyCommentActivity.this);
 				new HttpUtils().send(HttpMethod.GET,
 						"http://www.gamept.cn/yx_reconment.php?id=" + gxid
-								+ "&uid=32&content=" + content + "&type=gxpic",
+								+ "&uid=" + bean.getUserid() + "&content="
+								+ content + "&type=gxpic",
 						new RequestCallBack<String>() {
 
 							@Override

@@ -2,9 +2,13 @@ package com.anjovo.gamedownloadcenter.constant;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 
 public class Constant {
+	/** 分享图片外部存储路径 **/
+	public static final String External_Storage_Paths = Environment
+			.getExternalStorageDirectory() + "/picture/";
 	// 主机名
 	public static final String HOSTNAME = "http://www.gamept.cn";
 	/** 登陆接口 http://www.gamept.cn/yx_login.php?email=?&password=? **/

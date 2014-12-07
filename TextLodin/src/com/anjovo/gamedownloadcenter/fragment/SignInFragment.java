@@ -87,6 +87,7 @@ public class SignInFragment extends TitleFragmentBase {
 			tvOverView.setVisibility(View.GONE);
 			UserNameMessageBean bean = AnalysisUserMessage
 					.getUserMessageBean(getActivity());
+			userid = bean.getUserid();
 			tvUserName.setText(bean.getUsername());
 			Picasso.with(getActivity())
 					.load(Constant.HOSTNAME + bean.getUserpic())
