@@ -8,11 +8,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
 
 public class SharePhotoActivity extends Activity {
@@ -103,13 +106,10 @@ public class SharePhotoActivity extends Activity {
 	// 调用系统相机拍照
 	private void takePhoto() {
 		picName = System.currentTimeMillis() + ".jpg";
-		dirFile = new File(Environment.getExternalStorageDirectory()
-				+ "/picture/", picName);
-		if (!dirFile.exists()) {
-			dirFile.mkdir();
-		}
+
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		Uri imageUri = Uri.fromFile(dirFile);
+		Uri imageUri = Uri.fromFile(new File(Constant.External_Storage_Paths,
+				picName));
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 		startActivityForResult(intent, 1);
 	}
@@ -117,19 +117,19 @@ public class SharePhotoActivity extends Activity {
 	/** 拍照图片的名字 **/
 	private String picName;
 	private ImageView ivBack;
-	private File dirFile;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 1:
-				Bitmap bitmap = BitmapFactory.decodeFile(Environment
-						.getExternalStorageDirectory() + "/picture/" + picName);
-
+				Bitmap bitmap = BitmapFactory
+						.decodeFile(Constant.External_Storage_Paths + picName);
+				Bitmap zoomBitmap = zoomBitmap(bitmap,
+						Constant.screenWidth * 4 / 5, Constant.screenHeight *2/ 5);
 				ivAddPic.setBackgroundColor(android.graphics.Color
 						.parseColor("#ffffff"));
-				ivAddPic.setImageBitmap(bitmap);
+				ivAddPic.setImageBitmap(zoomBitmap);
 				break;
 			case 101:
 				Uri uri = data.getData();
@@ -155,4 +155,17 @@ public class SharePhotoActivity extends Activity {
 			}
 		}
 	}
+
+	/** 缩放Bitmap图片 **/
+	public Bitmap zoomBitmap(Bitmap bitmap, int width, int height) {
+		int w = bitmap.getWidth();
+		int h = bitmap.getHeight();
+		Matrix matrix = new Matrix();
+		float scaleWidth = ((float) width / w);
+		float scaleHeight = ((float) height / h);
+		matrix.postScale(scaleWidth, scaleHeight);
+		Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+		return newbmp;
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.anjovo.gamedownloadcenter.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,7 +58,12 @@ public class PhotoShareFragment extends TitleFragmentBase {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
+		/** 创建分享图片存储文件夹 **/
+		File dirFile = new File(Constant.External_Storage_Paths);
+		if (!dirFile.exists()) {
+			dirFile.mkdir();
+			Log.d("vivi", "文件夹创建成功!!!!");
+		}
 		mListView = (XListView) mContentView
 				.findViewById(R.id.photoshare_listview);
 		mListView.setPullLoadEnable(true);// 可下拉加载
@@ -71,7 +78,7 @@ public class PhotoShareFragment extends TitleFragmentBase {
 		mListView.setAdapter(mAdapter);
 		getPhotoShareData(Const.PHOTOSHAREURL + page);
 		mListView.setOnItemClickListener(onItemClickListener);
-
+		// listview上下拉刷新
 		mListView.setXListViewListener(new IXListViewListener() {
 
 			@Override
@@ -117,8 +124,8 @@ public class PhotoShareFragment extends TitleFragmentBase {
 
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
-						Toast.makeText(getActivity(), "获取数据失败!请检查网络连接!", Toast.LENGTH_LONG)
-								.show();
+						Toast.makeText(getActivity(), "获取数据失败!请检查网络连接!",
+								Toast.LENGTH_LONG).show();
 					}
 
 					@Override
@@ -194,12 +201,14 @@ public class PhotoShareFragment extends TitleFragmentBase {
 			}
 		});
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(!UserNameLoginUtils.IsUserNameLogin(getActivity())){
-			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
+		if (!UserNameLoginUtils.IsUserNameLogin(getActivity())) {
+			((MainActivity) getActivity())
+					.setTabSelection(((MainActivity) getActivity())
+							.getItemHome());
 		}
 	}
 }

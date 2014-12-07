@@ -19,6 +19,7 @@ import com.anjovo.gamedownloadcenter.adapter.MyCommentListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareCommentBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
+import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -60,10 +61,6 @@ public class PhotoShareDetailActivity extends Activity {
 	private String gxpic;
 	private String time;
 	private PhotoShareBean bean;
-
-	private final static String ALBUM_PATH = Environment
-			.getExternalStorageDirectory() + "/picture/";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -110,6 +107,7 @@ public class PhotoShareDetailActivity extends Activity {
 					}
 				});
 	}
+
 	private void initView() {
 		ivBack = (ImageView) findViewById(R.id.common_title_bar_back_img);
 		ivBack.setVisibility(View.VISIBLE);
@@ -192,11 +190,12 @@ public class PhotoShareDetailActivity extends Activity {
 
 	// 保存照片
 	private void savePhoto(Bitmap bm, String fileName) {
-		File dirFile = new File(ALBUM_PATH);
+		File dirFile = new File(Constant.External_Storage_Paths);
 		if (!dirFile.exists()) {
 			dirFile.mkdir();
 		}
-		File myCaptureFile = new File(ALBUM_PATH + fileName);
+		File myCaptureFile = new File(Constant.External_Storage_Paths
+				+ fileName);
 		BufferedOutputStream bos;
 		try {
 			bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));

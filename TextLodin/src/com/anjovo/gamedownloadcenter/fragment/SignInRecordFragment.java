@@ -17,8 +17,10 @@ import android.widget.Toast;
 import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.adapter.MySignInRecordListViewAdapter;
 import com.anjovo.gamedownloadcenter.bean.SignInRecordBean;
+import com.anjovo.gamedownloadcenter.bean.UserNameMessageBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
+import com.anjovo.gamedownloadcenter.utils.AnalysisUserMessage;
 import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
@@ -28,8 +30,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 /**
- * @author Administrator
- * 签到记录
+ * @author Administrator 签到记录
  */
 public class SignInRecordFragment extends TitleFragmentBase {
 	private View rootView;
@@ -48,7 +49,6 @@ public class SignInRecordFragment extends TitleFragmentBase {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
 		mListView = (ListView) rootView
 				.findViewById(R.id.signinrecord_listview);
 		setAdapter();
@@ -58,11 +58,9 @@ public class SignInRecordFragment extends TitleFragmentBase {
 		mList = new ArrayList<SignInRecordBean>();
 		mAdapter = new MySignInRecordListViewAdapter(mList, getActivity());
 		mListView.setAdapter(mAdapter);
-		getSignInRecoed();
 	}
-
-	private void getSignInRecoed() {
-		new HttpUtils().send(HttpMethod.GET, Constant.SIGNINRECORD_URL,
+	private void getSignInRecoed(String id) {
+		new HttpUtils().send(HttpMethod.GET, Constant.SIGNINRECORD_URL + id,
 				new RequestCallBack<String>() {
 
 					@Override
@@ -130,8 +128,14 @@ public class SignInRecordFragment extends TitleFragmentBase {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(!UserNameLoginUtils.IsUserNameLogin(getActivity())){
-			((MainActivity) getActivity()).setTabSelection(((MainActivity) getActivity()).getItemHome());
+		UserNameMessageBean bean = AnalysisUserMessage
+				.getUserMessageBean(getActivity());
+		String userid = bean.getUserid();
+		getSignInRecoed(userid);
+		if (!UserNameLoginUtils.IsUserNameLogin(getActivity())) {
+			((MainActivity) getActivity())
+					.setTabSelection(((MainActivity) getActivity())
+							.getItemHome());
 		}
 	}
 }
