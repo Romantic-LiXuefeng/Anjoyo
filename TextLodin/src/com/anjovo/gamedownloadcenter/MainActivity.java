@@ -54,7 +54,7 @@ public class MainActivity extends DoubleClickFinishActivity implements
 	private ResideMenuItem itemMannerger;// 管理
 	private ResideMenuItem itemSetting;// 设置
 	public ResideMenuItem itemSignIn;// 签到
-	// TODO
+	/**显示签到fragment标记**/
 	public static int sign = 0;
 	private HomeFragment homeFragment;
 	private SignInRecordFragment signinreCordFragment;
@@ -155,7 +155,6 @@ public class MainActivity extends DoubleClickFinishActivity implements
 		} else if (v.getId() == R.id.settingIv_residemenu) {
 			setTabSelection(itemSetting);
 		} else if (v.getId() == R.id.sign_in_residemenu) {
-			// TODO
 			setTabSelection(itemSignIn);
 			if (!UserNameLoginUtils.IsUserNameLogin(this)) {
 				sign = 1;
@@ -168,9 +167,7 @@ public class MainActivity extends DoubleClickFinishActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
-		//TODO
 		if (sign == 1) {
-			Log.d("vivi", "显示签到");
 			setTabSelection(itemSignIn);
 		}
 	}
