@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.anjovo.gamedownloadcenter.activity.game_details.MyCommentActivity;
 import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
 import com.anjovo.gamedownloadcenter.adapter.game_details.GameSpecialCommentAdapter;
+import com.anjovo.gamedownloadcenter.adapter.game_details.GameSpecialCommentAdapter.OnCustomRelpyListener;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.FragmentBase;
 import com.anjovo.gamedownloadcenter.utils.NetWorkInforUtils;
@@ -133,7 +134,16 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 		}
 		GameSpecialCommentAdapter adapter = new GameSpecialCommentAdapter(getActivity(), mDatas);
 		mXlistview.setAdapter(adapter);
+		adapter.setOnCustomRelpyListener(onCustomRelpyListener);
 	}
+
+	private OnCustomRelpyListener onCustomRelpyListener = new OnCustomRelpyListener() {
+		
+		@Override
+		public void onCustomRelpy(String result, int position) {
+			loadDatas();
+		}
+	};
 
 	@Override
 	public void onRefresh() {
@@ -183,7 +193,6 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 		
 		@Override
 		public void onNetWorkInfor(String result, int position) {
-			System.out.println("result=="+result);
 			try {
 				JSONObject jsonObject = new JSONObject(result);
 				JSONArray jsonArray = jsonObject.getJSONArray("items");
@@ -197,6 +206,7 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 					map.put("userpic", object.getString("userpic"));
 					map.put("saytext", object.getString("saytext"));
 					map.put("nickname", object.getString("nickname"));
+					map.put("id", id);
 					mDatas.add(map);
 				}
 				setAdapter();
