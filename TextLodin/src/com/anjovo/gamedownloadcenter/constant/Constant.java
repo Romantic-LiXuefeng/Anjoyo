@@ -15,7 +15,6 @@ public class Constant {
 	public static final String LOGIN = HOSTNAME + "/yx_login.php?";
 	/**
 	 * http://www.gamept.cn/yx_register.php?email=?&password=?&nickname=?&phone=
-	 * ?
 	 **/
 	public static final String RESGISTER = HOSTNAME + "/yx_register.php?";
 	/** 向邮箱发送验证码 http://www.gamept.cn/yx_pd.php?email=1195063924@qq.com **/
@@ -27,10 +26,9 @@ public class Constant {
 	public static final String MODIFICATION_PASSWORD = "http://www.gamept.cn/yx_reset_pd.php?";
 	/**
 	 * 授权登录接口:http://www.gamept.cn/yx_oauth2_login.php?openid=?&nickname=?&type=
-	 * ?
 	 **/
 	public static final String AUTHORIZATION_LOGIN = "http://www.gamept.cn/yx_oauth2_login.php?";
-
+	
 	// 游戏专题的URL
 	public static final String GAME_SPECIAL_URL = "http://www.gamept.cn";
 	public static final String GAME_SPECIAL = GAME_SPECIAL_URL
@@ -42,6 +40,12 @@ public class Constant {
 			+ "/yx_addzt.php?";
 	/** 游戏详情接口：http://www.gamept.cn/detail.php?id=391&uid=163 **/
 	public static final String GAME_SPECIAL_DETAIL = "http://www.gamept.cn/detail.php?";
+	/** 游戏详情  相关页面接口：http://www.gamept.cn/yx_lanmu_recommend.php?id=62&uid=163&currentPage=1**/
+	public static final String GAME_SPECIAL_CORRELATION = "http://www.gamept.cn/yx_lanmu_recommend.php?";
+	/** 游戏详情  评论页面接口：http://www.gamept.cn/yx_conment.php?id=?&currentPage=?&type=game**/
+	public static final String GAME_SPECIAL_COMMENT = "http://www.gamept.cn/yx_conment.php?";
+	/** 游戏详情 我要评论接口：http://www.gamept.cn/yx_reconment.php?uid=?&content=?&type=game&id=?**/
+	public static final String GAME_SPECIAL_RECONMENT = "http://www.gamept.cn/yx_reconment.php?";
 
 	// 推荐界面
 	public static final String GAME_RECOMMEND = "http://www.gamept.cn/yx_recommend.php?currentPage=";

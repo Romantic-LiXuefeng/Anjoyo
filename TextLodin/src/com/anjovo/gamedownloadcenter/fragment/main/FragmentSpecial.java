@@ -43,9 +43,9 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 public class FragmentSpecial extends Fragment implements IXListViewListener{
 	@ViewInject(R.id.list_goods)
 	private XListView mList_goods;
-	private Handler mHandler;
 	private GameSpecialAdapter adapter;
 	private ArrayList<HashMap<String, String>> listData=new ArrayList<HashMap<String,String>>();
+	private Handler mHandler;
 	static int currentPage = 1;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

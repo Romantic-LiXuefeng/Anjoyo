@@ -1,12 +1,13 @@
 package com.anjovo.gamedownloadcenter.utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
 import com.anjovo.gamedownloadcenter.MainActivity;
-import com.anjovo.gamedownloadcenter.bean.UserNameMessageBean;
-import com.google.gson.Gson;
 
 public class UserNameLoginUtils {
 	/**
@@ -33,26 +34,30 @@ public class UserNameLoginUtils {
 	 *			用户名	username   3
 	 *	     	用户昵称	nickname   4
 	 *			用户图片	userpic    5
+	 * @throws JSONException 
 	 */
 	public static String[] GetLoginUserMessage(Context a){
 		String[] loginUserMessage = new String[6];
 		 String string = SharedPreferencesUtil.getSharedPreferencestStringUtil(a, "UserNameMesage", Context.MODE_PRIVATE,"");
-		 Gson gsone = new Gson();
-			UserNameMessageBean info = gsone.fromJson(string, UserNameMessageBean.class);
-		 	if(!TextUtils.isEmpty(info+"")){
-		 		//此方法类向以下方式获得用户信息
-		 		String userid = info.getUserid();// 用户Id 	userid
-		 		String code = info.getUserid();//错误   code
-		 		String message = info.getUserid(); //	  消息		message
-		 		String username = info.getUserid();// 用户名	username
-		 		String nickname = info.getUserid();// 用户昵称	nickname
-		 		String userpic = info.getUserid();//用户图片	userpic
-		 		loginUserMessage[0] = userid+"";
-		 		loginUserMessage[1] = code+"";
-		 		loginUserMessage[2] = message+"";
-		 		loginUserMessage[3] = username+"";
-		 		loginUserMessage[4] = nickname+"";
-		 		loginUserMessage[5] = userpic+"";
+		 	if(!TextUtils.isEmpty(string+"")){
+				try {
+					JSONObject object = new JSONObject(string);
+					//此方法类向以下方式获得用户信息
+			 		String userid = object.getString("userid");// 用户Id 	userid
+			 		String code = object.getString("code");//错误   code
+			 		String message = object.getString("message"); //	  消息		message
+			 		String username = object.getString("username");// 用户名	username
+			 		String nickname = object.getString("nickname");// 用户昵称	nickname
+			 		String userpic = object.getString("userpic");//用户图片	userpic
+			 		loginUserMessage[0] = userid+"";
+			 		loginUserMessage[1] = code+"";
+			 		loginUserMessage[2] = message+"";
+			 		loginUserMessage[3] = username+"";
+			 		loginUserMessage[4] = nickname+"";
+			 		loginUserMessage[5] = userpic+"";
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 		 	}
 			return loginUserMessage;
 	}

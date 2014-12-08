@@ -121,7 +121,6 @@ public class GameSpecialDetailActivity extends TitleActivityBase implements OnIt
 		@Override
 		public void onNetWorkInfor(String result,int position) {
 			if(position == 1){
-				is = true;
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					String code = jsonObject.getString("code");

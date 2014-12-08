@@ -57,7 +57,6 @@ public class GameSpecialDetailAdapter extends BaseAdapter{
 			holder=(ViewHolder) convertView.getTag();
 		}
 		holder.recommendTitle.setText(mSpecical.get(position).getItems().getTitle());
-		System.out.println(position+mSpecical.get(position).getItems().getTitle());
 		String loadDownNum = mSpecical.get(position).getItems().getVersion();
 		if(loadDownNum.equals("")){
 			holder.recommendNum.setText("0"+"次");

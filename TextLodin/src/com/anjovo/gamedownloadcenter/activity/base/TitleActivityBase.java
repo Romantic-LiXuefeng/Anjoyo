@@ -1,7 +1,7 @@
 package com.anjovo.gamedownloadcenter.activity.base;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -15,7 +15,7 @@ import com.anjovo.textlodin.R;
  * 其中的方法则可以让fragment页面展现不一样的标题
  *  
  */
-public abstract class TitleActivityBase extends Activity{
+public abstract class TitleActivityBase extends FragmentActivity{
 
 	private View mTitleBackBtn,mTitleBackRightBtn,mTitleMapSearchLin;
 	private ImageView mTitleRightImgIv,mTitleLeftImgIv,mTitleRightMapBtn,mTitleRightSearchBtn;

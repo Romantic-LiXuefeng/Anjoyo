@@ -1,18 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_white" >
+    android:background="@color/app_white"
+    android:orientation="vertical" >
 
     <include
         android:id="@+id/detail_layout"
         layout="@layout/common_title_bar" />
 
     <LinearLayout
-        android:id="@+id/detail_layout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_layout"
         android:layout_marginTop="5dp"
         android:orientation="horizontal" >
 
@@ -141,15 +139,13 @@
         android:id="@+id/detail_layout2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_layout1"
         android:scaleType="fitXY"
         android:src="@drawable/ic_detail_divider" />
 
     <RadioGroup
         android:id="@+id/detail_layout3"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/detail_layout2"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
@@ -162,7 +158,6 @@
             android:layout_weight="1"
             android:background="@drawable/detail_selector"
             android:button="@null"
-            android:checked="true"
             android:gravity="center"
             android:text="详情" />
 
@@ -191,74 +186,14 @@
         android:id="@+id/detail_layout4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_layout3"
         android:scaleType="fitXY"
         android:src="@drawable/ic_detail_divider" />
 
-    <LinearLayout
-        android:id="@+id/detail_install"
+    <FrameLayout
+        android:id="@+id/frameLayout_activity_main"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom"
-        android:gravity="center_vertical" >
+        android:layout_height="@dimen/custom_height0d"
+        android:layout_weight="1" >
+    </FrameLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/detail_install_selector"
-            android:text="安装" />
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scrollbars="@null"
-        android:layout_above="@id/detail_install"
-        android:layout_below="@id/detail_layout4" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="@null" >
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
-
-                    <GridView
-                        android:id="@+id/morepic_activity_detail"
-                        android:layout_width="488dp"
-                        android:layout_height="160dp"
-                        android:horizontalSpacing="4dp"
-                        android:numColumns="4"
-                        android:scrollbars="@null" />
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/flashsay_activity_detail"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="全面炸翻天将打造世界上最具有影响力的" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="20dp"
-                android:background="@drawable/detail_more_selector" />
-        </LinearLayout>
-    </ScrollView>
-
-</RelativeLayout>
+</LinearLayout>
