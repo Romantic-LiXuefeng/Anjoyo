@@ -55,6 +55,7 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 	private Button mInstall;
 	private Handler mHandler;
 	static int currentPage = 1;
+	@SuppressWarnings("unused")
 	private String classid;
 	private String id;
 	public void setId(String id) {
@@ -104,7 +105,8 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 	public void onResume() {
 		super.onResume();
 		getLoginUserMessage();
-		initView();
+		currentPage = 1;
+		loadDatas();
 	}
 	
 	private void getLoginUserMessage() {
@@ -174,7 +176,7 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 	
 	public void loadDatas() {
 		NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
-		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(getActivity(), HttpMethod.GET, Constant.GAME_SPECIAL_COMMENT+"id="+classid+"&currentPage="+currentPage+"&type=game", 0);
+		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(getActivity(), HttpMethod.GET, Constant.GAME_SPECIAL_COMMENT+"id="+id+"&currentPage="+currentPage+"&type=game", 0);
 	}
 
 	private OnNetWorkInforListener onNetWorkInforListener = new OnNetWorkInforListener() {

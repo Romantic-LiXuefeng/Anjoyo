@@ -1,5 +1,7 @@
 package com.anjovo.gamedownloadcenter.activity.game_details;
 
+import java.io.UnsupportedEncodingException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,7 +83,7 @@ public class MyCommentActivity extends TitleActivityBase {
 	}
 
 	@OnClick({R.id.I_want_to_comment})
-	public void OnClick(View v){
+	public void OnClick(View v) throws UnsupportedEncodingException{
 		loadMyComment();
 	}
 	
@@ -91,7 +93,8 @@ public class MyCommentActivity extends TitleActivityBase {
 		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id, 1);
 	}
 	
-	private void loadMyComment(){
+	private void loadMyComment() throws UnsupportedEncodingException{
+//		URLEncoder.encode(mContent.getText().toString(), "utf-8")
 		String[] userMessage = getIntent().getStringArrayExtra("UserMessage");
 		String id = getIntent().getStringExtra("id");
 		NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
