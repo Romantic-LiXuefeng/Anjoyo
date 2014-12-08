@@ -54,8 +54,8 @@ public class MainActivity extends DoubleClickFinishActivity implements
 	private ResideMenuItem itemMannerger;// 管理
 	private ResideMenuItem itemSetting;// 设置
 	public ResideMenuItem itemSignIn;// 签到
-	/**显示签到fragment标记**/
-	public static int sign = 0;
+	/** 显示签到fragment标记 **/
+	public int sign = 0;
 	private HomeFragment homeFragment;
 	private SignInRecordFragment signinreCordFragment;
 	private PersonalCenterFragment personalCenterFragment;
@@ -151,8 +151,10 @@ public class MainActivity extends DoubleClickFinishActivity implements
 	@Override
 	public void onChangeClick(View v) {
 		if (v.getId() == R.id.homeIv_residemenu) {
+			sign = 0;
 			setTabSelection(itemHome);// 已登录过 在这个方法里编写登陆成功后
 		} else if (v.getId() == R.id.settingIv_residemenu) {
+			sign = 0;
 			setTabSelection(itemSetting);
 		} else if (v.getId() == R.id.sign_in_residemenu) {
 			setTabSelection(itemSignIn);
@@ -182,16 +184,22 @@ public class MainActivity extends DoubleClickFinishActivity implements
 			UserNameLoginUtils.LoginFailure(this, LoginActivity.class);// 未登陆过
 		}
 		if (arg0 == itemPersonalCenter) {
+			sign = 0;
 			setTabSelection(itemPersonalCenter);// 已登录过 在这个方法里编写登陆成功后
 		} else if (arg0 == itemMessageCenter) {
+			sign = 0;
 			setTabSelection(itemMessageCenter);// 已登录过 在这个方法里编写登陆成功后
 		} else if (arg0 == itemSignInRecord) {
+			sign = 0;
 			setTabSelection(itemSignInRecord);// 已登录过 在这个方法里编写登陆成功后
 		} else if (arg0 == itemIntegral) {
+			sign = 0;
 			setTabSelection(itemIntegral);// 已登录过 在这个方法里编写登陆成功后
 		} else if (arg0 == itemPhotoShare) {
+			sign = 0;
 			setTabSelection(itemPhotoShare);// 已登录过 在这个方法里编写登陆成功后
 		} else if (arg0 == itemMannerger) {
+			sign = 0;
 			setTabSelection(itemMannerger);// 已登录过 在这个方法里编写登陆成功后
 		}
 		// else if (arg0 == itemSetting) {
