@@ -44,6 +44,8 @@ public class Constant {
 	public static final String GAME_SPECIAL_CORRELATION = "http://www.gamept.cn/yx_lanmu_recommend.php?";
 	/** 游戏详情  评论页面接口：http://www.gamept.cn/yx_conment.php?id=?&currentPage=?&type=game**/
 	public static final String GAME_SPECIAL_COMMENT = "http://www.gamept.cn/yx_conment.php?";
+	/** 游戏详情 我要评论接口：http://www.gamept.cn/yx_reconment.php?uid=?&content=?&type=game&id=?**/
+	public static final String GAME_SPECIAL_RECONMENT = "http://www.gamept.cn/yx_reconment.php?";
 
 	// 推荐界面
 	public static final String GAME_RECOMMEND = "http://www.gamept.cn/yx_recommend.php?currentPage=";

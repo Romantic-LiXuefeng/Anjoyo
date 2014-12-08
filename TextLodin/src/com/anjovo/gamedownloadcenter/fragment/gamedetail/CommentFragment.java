@@ -26,6 +26,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.anjovo.gamedownloadcenter.activity.game_details.MyCommentActivity;
 import com.anjovo.gamedownloadcenter.activity.loginResgister.LoginActivity;
 import com.anjovo.gamedownloadcenter.adapter.game_details.GameSpecialCommentAdapter;
 import com.anjovo.gamedownloadcenter.constant.Constant;
@@ -54,9 +55,14 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 	private Button mInstall;
 	private Handler mHandler;
 	static int currentPage = 1;
+	private String classid;
 	private String id;
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public void setClassId(String classid) {
+		this.classid = classid;
 	}
 
 	private List<HashMap<String, String>> mDatas = new ArrayList<HashMap<String, String>>();
@@ -87,6 +93,10 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 		}else{
 			//跳转到评论页面
 			String[] userMessage = UserNameLoginUtils.GetLoginUserMessage(getActivity());
+			Intent intent = new Intent(getActivity(), MyCommentActivity.class);
+			intent.putExtra("UserMessage", userMessage);
+			intent.putExtra("id", id);
+			startActivity(intent);
 		}
 	}
 	
@@ -94,6 +104,7 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 	public void onResume() {
 		super.onResume();
 		getLoginUserMessage();
+		initView();
 	}
 	
 	private void getLoginUserMessage() {
@@ -163,7 +174,7 @@ public class CommentFragment extends FragmentBase implements IXListViewListener{
 	
 	public void loadDatas() {
 		NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
-		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(getActivity(), HttpMethod.GET, Constant.GAME_SPECIAL_COMMENT+"id="+id+"&currentPage="+currentPage+"&type=game", 0);
+		NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(getActivity(), HttpMethod.GET, Constant.GAME_SPECIAL_COMMENT+"id="+classid+"&currentPage="+currentPage+"&type=game", 0);
 	}
 
 	private OnNetWorkInforListener onNetWorkInforListener = new OnNetWorkInforListener() {

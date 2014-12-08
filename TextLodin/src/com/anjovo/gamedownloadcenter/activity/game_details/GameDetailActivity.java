@@ -119,7 +119,8 @@ public class GameDetailActivity extends TitleActivityBase{
 			index = 1;
 			if(mMorepics.size() > 0){
 				System.out.println("classid==="+mMorepics.get(0).get("classid"));
-				((CommentFragment) mFragments.get(1)).setId(mMorepics.get(0).get("classid"));			
+				((CommentFragment) mFragments.get(1)).setClassId(mMorepics.get(0).get("classid"));			
+				((CommentFragment) mFragments.get(1)).setId(id);			
 				((CommentFragment) mFragments.get(1)).loadDatas();			
 			}
 			break;
