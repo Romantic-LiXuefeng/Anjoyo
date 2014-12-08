@@ -108,20 +108,24 @@ public class GameDetailActivity extends TitleActivityBase{
 	@OnCheckedChange(R.id.detail_layout3)
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		int index = -1;
+		String id = getIntent().getStringExtra("id");
+		NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 		switch (checkedId) {
 		case R.id.details:
 			index = 0;
-			String id = getIntent().getStringExtra("id");
 			NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id, 0);
-			NetWorkInforUtils.getInstance().setOnNetWorkInforListener(onNetWorkInforListener);
 			break;
 		case R.id.gamedetail_comment:
 			index = 1;
-//			startActivity(new Intent(this,CommentActivity.class));
+			NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id, 0);
 			break;
 		case R.id.gamedetail_about:
 			index = 2;
-//			startActivity(new Intent(this,AboutActivity.class));
+			if(mMorepics.size() > 0){
+				System.out.println("classid==="+mMorepics.get(0).get("classid"));
+				((CorrelationFragment) mFragments.get(2)).setId(mMorepics.get(0).get("classid"));			
+				((CorrelationFragment) mFragments.get(2)).loadDatas();			
+			}
 			break;
 		}
 		SettingFragment(index);
@@ -224,6 +228,7 @@ public class GameDetailActivity extends TitleActivityBase{
 						JSONObject object = array.getJSONObject(i);
 						HashMap<String, String> hashMap = new HashMap<String, String>();
 						hashMap.put("flashsay", jsonObject.getString("flashsay"));
+						hashMap.put("classid", jsonObject.getString("classid"));
 						hashMap.put("pic", object.getString("pic"));
 						mMorepics.add(hashMap);
 					}
