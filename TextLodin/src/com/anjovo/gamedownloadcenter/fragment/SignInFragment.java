@@ -56,7 +56,6 @@ public class SignInFragment extends TitleFragmentBase {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		isLogin = UserNameLoginUtils.IsUserNameLogin(getActivity());
 		initView();
 	}
 
@@ -75,7 +74,6 @@ public class SignInFragment extends TitleFragmentBase {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "点击了签到按钮!!!", 1).show();
 				String sayText = etLeaveMessage.getText().toString();
 				sendSignInMessage(sayText, userid);
 			}
@@ -84,6 +82,8 @@ public class SignInFragment extends TitleFragmentBase {
 
 	private void fillInView() {
 		if (isLogin) {
+			btSignIn.setEnabled(true);
+			etLeaveMessage.setEnabled(true);
 			tvOverView.setVisibility(View.GONE);
 			UserNameMessageBean bean = AnalysisUserMessage
 					.getUserMessageBean(getActivity());
@@ -156,6 +156,7 @@ public class SignInFragment extends TitleFragmentBase {
 	@Override
 	public void onResume() {
 		super.onResume();
+		isLogin = UserNameLoginUtils.IsUserNameLogin(getActivity());
 		fillInView();
 		if (!UserNameLoginUtils.IsUserNameLogin(getActivity())) {
 			((MainActivity) getActivity())
