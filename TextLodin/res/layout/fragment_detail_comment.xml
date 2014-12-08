@@ -4,29 +4,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="5dp"
-        android:text="暂无数据"
-        android:textSize="18sp" />
-
-    <ListView
-        android:id="@+id/comment_listvist"
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="visible" />
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/comment_textview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="8dp"
+            android:text="暂无数据"
+            android:visibility="gone"
+            android:textSize="18sp" />
+
+        <me.maxwin.view.XListView
+            android:id="@+id/comment_listvist"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+        </me.maxwin.view.XListView>
+    </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/detail_install"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom"
         android:gravity="center_vertical" >
 
         <Button
+            android:id="@+id/detail_install"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginBottom="5dp"

@@ -117,12 +117,15 @@ public class GameDetailActivity extends TitleActivityBase{
 			break;
 		case R.id.gamedetail_comment:
 			index = 1;
-			NetWorkInforUtils.getInstance().getNetWorkInforLoadDatas(this, HttpMethod.GET, Constant.GAME_SPECIAL_DETAIL+"id="+id, 0);
+			if(mMorepics.size() > 0){
+				System.out.println("classid==="+mMorepics.get(0).get("classid"));
+				((CommentFragment) mFragments.get(1)).setId(mMorepics.get(0).get("classid"));			
+				((CommentFragment) mFragments.get(1)).loadDatas();			
+			}
 			break;
 		case R.id.gamedetail_about:
 			index = 2;
 			if(mMorepics.size() > 0){
-				System.out.println("classid==="+mMorepics.get(0).get("classid"));
 				((CorrelationFragment) mFragments.get(2)).setId(mMorepics.get(0).get("classid"));			
 				((CorrelationFragment) mFragments.get(2)).loadDatas();			
 			}
@@ -154,15 +157,15 @@ public class GameDetailActivity extends TitleActivityBase{
 	}
 	
 	@Override
-		protected void onResume() {
-			super.onResume();
-			GetGameSpecialAttention();
-		}
+	protected void onResume() {
+		super.onResume();
+		GetGameSpecialAttention();
+	}
 	
 	private String ztid = "";
 	private void GetGameSpecialAttention() {
 		if(is){
-			is = !is; 
+			is = false; 
 			if(SharedPreferencesUtil.getSharedPreferencesBooleanUtil(this, "LogInSuccessfully", Context.MODE_PRIVATE, false)){
 				String[] userMessage = UserNameLoginUtils.GetLoginUserMessage(this);
 				String type = "";
@@ -237,7 +240,6 @@ public class GameDetailActivity extends TitleActivityBase{
 					e.printStackTrace();
 				}
 			}else if(position == 1){
-				is = true;
 				try {
 					JSONObject jsonObject = new JSONObject(result);
 					String code = jsonObject.getString("code");

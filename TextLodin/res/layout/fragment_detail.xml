@@ -65,7 +65,7 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/detail_install_selector"
-            android:text="安装" />
+            android:text="下载" />
     </LinearLayout>
 
 </LinearLayout>

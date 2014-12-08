@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import com.anjovo.gamedownloadcenter.adapter.Special.GameDetailMorepicAdapter;
+import com.anjovo.gamedownloadcenter.adapter.game_details.GameDetailMorepicAdapter;
 import com.anjovo.gamedownloadcenter.fragment.base.FragmentBase;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
+    android:padding="@dimen/custom_height10d" >
+
+    <ImageView
+        android:id="@+id/iv_recommend_head"
+        android:layout_width="@dimen/custom_height60d"
+        android:layout_height="@dimen/custom_height60d"
+        android:src="@drawable/head" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="6dp" >
+
+        <TextView
+            android:id="@+id/tv_paihang_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="纸上谈兵" />
+
+        <TextView
+            android:id="@+id/tv_comment_item_message1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_paihang_item_title"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end" 
+            android:singleLine="true"
+            android:text="回复好人恩"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_comment_item_reqi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="4dp"
+            android:text="2014-05-09" />
+
+        <ImageButton
+            android:id="@+id/tv_comment_item_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/selector_btn_reply" />
+    </LinearLayout>
+
+</LinearLayout>

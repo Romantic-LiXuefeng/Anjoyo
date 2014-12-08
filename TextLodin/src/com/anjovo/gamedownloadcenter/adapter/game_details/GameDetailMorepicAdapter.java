@@ -1,4 +1,4 @@
-package com.anjovo.gamedownloadcenter.adapter.Special;
+package com.anjovo.gamedownloadcenter.adapter.game_details;
 
 import java.util.HashMap;
 import java.util.List;
