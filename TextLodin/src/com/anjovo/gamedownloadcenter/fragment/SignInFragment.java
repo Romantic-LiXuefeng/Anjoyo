@@ -49,7 +49,7 @@ public class SignInFragment extends TitleFragmentBase {
 			Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.fragment_sign_in, container,
 				false);
-		ViewUtils.inject(this, mContentView);
+		
 		return mContentView;
 	}
 
@@ -158,7 +158,6 @@ public class SignInFragment extends TitleFragmentBase {
 		super.onResume();
 		isLogin = UserNameLoginUtils.IsUserNameLogin(getActivity());
 		fillInView();
-		
 		if (!UserNameLoginUtils.IsUserNameLogin(getActivity())) {
 			((MainActivity) getActivity())
 					.setTabSelection(((MainActivity) getActivity())

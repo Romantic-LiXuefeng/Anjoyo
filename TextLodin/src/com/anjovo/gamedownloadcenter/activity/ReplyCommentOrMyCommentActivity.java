@@ -1,5 +1,7 @@
 package com.anjovo.gamedownloadcenter.activity;
 
+import java.net.URLEncoder;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,7 +90,8 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			if (v == btSubmit) {
-				String content = etComment.getText().toString();
+				String content = URLEncoder.encode(etComment.getText()
+						.toString());
 				UserNameMessageBean bean = AnalysisUserMessage
 						.getUserMessageBean(ReplyCommentOrMyCommentActivity.this);
 				new HttpUtils().send(HttpMethod.GET,
