@@ -158,6 +158,7 @@ public class SignInFragment extends TitleFragmentBase {
 		super.onResume();
 		isLogin = UserNameLoginUtils.IsUserNameLogin(getActivity());
 		fillInView();
+		
 		if (!UserNameLoginUtils.IsUserNameLogin(getActivity())) {
 			((MainActivity) getActivity())
 					.setTabSelection(((MainActivity) getActivity())
