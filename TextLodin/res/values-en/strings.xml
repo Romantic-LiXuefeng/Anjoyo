@@ -5,7 +5,7 @@
   -->
 
 <resources>
-    <string name="app_name">ShareSDK</string>
+    <string name="app_name">菜鸟游戏</string>
 
     <string name="sm_item_demo">API</string>
     <string name="sm_item_auth">Authorize</string>
@@ -45,8 +45,8 @@
 	<string name="customer_tumblr">Get Post list of Tumblr users</string>
 	
 	<string name="not_yet_authorized">Not Authorized</string>
-	<string name="share_content">ShareSDK for Android not only integration social platforms, like Facebook, Twitter, Google+. But also Our strong professional backend support can easy to know the Users,Information Flow,Backflow, Backflow rate, Share Rate,etc. See more detail on website http://mob.com @ShareSDK</string>
-	<string name="share_content_short">ShareSDK for Android not only integration social platforms, like Facebook, Twitter, Google+. But also Our strong professional backend support can easy to know the Users,Information Flow,Backflow, Backflow rate, Share Rate,etc. See more detail on website http://mob.com @ShareSDK</string>
+	<string name="share_content">ShareSDK for Android not only integration social platforms, like Facebook, Twitter, Google+. But also Our strong professional backend support can easy to know the Users,Information Flow,Backflow, Backflow rate, Share Rate,etc. See more detail on website http://www.gamept.cn/</string>
+	<string name="share_content_short">ShareSDK for Android not only integration social platforms, like Facebook, Twitter, Google+. But also Our strong professional backend support can easy to know the Users,Information Flow,Backflow, Backflow rate, Share Rate,etc. See more detail on website http://www.gamept.cn/</string>
 	<string name="evenote_title">ShareSDK is a magical SDK</string>
 	
 	<string name="update">Share Text</string>

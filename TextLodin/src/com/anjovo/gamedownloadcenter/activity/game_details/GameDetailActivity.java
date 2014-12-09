@@ -104,10 +104,13 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 //		ShareSDK.registerPlatform(Laiwang.class);
 		ShareSDK.setConnTimeout(20000);
 		ShareSDK.setReadTimeout(20000);
-
+		
+		EVENOTE_TITLE = this.getString(R.string.evenote_title);
+		TITLEURL = "http://www.gamept.cn/";
+		SHARE_CONTENT = this.getString(R.string.share_content);
 		new Thread() {
 			public void run() {
-				TEST_IMAGE_URL = "http://f1.sharesdk.cn/imgs/2014/05/21/oESpJ78_533x800.jpg";
+				TEST_IMAGE_URL = "http://f1.sharesdk.cn/imgs/2014/05/21/oESpJ78_533x800.jpg";//分享内容中的图片
 				initImagePath();
 				initTestText();
 				UIHandler.sendEmptyMessageDelayed(1, 100, GameDetailActivity.this);
@@ -117,6 +120,15 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 		details.setChecked(true);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ShareSDK.stopSDK(this);
+	}
+	
+	/**
+	 * 文件上传 特别是头像图片等文件上传
+	 */
 	private void initImagePath() {
 		try {
 			String cachePath = cn.sharesdk.framework.utils.R.getCachePath(this, null);
@@ -124,7 +136,8 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 			File file = new File(TEST_IMAGE);
 			if (!file.exists()) {
 				file.createNewFile();
-				Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.pic);
+				Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);//分析中最左边的图片
+//				Bitmap pic = BitmapFactory.decodeResource(getResources(), R.drawable.pic);//分析中最左边的图片
 				FileOutputStream fos = new FileOutputStream(file);
 				pic.compress(CompressFormat.JPEG, 100, fos);
 				fos.flush();
@@ -152,7 +165,7 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 						if (plat != null) {
 							int snsplat = plat.optInt("snsplat", -1);
 							String cont = plat.optString("cont");
-							TEST_TEXT.put(snsplat, cont);
+							TEST_TEXT.put(snsplat, this.getString(R.string.share_content));
 						}
 					}
 				}
@@ -313,35 +326,41 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 			if (position == 0) {
 				try {
 					JSONObject jsonObject = new JSONObject(result);
-					Picasso.with(GameDetailActivity.this)
-							.load(Constant.GAME_SPECIAL_URL
-									+ jsonObject.getString("icon"))
-							.placeholder(R.drawable.head).into(mIcon);
+					Picasso.with(GameDetailActivity.this).load(Constant.GAME_SPECIAL_URL+ jsonObject.getString("icon"))
+					.placeholder(R.drawable.head).into(mIcon);
 					ztid = jsonObject.getString("id");
 					mTitle.setText(jsonObject.getString("title"));
 					mFilesize.setText("大小:" + jsonObject.getString("filesize"));
-					mVersionname.setText("版本:"
-							+ jsonObject.getString("versionname"));
-					mClassname.setText("分类:"
-							+ jsonObject.getString("classname"));
-					mVersion.setText("下载次数:" + jsonObject.getString("version")
-							+ "次");
-					mNewstime.setText("更新日期:"
-							+ jsonObject.getString("newstime"));
-					mStar.setRating((float) Integer.parseInt(jsonObject
-							.getString("star")));
+					mVersionname.setText("版本:"+ jsonObject.getString("versionname"));
+					mClassname.setText("分类:"+ jsonObject.getString("classname"));
+					mVersion.setText("下载次数:" + jsonObject.getString("version")+ "次");
+					mNewstime.setText("更新日期:"+ jsonObject.getString("newstime"));
+					mStar.setRating((float) Integer.parseInt(jsonObject.getString("star")));
 					mMorepics.clear();
 					JSONArray array = jsonObject.getJSONArray("morepic");
 					for (int i = 0; i < array.length(); i++) {
 						JSONObject object = array.getJSONObject(i);
 						HashMap<String, String> hashMap = new HashMap<String, String>();
-						hashMap.put("flashsay",
-								jsonObject.getString("flashsay"));
+						hashMap.put("flashsay",jsonObject.getString("flashsay"));
 						hashMap.put("classid", jsonObject.getString("classid"));
 						hashMap.put("pic", object.getString("pic"));
+						
+						hashMap.put("icon", Constant.GAME_SPECIAL_URL+ jsonObject.getString("icon"));
+						hashMap.put("id", jsonObject.getString("id"));
+						hashMap.put("title", jsonObject.getString("title"));
+						hashMap.put("filesize", jsonObject.getString("filesize"));
+						hashMap.put("versionname", jsonObject.getString("versionname"));
+						hashMap.put("classname", jsonObject.getString("classname"));
+						hashMap.put("version", jsonObject.getString("version"));
+						hashMap.put("newstime", jsonObject.getString("newstime"));
+						hashMap.put("star", jsonObject.getString("star"));
+						hashMap.put("flashurl", jsonObject.getString("flashurl"));
 						mMorepics.add(hashMap);
 					}
 					((DetailFragment) mFragments.get(0)).setAdapter(mMorepics);
+					if(mMorepics.size() > 0){
+						initShareContent();
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -371,7 +390,9 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 	};
 
 	private boolean shareFromQQLogin = false;
-
+	public static String EVENOTE_TITLE;
+	public static String TITLEURL;
+	public static String SHARE_CONTENT;
 	// 使用快捷分享完成分享（请务必仔细阅读位于SDK解压目录下Docs文件夹中OnekeyShare类的JavaDoc）
 	/**
 	 * ShareSDK集成方法有两种</br>
@@ -396,22 +417,22 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 				context.getString(R.string.app_name));
 		// oks.setAddress("12345678901");
 		oks.setTitle(CustomShareFieldsPage.getString("title",
-				context.getString(R.string.evenote_title)));
+				EVENOTE_TITLE));//设置分享标题
 		oks.setTitleUrl(CustomShareFieldsPage.getString("titleUrl",
-				"http://mob.com"));
+				TITLEURL));
 		String customText = CustomShareFieldsPage.getString("text", null);
 		if (customText != null) {
 			oks.setText(customText);
 		} else if (GameDetailActivity.TEST_TEXT != null
 				&& GameDetailActivity.TEST_TEXT.containsKey(0)) {
 			oks.setText(GameDetailActivity.TEST_TEXT.get(0));
-		} else {
-			oks.setText(context.getString(R.string.share_content));
+		} else { 
+			oks.setText(SHARE_CONTENT);//分享内容
 		}
 
 		if (captureView) {
 			oks.setViewToShare(LayoutInflater.from(this).inflate(
-					R.layout.page_demo, null));
+					R.layout.activity_detail, null));
 		} else {
 			oks.setImagePath(CustomShareFieldsPage.getString("imagePath",
 					GameDetailActivity.TEST_IMAGE));
@@ -420,7 +441,7 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 			oks.setImageArray(new String[] { GameDetailActivity.TEST_IMAGE,
 					GameDetailActivity.TEST_IMAGE_URL });
 		}
-		oks.setUrl(CustomShareFieldsPage.getString("url", "http://www.mob.com"));
+		oks.setUrl(CustomShareFieldsPage.getString("url", TITLEURL));//点击的连接
 		oks.setFilePath(CustomShareFieldsPage.getString("filePath",
 				GameDetailActivity.TEST_IMAGE));
 		oks.setComment(CustomShareFieldsPage.getString("comment",
@@ -428,7 +449,7 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 		oks.setSite(CustomShareFieldsPage.getString("site",
 				context.getString(R.string.app_name)));
 		oks.setSiteUrl(CustomShareFieldsPage.getString("siteUrl",
-				"http://mob.com"));
+				TITLEURL));
 		oks.setVenueName(CustomShareFieldsPage.getString("venueName",
 				"ShareSDK"));
 		oks.setVenueDescription(CustomShareFieldsPage.getString(
@@ -481,49 +502,26 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 
 		// 为EditPage设置一个背景的View
 		oks.setEditPageBackground(LayoutInflater.from(this).inflate(
-				R.layout.page_demo, null));
+				R.layout.activity_detail, null));
 
 		// 设置kakaoTalk分享链接时，点击分享信息时，如果应用不存在，跳转到应用的下载地址
-		oks.setInstallUrl("http://www.mob.com");
+		oks.setInstallUrl("http://www.gamept.cn/");
 		// 设置kakaoTalk分享链接时，点击分享信息时，如果应用存在，打开相应的app
 		oks.setExecuteUrl("kakaoTalkTest://starActivity");
 
 		oks.show(context);
 	}
 
-	private void showShare() {
-		ShareSDK.initSDK(this);
-		OnekeyShare oks = new OnekeyShare();
-		// 关闭sso授权
-		oks.disableSSOWhenAuthorize();
-
-		// 分享时Notification的图标和文字
-		oks.setNotification(R.drawable.ic_launcher,
-				getString(R.string.app_name));
-		// title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-		oks.setTitle(getString(R.string.share));
-		// titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-		oks.setTitleUrl("http://sharesdk.cn");
-		// text是分享文本，所有平台都需要这个字段
-		oks.setText("我是分享文本");
-		// imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-		oks.setImagePath("/sdcard/test.jpg");// 确保SDcard下面存在此张图片
-		// url仅在微信（包括好友和朋友圈）中使用
-		oks.setUrl("http://sharesdk.cn");
-		// comment是我对这条分享的评论，仅在人人网和QQ空间使用
-		oks.setComment("我是测试评论文本");
-		// site是分享此内容的网站名称，仅在QQ空间使用
-		oks.setSite(getString(R.string.app_name));
-		// siteUrl是分享此内容的网站地址，仅在QQ空间使用
-		oks.setSiteUrl("http://sharesdk.cn");
-
-		// 启动分享GUI
-		oks.show(this);
+	protected void initShareContent() {
+		TEST_IMAGE_URL = mMorepics.get(0).get("icon");//分享内容中的图片
+		TEST_TEXT.put(0, mMorepics.get(0).get("flashsay"));
+		EVENOTE_TITLE = mMorepics.get(0).get("title");
+		TITLEURL = Constant.HOSTNAME+mMorepics.get(0).get("flashurl");
+		SHARE_CONTENT = mMorepics.get(0).get("flashsay");
 	}
 
 	@Override
 	public boolean handleMessage(Message msg) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
