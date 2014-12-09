@@ -31,8 +31,6 @@
 			Twitter        https://dev.twitter.com
 			人人网          http://dev.renren.com
 			开心网          http://open.kaixin001.com
-			搜狐微博        http://open.t.sohu.com
-			网易微博        http://open.t.163.com
 			豆瓣           http://developers.douban.com
 			
 			有道云笔记      http://note.youdao.com/open/developguide.html#app
@@ -53,7 +51,7 @@
     -->
     
     <ShareSDK 
-        AppKey = "3e61e4c24a59"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+        AppKey = "androidv1101"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
     
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <SinaWeibo
@@ -62,6 +60,7 @@
         AppKey="568898243"
         AppSecret="38a4f8204cc784f81f9f0daaf31e02e3"
         RedirectUrl="http://www.sharesdk.cn"
+        ShareByAppClient="false"
         Enable="true" />
 
     <TencentWeibo
@@ -78,6 +77,7 @@
         SortId="3"
         AppId="100371282"
         AppKey="aed9b0303e3ed1e27bae87c33761161d"
+        ShareByAppClient="true"
         Enable="true" />
     
     <!-- 
@@ -105,7 +105,7 @@
         SortId="5"
         AppId="wx4868b35061f87885"
         AppSecret="64020361b8ec4c99936c0e3999a9f249"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
@@ -129,6 +129,7 @@
         SortId="8"
         ConsumerKey="107704292745179"
         ConsumerSecret="38053202e1a5fe26c80c753071f0b573"
+        RedirectUrl="http://mob.com"
         Enable="true" />
 
     <Twitter
@@ -163,23 +164,6 @@
     <ShortMessage
         Id="13" 
         SortId="13"
-        Enable="true" />
-    
-    <SohuMicroBlog
-        Id="14"
-        SortId="14"
-        ApiKey="q70QBQM9T0COxzYpGLj9"
-        ConsumerKey="q70QBQM9T0COxzYpGLj9"
-        ConsumerSecret="XXYrx%QXbS!uA^m2$8TaD4T1HQoRPUH0gaG2BgBd"
-        CallbackUrl="http://www.sharesdk.cn"
-        Enable="true" />
-	
-    <NetEaseMicroBlog
-        Id="15"
-        SortId="15"
-        ConsumerKey="T5EI7BXe13vfyDuy"
-        ConsumerSecret="gZxwyNOvjFYpxwwlnuizHRRtBRZ2lV1j"
-        RedirectUri="http://www.shareSDK.cn"
         Enable="true" />
     
     <Douban
@@ -343,4 +327,31 @@
         Id="35"
         SortId="35"
         Enable="true" />
+    
+    <Bluetooth
+        Id="36"
+        SortId="36"
+        Enable="true" />
+
+    <Pocket
+        Id="37"
+        SortId="37"
+        ConsumerKey="32741-389c565043c49947ba7edf05"
+        Enable="true" />
+    
+    <Instapaper
+        Id="38"
+        SortId="38"
+        ConsumerKey="4rDJORmcOcSAZL1YpqGHRI605xUvrLbOhkJ07yO0wWrYrc61FA"
+        ConsumerSecret="GNr1GespOQbrm8nvd7rlUsyRQsIo3boIbMguAl9gfpdL0aKZWe"
+        Enable="true" />
+    
+    <FacebookMessenger
+        Id="39"
+        SortId="39"
+        ConsumerKey="107704292745179"
+        ConsumerSecret="38053202e1a5fe26c80c753071f0b573"
+        RedirectUrl="http://mob.com"
+        Enable="true" />
+    
 </DevInfor>
