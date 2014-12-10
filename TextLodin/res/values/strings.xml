@@ -90,8 +90,8 @@
     <string name="customer_suishenkan">获取搜狐随身看书签列表</string>
     <string name="customer_tumblr">获取Tumblr用户Post列表</string>
     <string name="not_yet_authorized">尚未授权</string>
-    <string name="share_content">菜鸟游戏平台，有强大的统计分析管理后台，实时了解用户、信息流、回流率、传播效应等数据，详情见官网http://www.gamept.cn/</string>
-    <string name="share_content_short">菜鸟游戏平台，有强大的统计分析管理后台，实时了解用户、信息流、回流率、传播效应等数据，详情见官网http://www.gamept.cn/</string>
+    <string name="share_content">菜鸟官网http://www.gamept.cn/游戏平台，有强大的统计分析管理后台，实时了解用户、信息流、回流率、传播效应等数据.</string>
+    <string name="share_content_short">菜鸟官网http://www.gamept.cn/游戏平台，有强大的统计分析管理后台，实时了解用户、信息流、回流率、传播效应等数据.</string>
     <string name="evenote_title">菜鸟游戏</string>
     <string name="update">文字分享</string>
     <string name="image_upload">图片分享（本地图片）</string>

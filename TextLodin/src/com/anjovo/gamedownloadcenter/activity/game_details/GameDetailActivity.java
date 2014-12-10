@@ -2,6 +2,8 @@ package com.anjovo.gamedownloadcenter.activity.game_details;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -514,9 +516,29 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 
 	protected void initShareContent() {
 		TEST_IMAGE_URL = mMorepics.get(0).get("icon");//分享内容中的图片
-		TEST_TEXT.put(0, mMorepics.get(0).get("flashsay"));
+		TEST_TEXT.put(0, "菜鸟官网 http://www.gamept.cn/"+mMorepics.get(0).get("flashsay"));
 		EVENOTE_TITLE = mMorepics.get(0).get("title");
-		TITLEURL = Constant.HOSTNAME+mMorepics.get(0).get("flashurl");
+		String s = Constant.HOSTNAME+mMorepics.get(0).get("flashurl");
+		int lastIndexOf = s.lastIndexOf("/");
+		int indexOf = s.lastIndexOf(".");
+		System.out.println("TITLEURL" + s);
+		if (lastIndexOf != -1 && indexOf != -1) {
+			try {
+				String substringUrl = s.substring(0, lastIndexOf + 1);// Url前段
+				System.out.println("TITLEURL  substringUrl" + substringUrl);
+				System.out.println("TITLEURL substring XXX" + s.substring(lastIndexOf, indexOf));
+				String substringUrl1 = URLEncoder.encode(s.substring(lastIndexOf, indexOf), "utf-8");
+				String substringUrl2 = substringUrl1.substring(3, substringUrl1.length());
+				System.out.println("TITLEURL  substringUrl2" + substringUrl2);
+				String substringUrl3 = s.substring(indexOf, s.length());// Url后段
+				System.out.println("TITLEURL  substringUrl3" + substringUrl3);
+				// TITLEURL = Constant.HOSTNAME+mMorepics.get(0).get("flashurl");
+				TITLEURL = substringUrl + substringUrl2 + substringUrl3;
+				System.out.println("TITLEURL" + TITLEURL);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}// 需要转换的字符串
+		}
 		SHARE_CONTENT = mMorepics.get(0).get("flashsay");
 	}
 

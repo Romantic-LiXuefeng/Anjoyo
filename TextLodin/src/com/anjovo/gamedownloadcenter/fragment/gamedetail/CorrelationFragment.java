@@ -118,6 +118,7 @@ public class CorrelationFragment extends FragmentBase implements IXListViewListe
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+			getActivity().finish();
 			Intent intent=new Intent(getActivity(),GameDetailActivity.class);
 			intent.putExtra("id", mSpecicals.get(position-1).getItems().getId());
 			startActivity(intent);
@@ -133,11 +134,9 @@ public class CorrelationFragment extends FragmentBase implements IXListViewListe
 		
 		@Override
 		public void onNetWorkInfor(String result, int position) {
-			System.out.println("result=="+result);
 			try {
 				JSONObject jsonObject = new JSONObject(result);
 				JSONArray jsonArray = jsonObject.getJSONArray("items");
-				System.out.println("items=="+jsonArray);
 				for (int i = 0; i < jsonArray.length(); i++) {
 					SpecicalParticularsItemsBean items = new SpecicalParticularsItemsBean();
 					JSONObject object = jsonArray.getJSONObject(i);
