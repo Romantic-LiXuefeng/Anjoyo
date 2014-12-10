@@ -69,6 +69,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <service android:name="android.service.dreams.DreamService"></service>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.CommentActivity" >
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.AboutActivity" >
