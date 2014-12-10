@@ -46,22 +46,33 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 
 	private void getIntentExtraData() {
 		Intent intent = getIntent();
-		String hintstr = intent.getStringExtra("hintstr");
 		String userpic = intent.getStringExtra("userpic");
 		String nickname = intent.getStringExtra("nickname");
 		String title = intent.getStringExtra("title");
 		String gxpic = intent.getStringExtra("gxpic");
 		String time = intent.getStringExtra("time");
-		String id = intent.getStringExtra("userid");
+		id = intent.getStringExtra("userid");
 		gxid = intent.getStringExtra("gxid");
-		Log.d("vivi", "" + gxid);
-		etComment.setHint(hintstr);
+
+		/** 1代表评论,0代表回复 **/
+		int state = intent.getIntExtra("replycommentorcommentstate", 2);
+		if (state == 1) {
+			/** 评论 **/
+			etComment.setHint("请填写你要评论的内容");
+			Log.d("vivi", "评论");
+		} else if (state == 0) {
+			/** 回复 **/
+			Log.d("vivi", "回复");
+			String plid = intent.getStringExtra("plid");
+			String name = intent.getStringExtra("name");
+			etComment.setHint("回复" + name + ":");
+			classid = plid;
+		}
 		tvTime.setText(time);
 		tvNickName.setText(nickname);
 		tvContent.setText(title);
 		Picasso.with(this).load(Const.HOSTNAME + userpic)
 				.placeholder(R.drawable.ic_launcher).into(ivUserPic);
-
 		Picasso.with(this).load(Const.HOSTNAME + gxpic)
 				.placeholder(R.drawable.default_pic).into(ivGxpic);
 	}
@@ -85,11 +96,13 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 		tvContent = (TextView) findViewById(R.id.tv_title);
 	}
 
+	private String classid = "";
 	private OnClickListener onClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			if (v == btSubmit) {
+				@SuppressWarnings("deprecation")
 				String content = URLEncoder.encode(etComment.getText()
 						.toString());
 				UserNameMessageBean bean = AnalysisUserMessage
@@ -97,8 +110,8 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 				new HttpUtils().send(HttpMethod.GET,
 						"http://www.gamept.cn/yx_reconment.php?id=" + gxid
 								+ "&uid=" + bean.getUserid() + "&content="
-								+ content + "&type=gxpic",
-						new RequestCallBack<String>() {
+								+ content + "&type=gxpic" + "&classid="
+								+ classid, new RequestCallBack<String>() {
 
 							@Override
 							public void onFailure(HttpException arg0,
@@ -118,6 +131,7 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 												ReplyCommentOrMyCommentActivity.this,
 												"评论成功!", 1).show();
 									}
+									finish();
 								} catch (JSONException e) {
 									e.printStackTrace();
 								}
@@ -131,4 +145,5 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 	private Button btSubmit;
 	private ImageView ivBack;
 	private String gxid;
+	private String id;
 }

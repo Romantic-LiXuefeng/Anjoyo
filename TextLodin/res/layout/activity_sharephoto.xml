@@ -36,7 +36,8 @@
             android:background="@drawable/edittext_bg"
             android:gravity="top|left"
             android:hint="@string/sharephoto_content"
-            android:maxLines="5" />
+            android:maxLines="5"
+            android:padding="@dimen/custom_height8d" />
 
         <Button
             android:id="@+id/I_want_to_comment"

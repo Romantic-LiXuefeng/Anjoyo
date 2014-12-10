@@ -25,11 +25,12 @@ public class PhotoShareCommentBean {
 	}
 
 	public PhotoShareCommentBean(String saytime, String userpic,
-			String nickname, String saytext) {
+			String nickname, String saytext, String plid) {
 		this.nickname = nickname;
 		this.saytext = saytext;
 		this.saytime = saytime;
 		this.userpic = userpic;
+		this.plid = plid;
 	}
 
 	public String getClassid() {

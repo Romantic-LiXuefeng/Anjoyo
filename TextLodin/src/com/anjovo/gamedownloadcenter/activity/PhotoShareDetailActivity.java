@@ -33,6 +33,7 @@ import com.anjovo.gamedownloadcenter.bean.PhotoShareBean;
 import com.anjovo.gamedownloadcenter.bean.PhotoShareCommentBean;
 import com.anjovo.gamedownloadcenter.constant.Const;
 import com.anjovo.gamedownloadcenter.constant.Constant;
+import com.anjovo.gamedownloadcenter.utils.StorageStateUntil;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -59,6 +60,7 @@ public class PhotoShareDetailActivity extends Activity {
 	private String gxpic;
 	private String time;
 	private PhotoShareBean bean;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,8 +96,11 @@ public class PhotoShareDetailActivity extends Activity {
 								String nickname = Object
 										.getString(Const.PHOTOSHARE_nickname);
 								String saytext = Object.getString("saytext");
+
+								String plid = Object.getString("plid");
 								PhotoShareCommentBean bean = new PhotoShareCommentBean(
-										saytime, userpic, nickname, saytext);
+										saytime, userpic, nickname, saytext,
+										plid);
 								mList.add(bean);
 								mAdapter.notifyDataSetChanged();
 							}
@@ -121,7 +126,8 @@ public class PhotoShareDetailActivity extends Activity {
 			public void onClick(View v) {
 				new Thread(connectNet).start();
 				new Thread(saveFileRunnable).start();
-				Toast.makeText(PhotoShareDetailActivity.this, "保存照片", 1).show();
+				Toast.makeText(PhotoShareDetailActivity.this, "保存成功!", 1)
+						.show();
 			}
 		});
 		btMyComment = (Button) findViewById(R.id.I_want_to_comment);
@@ -170,7 +176,6 @@ public class PhotoShareDetailActivity extends Activity {
 			if (v == btMyComment) {
 				Intent intent = new Intent(PhotoShareDetailActivity.this,
 						ReplyCommentOrMyCommentActivity.class);
-				intent.putExtra("hintstr", "请输入评论内容");
 				intent.putExtra("userpic", userpic);
 				intent.putExtra("nickname", nickname);
 				intent.putExtra("title", title);
@@ -178,6 +183,7 @@ public class PhotoShareDetailActivity extends Activity {
 				intent.putExtra("time", time);
 				intent.putExtra("userid", userid);
 				intent.putExtra("gxid", gxid);
+				intent.putExtra("replycommentorcommentstate", 1);
 				startActivity(intent);
 				finish();
 			} else if (v == ivBack) {
@@ -239,13 +245,22 @@ public class PhotoShareDetailActivity extends Activity {
 			try {
 				// 暂停3秒等待图片下载完成
 				Thread.sleep(3000);
-				savePhoto(mBitmap, mFileName);
+
+				int storageState = StorageStateUntil.getStorageState();
+				if (storageState == 1) {
+					savePhoto(mBitmap, mFileName);
+				} else if (storageState == 2) {
+					Toast.makeText(PhotoShareDetailActivity.this,
+							"当前外部存储设备只可以读!!!", 1).show();
+				} else if (storageState == 0) {
+					Toast.makeText(PhotoShareDetailActivity.this,
+							"当前外部存储设备不可用!!!", 1).show();
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	};
-
 	private ImageView ivBack;
 	private String gxid;
 }

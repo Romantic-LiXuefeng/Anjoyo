@@ -3,6 +3,7 @@ package com.anjovo.gamedownloadcenter.adapter;
 import java.util.List;
 
 import com.anjovo.gamedownloadcenter.bean.SignInRecordBean;
+import com.anjovo.gamedownloadcenter.utils.AnalysisUserMessage;
 import com.anjovo.textlodin.R;
 
 import android.content.Context;
@@ -15,12 +16,15 @@ import android.widget.TextView;
 public class MySignInRecordListViewAdapter extends BaseAdapter {
 	private List<SignInRecordBean> mList;
 	private Context context;
+	private String username;
 
 	public MySignInRecordListViewAdapter(List<SignInRecordBean> mList,
 			Context context) {
 		super();
 		this.mList = mList;
 		this.context = context;
+		username = AnalysisUserMessage.getUserMessageBean(context)
+				.getUsername();
 	}
 
 	@Override
@@ -47,7 +51,7 @@ public class MySignInRecordListViewAdapter extends BaseAdapter {
 				.findViewById(R.id.signinrecord_username);
 		SignInRecordBean bean = mList.get(arg0);
 		tvData.setText(bean.getData());
-		tvUserName.setText(bean.getUserName());
+		tvUserName.setText(username + "今天已签到并获得1分积分!");
 		return arg1;
 	}
 }
