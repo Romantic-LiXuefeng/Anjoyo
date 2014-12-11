@@ -22,6 +22,7 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 				+ ColumnsDownload.FILE_SIZE +" integer,"
 				+ ColumnsDownload.HAVE_READ + " integer default 0,"
 				+ ColumnsDownload.STATE + " integer default 0,"
+				+ ColumnsDownload.DATE_ADD + " long,"
 				+ ColumnsDownload.DATE_MODIFIED + " long)");
 	}
 
@@ -42,5 +43,6 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 		int STATE_DOWNLOAD_UNCOMPLETE = 0;
 		int STATE_DOWNLOAD_COMPLETE = 1;
 		String DATE_MODIFIED = "date_modified";
+		String DATE_ADD = "date_add";
 	}
 }

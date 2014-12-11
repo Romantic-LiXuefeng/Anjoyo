@@ -4,9 +4,11 @@
     <issue id="DefaultLocale" severity="ignore" />
     <issue id="ExportedReceiver" severity="ignore" />
     <issue id="ExportedService" severity="ignore" />
+    <issue id="HandlerLeak" severity="ignore" />
     <issue id="HardcodedDebugMode" severity="ignore" />
     <issue id="HardcodedText" severity="ignore" />
     <issue id="InefficientWeight" severity="ignore" />
+    <issue id="InnerclassSeparator" severity="ignore" />
     <issue id="NestedScrolling" severity="ignore" />
     <issue id="OldTargetApi" severity="ignore" />
     <issue id="ResourceAsColor" severity="ignore" />

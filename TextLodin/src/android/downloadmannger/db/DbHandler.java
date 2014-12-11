@@ -1,11 +1,14 @@
 package android.downloadmannger.db;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.downloadmannger.model.DownloadEntity;
 
 public class DbHandler extends DbOpenHelper{
 
@@ -104,6 +107,59 @@ public class DbHandler extends DbOpenHelper{
 		String whereClause = ColumnsDownload.URL + "=?";
 		String[] whereArgs = {urlStr};
 		dbWrite.update(ColumnsDownload.TABLE_NAME, values, whereClause, whereArgs);
+	}
+
+	/**
+	 * 从数据库获取所有的下载任务，包括已经下载完成的
+	 * @return
+	 */
+	public List<DownloadEntity> getDownloadEntitys() {
+		List<DownloadEntity> downloadEntitys = new ArrayList<DownloadEntity>();
+		Cursor cursor = dbRead.query(ColumnsDownload.TABLE_NAME, null, null, null, null, null, ColumnsDownload.STATE + "," + ColumnsDownload.DATE_ADD);
+		while(cursor.moveToNext()){
+			String title = cursor.getString(cursor.getColumnIndex(ColumnsDownload.FILE_NAME));
+			String url = cursor.getString(cursor.getColumnIndex(ColumnsDownload.URL));
+			int fileSize = cursor.getInt(cursor.getColumnIndex(ColumnsDownload.FILE_SIZE));
+			int haveReadSize = cursor.getInt(cursor.getColumnIndex(ColumnsDownload.HAVE_READ));
+			int state = cursor.getInt(cursor.getColumnIndex(ColumnsDownload.STATE));
+			long dateAdd = cursor.getLong(cursor.getColumnIndex(ColumnsDownload.DATE_ADD));
+			String filePath = cursor.getString(cursor.getColumnIndex(ColumnsDownload.FILE_PATH));
+			downloadEntitys.add(new DownloadEntity(title, url, state, fileSize, haveReadSize, filePath, dateAdd));
+		}
+		return downloadEntitys;
+	}
+
+	/**
+	 * 将某个下载任务标志为 "下载完成"
+	 * @param urlStr
+	 */
+	public void updateDownloadComplete(String urlStr) {
+		ContentValues values = new ContentValues();
+		values.put(ColumnsDownload.STATE, ColumnsDownload.STATE_DOWNLOAD_COMPLETE);
+		String whereClause = ColumnsDownload.URL + "=?";
+		String[] whereArgs = {urlStr};
+		dbWrite.update(ColumnsDownload.TABLE_NAME, values , whereClause, whereArgs);
+	}
+
+	/**
+	 * 查询某个任务是否下载完成
+	 * @param urlStr
+	 * @return
+	 */
+	public boolean isComplete(String urlStr) {
+		String[] columns = {ColumnsDownload.URL,ColumnsDownload.STATE};
+		String selection = ColumnsDownload.URL + "=?";
+		String[] selectionArgs = {urlStr};
+		Cursor cursor = dbRead.query(ColumnsDownload.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
+		if(cursor.moveToNext()){
+			int state = cursor.getInt(cursor.getColumnIndex(ColumnsDownload.STATE));
+			if(state == ColumnsDownload.STATE_DOWNLOAD_COMPLETE){
+				cursor.close();
+				return true;
+			}
+		}
+		cursor.close();
+		return false;
 	}
 	
 	

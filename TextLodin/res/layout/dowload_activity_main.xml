@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	<RelativeLayout 
+	    android:id="@+id/title"
+	    android:layout_width="match_parent"
+	    android:layout_height="50dp"
+	    android:background="#009ACD"
+	    android:paddingTop="8dp"
+	    android:paddingBottom="8dp"
+	    android:paddingRight="5dp"
+	    >
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:text="下载列表"
+	        android:textColor="#ffffff"
+	        android:textSize="17sp"
+	        />
+	    <Button 
+	        android:id="@+id/btnDownloadManager"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:text="管理"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:textSize="16sp"
+	        android:textColor="#ffffff"
+	        android:background="@drawable/selector_btn"
+	        android:onClick="onDownloadManageBtnClick"
+	        />
+	</RelativeLayout>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_below="@id/title"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

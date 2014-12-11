@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout
+        android:id="@+id/downloaded_head_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/btn_download_group_bg"
+        android:gravity="center_vertical"
+        android:minHeight="30dp"
+        android:orientation="horizontal"
+        android:visibility="visible" 
+        android:clickable="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="下载历史"
+            android:textColor="#ff464546"
+            android:paddingRight="20dp"
+            android:textSize="14sp" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/download_downloading_pannel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/downloaded_head_layout"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="center_vertical"
+        android:minHeight="60dp"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="45dp" >
+
+            <ImageView
+                android:layout_width="4dp"
+                android:layout_height="48dp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@id/download_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="center" 
+                android:src="@drawable/btn_down_waitting"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/download_title"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:ellipsize="end"
+                    android:paddingBottom="5.0dip"
+                    android:paddingRight="10.0dip"
+                    android:paddingTop="5.0dip"
+                    android:singleLine="true"
+                    android:tag="max"
+                    android:textColor="#ff000000"
+                    android:text="周杰伦 - 雨下一整夜"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/download_progressView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/download_tip_tv"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:tag="mid"
+                    android:textColor="#ff666666"
+                    android:text="点击继续下载"
+                    android:textSize="12sp" />
+
+                <ProgressBar
+                    android:id="@+id/download_progressbar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3.0dip"
+                    android:max="100"
+                    android:maxHeight="3.0dip"
+                    android:minHeight="3.0dip"
+                    android:paddingRight="5.0dip"
+                    android:progressDrawable="@drawable/download_seekbar_style" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="1.0px"
+            android:layout_height="30.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:background="#ffd2d2d2"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/download_delete_layout"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/download_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/skin_src_image_btn_down_delete_default" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/downloading_not_data_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/downloading_head_layout"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center"
+        android:minHeight="52dp"
+        android:singleLine="true"
+        android:text="暂无歌曲正在下载"
+        android:textColor="#ff7e7e7e"
+        android:textSize="14dp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/horizontal_divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1.0px"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:background="#ffd2d2d2" />
+
+</RelativeLayout>

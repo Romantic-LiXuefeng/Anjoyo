@@ -2,7 +2,10 @@ package com.anjovo.gamedownloadcenter.adapter.Special;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.downloadmannger.app.GameApplicationn;
+import android.downloadmannger.utils.StartDowload;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.bean.SpecicalParticularsBean;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
@@ -63,6 +67,14 @@ public class GameSpecialDetailAdapter extends BaseAdapter{
 		}else{
 			holder.recommendNum.setText(loadDownNum+"次");
 		}	
+		holder.recommendDown.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//TODO 启动下载管理页面
+//				StartService.getStartService().start((Activity) context);
+			}
+		});
 		holder.rbStar.setRating((float)Integer.parseInt(mSpecical.get(position).getItems().getStar()));
 		Picasso.with(context).load("http://www.gamept.cn" + mSpecical.get(position).getItems().getIcon()).placeholder(R.drawable.head).into(holder.recommendHead);
 		return convertView;
