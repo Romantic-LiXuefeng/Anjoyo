@@ -100,7 +100,7 @@ public class DownloadMangeAdapter extends BaseAdapter{
 			holder.downloadStateIv.setVisibility(View.VISIBLE);
 			//设置progressbar
 			holder.progressBar.setMax(downloadEntity.getFileSize());
-			holder.progressBar.setProgress(downloadEntity.getFileSize());
+			holder.progressBar.setProgress(downloadEntity.getHaveReadSize());
 			//设置tipView和状态图标
 			switch (downloadEntity.getState()) {
 			case MyConstant.STATE_DOWNLOAD_WAIT:
