@@ -9,6 +9,7 @@ import android.downloadmannger.db.DbOpenHelper.ColumnsDownload;
 import android.downloadmannger.model.DownloadEntity;
 import android.downloadmannger.service.DownloadService;
 import android.downloadmannger.service.IDownloadCallBack;
+import android.downloadmannger.utils.MyConstant;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -97,6 +98,24 @@ public class DownloadMangeAdapter extends BaseAdapter{
 			holder.deleteIv.setVisibility(View.VISIBLE);
 			holder.progressView.setVisibility(View.VISIBLE);
 			holder.downloadStateIv.setVisibility(View.VISIBLE);
+			//设置progressbar
+			holder.progressBar.setMax(downloadEntity.getFileSize());
+			holder.progressBar.setProgress(downloadEntity.getFileSize());
+			//设置tipView和状态图标
+			switch (downloadEntity.getState()) {
+			case MyConstant.STATE_DOWNLOAD_WAIT:
+				holder.downloadStateIv.setImageResource(R.drawable.btn_down_waitting);
+				holder.tipTv.setText("等待下载");
+				break;
+			case MyConstant.STATE_DOWNLOAD_START:
+				holder.downloadStateIv.setImageResource(R.drawable.btn_down_loading);
+				holder.tipTv.setText(formatProgress(downloadEntity.getHaveReadSize(), downloadEntity.getFileSize()));
+				break;
+			case MyConstant.STATE_DOWNLOAD_STOP:
+				holder.downloadStateIv.setImageResource(R.drawable.btn_down_stop);
+				holder.tipTv.setText("点击继续下载");
+				break;
+			}
 		}
 
 		return convertView;
@@ -112,7 +131,6 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		View downloadedHeadLayout;
 	}
 
-
 	/**
 	 * 更新进度条
 	 * @param urlStr
@@ -126,13 +144,19 @@ public class DownloadMangeAdapter extends BaseAdapter{
 			holder.progressBar.setProgress(progress);
 			holder.tipTv.setText(formatProgress(progress,max));
 		}
-
+		//更新对应的item对象的数据  这里主要解决当前页面中下载的数据  退出当前页面重新进来发生以前页面本来已下载的数据重新下载的Bug
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
+		downloadEntity.setHaveReadSize(progress);
+		downloadEntity.setFileSize(max);
 	}
 	/**
 	 * 某个下载任务停止
 	 * @param urlStr
 	 */
 	private void onDownloadStop(String urlStr){
+		//更新对应的item对象的状态
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
+		downloadEntity.setState(MyConstant.STATE_DOWNLOAD_STOP);
 		ViewHolder holder = getViewHolder(urlStr);
 		if(holder != null){
 			holder.tipTv.setText("点击继续下载");
@@ -144,6 +168,9 @@ public class DownloadMangeAdapter extends BaseAdapter{
 	 * @param urlStr
 	 */
 	private void onDownloadWait(String urlStr){
+		//更新对应的item对象的状态
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
+		downloadEntity.setState(MyConstant.STATE_DOWNLOAD_WAIT);
 		ViewHolder holder = getViewHolder(urlStr);
 		if(holder != null){
 			holder.tipTv.setText("等待下载");
@@ -156,6 +183,9 @@ public class DownloadMangeAdapter extends BaseAdapter{
 	 * @param urlStr
 	 */
 	private void onDownloadStart(String urlStr){
+		//更新对应的item对象的状态
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
+		downloadEntity.setState(MyConstant.STATE_DOWNLOAD_START);
 		ViewHolder holder = getViewHolder(urlStr);
 		if(holder != null){
 			holder.tipTv.setText("准备下载");
@@ -172,12 +202,13 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		downloadEntity.setState(ColumnsDownload.STATE_DOWNLOAD_COMPLETE);
 		int tag = 0;
 		for (DownloadEntity entity : mDownloadEntities) {
-			if(entity.getUrl().equals(mCurUrl)){
+			if(entity.getUrl().equals(mCurUrl)){//匹配成功说明当前位置是数据库中第一条已下载完成的数据
 				break;
 			}else{
 				tag++;
 			}
 		}
+		//添加一个对对象移除一个对象  主要是解决下载完成的对象更新到下载历史中
 		DownloadEntity tagEntity = downloadEntity;
 		mDownloadEntities.add(tag, tagEntity);
 		mDownloadEntities.remove(downloadEntity);

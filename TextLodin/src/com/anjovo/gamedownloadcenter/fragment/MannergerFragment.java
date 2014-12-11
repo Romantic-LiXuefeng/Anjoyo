@@ -26,6 +26,11 @@ public class MannergerFragment extends TitleFragmentBase {
 	}
 
 	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		startDowload("","");
+	}
+	@Override
 	public void onTitleBackClick() {
 	}
 
@@ -51,7 +56,6 @@ public class MannergerFragment extends TitleFragmentBase {
 	@Override
 	public void onResume() {
 		super.onResume();
-		startDowload("","");
 	}
 	
 	/**

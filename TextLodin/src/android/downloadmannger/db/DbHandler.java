@@ -161,7 +161,11 @@ public class DbHandler extends DbOpenHelper{
 		cursor.close();
 		return false;
 	}
-	
-	
-	
+
+	/**
+	 * 删除表中所有的数据
+	 */
+	public void clearDownloadTable() {
+		dbWrite.delete(ColumnsDownload.TABLE_NAME, null, null);
+	}
 }

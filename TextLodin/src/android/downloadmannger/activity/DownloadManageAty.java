@@ -1,14 +1,17 @@
 package android.downloadmannger.activity;
 
+import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.downloadmannger.adapter.DownloadMangeAdapter;
 import android.downloadmannger.app.GameApplicationn;
 import android.downloadmannger.db.DbHandler;
 import android.downloadmannger.db.DbOpenHelper.ColumnsDownload;
 import android.downloadmannger.model.DownloadEntity;
+import android.downloadmannger.service.DownloadService;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +29,7 @@ public class DownloadManageAty extends Activity{
 	private DbHandler mDbHandler;
 	GameApplicationn applicationn;
 	public static final int MSG_SET_LISTVIEW = 1;
+	public static final int MSG_CLEAR_COMPLETE = 2;
 	Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -33,6 +37,9 @@ public class DownloadManageAty extends Activity{
 				mAdapter = new DownloadMangeAdapter(mDownloadEntitys, DownloadManageAty.this);
 				mListView.setAdapter(mAdapter);
 				mAdapter.registerDownloadCallBack(applicationn.getDownloadService());
+				break;
+			case MSG_CLEAR_COMPLETE:
+				mDialog.dismiss();
 				break;
 			}
 		};
@@ -47,6 +54,14 @@ public class DownloadManageAty extends Activity{
 		initViews();
 		
 		loadDatas();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(mAdapter != null){
+			mAdapter.unregisterDownloadCallBack(applicationn.getDownloadService());
+		}
 	}
 	
 	private void initViews() {
@@ -91,11 +106,36 @@ public class DownloadManageAty extends Activity{
 		}.start();
 	}
 	public void btnBackClick(View v){
-		
 		finish();
 	}
 	public void btnClearClick(View v){
-		//TODO
-		
+		showDialog();
+		new Thread(){
+			@Override
+			public void run() {
+				//停止service里的所有下载
+				applicationn.getDownloadService().stopAll();
+				//将表清空
+				mDbHandler.clearDownloadTable();
+				//清空sd卡中的文件
+				File dirFile = new File(DownloadService.DOWNLOAD_DIR);
+				File[] files = dirFile.listFiles();
+				for (File file : files) {
+					file.delete();
+				}
+				//操作结束后发送消息通知handler取消dialog
+				handler.sendEmptyMessage(MSG_CLEAR_COMPLETE);
+			}
+		}.start();
+	}
+
+	private ProgressDialog mDialog;
+	private void showDialog() {
+		if(mDialog == null){
+			mDialog = new ProgressDialog(this);
+			mDialog.setTitle("正在清空数据...");
+			mDialog.setCancelable(false);//将dialog设置为不可被用户取消
+		}
+		mDialog.show();
 	}
 }

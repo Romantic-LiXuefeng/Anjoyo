@@ -3,6 +3,7 @@ package android.downloadmannger.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.downloadmannger.utils.MyConstant;
 
 public class DbOpenHelper extends SQLiteOpenHelper{
 
@@ -21,7 +22,7 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 				+ ColumnsDownload.URL + " text,"
 				+ ColumnsDownload.FILE_SIZE +" integer,"
 				+ ColumnsDownload.HAVE_READ + " integer default 0,"
-				+ ColumnsDownload.STATE + " integer default 0,"
+				+ ColumnsDownload.STATE + " integer default "+MyConstant.STATE_DOWNLOAD_STOP+","
 				+ ColumnsDownload.DATE_ADD + " long,"
 				+ ColumnsDownload.DATE_MODIFIED + " long)");
 	}
@@ -40,8 +41,8 @@ public class DbOpenHelper extends SQLiteOpenHelper{
 		String FILE_SIZE = "file_size";
 		String HAVE_READ = "have_read";
 		String STATE = "state";
-		int STATE_DOWNLOAD_UNCOMPLETE = 0;
-		int STATE_DOWNLOAD_COMPLETE = 1;
+		int STATE_DOWNLOAD_UNCOMPLETE = MyConstant.STATE_DOWNLOAD_STOP;
+		int STATE_DOWNLOAD_COMPLETE = MyConstant.STATE_DOWNLOAD_COMPLETE;
 		String DATE_MODIFIED = "date_modified";
 		String DATE_ADD = "date_add";
 	}
