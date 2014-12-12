@@ -37,6 +37,7 @@
         android:smallScreens="true" />
 
     <application
+        android:name="android.downloadmannger.app.GameApplicationn"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@drawable/head"
@@ -70,7 +71,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <service android:name="android.service.dreams.DreamService"></service>
+        <activity android:name="android.downloadmannger.activity.DowloadMainActivity" >
+        </activity>
+        <activity android:name="android.downloadmannger.activity.DownloadManageAty" >
+        </activity>
+
+        <service android:name="android.service.dreams.DreamService" >
+        </service>
+
         <activity android:name="com.anjovo.gamedownloadcenter.activity.CommentActivity" >
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.AboutActivity" >
@@ -123,6 +131,10 @@
         </activity>
         <activity android:name="com.anjovo.gamedownloadcenter.activity.game_details.MyCommentActivity" >
         </activity>
+
+        <service android:name="android.downloadmannger.service.DownloadService" >
+        </service>
+
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

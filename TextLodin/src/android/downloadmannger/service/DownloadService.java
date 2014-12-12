@@ -7,23 +7,38 @@ import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import android.app.Service;
 import android.content.Intent;
 import android.downloadmannger.db.DbHandler;
+import android.downloadmannger.utils.MyConstant;
 import android.os.Binder;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 
 public class DownloadService extends Service{
+	
 	public static final String DOWNLOAD_DIR = Environment.getExternalStorageDirectory().getPath() + File.separator
 			+"app" + File.separator + "download" + File.separator;
 	/**线程池**/
 	private ExecutorService mExecutorService = Executors.newFixedThreadPool(2);
 
+	/**下载队列**/
+	private HashMap<String, DownloadRunnable> mDownloadRunables;
+	/***
+	 * 返回下载队列
+	 * @return
+	 */
+	public HashMap<String, DownloadRunnable> getDownloadRunables() {
+		return mDownloadRunables;
+	}
+	
 	private DbHandler mDbHandler;
 	private MyBinder binder = new MyBinder();
 	public class MyBinder extends Binder{
@@ -41,6 +56,7 @@ public class DownloadService extends Service{
 	public void onCreate() {
 		super.onCreate();
 		mDbHandler = DbHandler.getInstance(this);
+		mDownloadRunables = new HashMap<String, DownloadRunnable>();
 		File dirFile = new File(DOWNLOAD_DIR);
 		if(!dirFile.exists()){
 			dirFile.mkdirs();
@@ -52,6 +68,9 @@ public class DownloadService extends Service{
 	 * @param fileName
 	 */
 	public void download(String urlStr,String fileName){
+		if(mExecutorService.isShutdown()){//判断线程池是否存在
+			mExecutorService = Executors.newFixedThreadPool(2);
+		}
 		File destFile = new File(DOWNLOAD_DIR, fileName+".apk");
 		DownloadRunnable runnable = null;
 		//判断数据库中是否包含了该下载任务
@@ -63,6 +82,7 @@ public class DownloadService extends Service{
 			runnable = new DownloadRunnable(urlStr, destFile,false);
 			log(fileName+"是一个下载过的任务");
 		}
+		mDownloadRunables.put(urlStr, runnable);
 		mExecutorService.submit(runnable);
 	}
 	/****
@@ -76,22 +96,36 @@ public class DownloadService extends Service{
 		/**目标文件**/
 		private File destFile;
 
-		/**下载的其实位置**/
+		/**下载的起始位置**/
 		private int startPos;
 		/**要下载的文件的大小**/
 		private int fileSize;
 
 		private boolean isFirst = true;
 		private HttpURLConnection conn;
+		private int state;
+		public int getState() {
+			return state;
+		}
+		
+		private boolean isStop;
 		public DownloadRunnable(String urlStr, File destFile,boolean isFirst) {
 			super();
 			this.urlStr = urlStr;
 			this.destFile = destFile;
 			this.isFirst = isFirst;
+			
+			//回调 "等待"
+			if(mCallBack != null){
+				mCallBack.onDownloadWait(urlStr);
+			}
+			state = MyConstant.STATE_DOWNLOAD_WAIT;//将线程状态设置为等待
 		}
 		@Override
 		public void run() {
+			state = MyConstant.STATE_DOWNLOAD_START;
 			log("下载线程开始...."+destFile);
+			
 			prepare();
 			startDownload();
 		}
@@ -125,6 +159,10 @@ public class DownloadService extends Service{
 		 * 开始下载
 		 */
 		private void startDownload(){
+			//回调 "开始下载"  将此放在这里而不放在run()方法中主要是解决从暂停态恢复到下载态时的Bug
+			if(mCallBack != null){
+				mCallBack.onDownloadStart(urlStr);
+			}
 			InputStream is = null;
 			RandomAccessFile raf = null;
 			try {
@@ -142,14 +180,26 @@ public class DownloadService extends Service{
 				while((len = is.read(buff)) != -1){
 					raf.write(buff, 0, len);
 					total +=len;
-					updateDatabase(total);
-					log("已下载大小："+total);
-					try {
-						Thread.sleep(200);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					updateProgress(total);
+					if(isStop){ //如果用户停止下载任务
+						if(mCallBack != null){ //回调 "停止下载"
+							mCallBack.onDownloadStop(urlStr);
+						}
+						break;
 					}
 				}
+				
+				//判断是否下载完成
+				if(total == fileSize){
+					mDbHandler.updateDownloadComplete(urlStr);
+					//回调  "下载完成"
+					if(mCallBack != null){
+						mCallBack.onDownloadComplete(urlStr);
+					}
+				}
+				
+				//将任务从下载队列中移除
+				mDownloadRunables.remove(urlStr);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}finally{
@@ -176,17 +226,38 @@ public class DownloadService extends Service{
 		 * 更新数据库
 		 * @param total
 		 */
-		private void updateDatabase(int total) {
+		private void updateProgress(int total) {
 			mDbHandler.updateDownloadProgress(urlStr,total);
+			//回调 "下载进度更新"
+			if(mCallBack != null){
+				mCallBack.onDownloadUpdateProgress(urlStr, total, fileSize);
+			}
 		}
 		/**
 		 * 停止下载
 		 */
-		private void stop(){
-
+		public void stop(){
+			isStop = true;
 		}
 
-
+	}
+	
+	private IDownloadCallBack mCallBack;
+	public void registerDownloadCallBack(IDownloadCallBack downloadCallBack){
+		mCallBack = downloadCallBack;
+		//以下代码解决界面一加载下载图标显示不正常的问题  就是一进去就获取下载状态  根据下载状态来回调某个事件
+		Set<String> keySet = mDownloadRunables.keySet();
+		for (String urlStr : keySet) {
+			DownloadRunnable runnable = mDownloadRunables.get(urlStr);
+			if(runnable.getState() == MyConstant.STATE_DOWNLOAD_WAIT){
+				mCallBack.onDownloadWait(urlStr);
+			}else{
+				mCallBack.onDownloadStart(urlStr);
+			}
+		}
+	}
+	public void unregisterDownloadCallBack(){
+		mCallBack = null;
 	}
 	/**
 	 * 打印Log信息
@@ -194,5 +265,32 @@ public class DownloadService extends Service{
 	 */
 	public void log(Object o ){
 		Log.d(DownloadService.class.getName(), o+"");
+	}
+	/**
+	 * 根据urlStr从mDownloadRunables获取到runnable对象
+	 *  1：如果为空，说明不在下载队列里面，添加下载任务
+	 *  2：如果不为空，说明已经在下载队列，停止任务
+	 *  
+	 * @param urlStr
+	 * @param fileName
+	 */
+	public void startOrStop(String urlStr,String fileName) {
+		DownloadRunnable runnable = mDownloadRunables.get(urlStr);
+		if(runnable == null){
+			download(urlStr, fileName);
+			log("不在下载队列里面，添加下载任务,之后队列长="+mDownloadRunables.size());
+		}else{
+			runnable.stop();
+		}
+	}
+
+	public void stopAll() {
+		mExecutorService.shutdownNow();//把线程池关掉  此方法调用后 正在执行的或等待的任务都将被停止
+		//停止所有的线程
+		Collection<DownloadRunnable> downloadRunnables = mDownloadRunables.values();
+		for (DownloadRunnable downloadRunnable : downloadRunnables) {
+			downloadRunnable.stop();
+		}
+		downloadRunnables.clear();
 	}
 }

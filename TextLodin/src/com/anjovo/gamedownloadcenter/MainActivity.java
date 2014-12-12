@@ -2,10 +2,10 @@ package com.anjovo.gamedownloadcenter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.downloadmannger.app.GameApplicationn;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,8 +22,8 @@ import com.anjovo.gamedownloadcenter.fragment.PhotoShareFragment;
 import com.anjovo.gamedownloadcenter.fragment.SettingFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInFragment;
 import com.anjovo.gamedownloadcenter.fragment.SignInRecordFragment;
-import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
+import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomClickChangeListener;
 import com.anjovo.gamedownloadcenter.utils.onCustomPrepareOptionsMenu.OnCustomDismissListener;
@@ -52,6 +52,11 @@ public class MainActivity extends DoubleClickFinishActivity implements
 	private ResideMenuItem itemIntegral;// 积分换礼
 	private ResideMenuItem itemPhotoShare;// 照片分享
 	private ResideMenuItem itemMannerger;// 管理
+	
+	public ResideMenuItem getItemMannerger() {
+		return itemMannerger;
+	}
+
 	private ResideMenuItem itemSetting;// 设置
 	public ResideMenuItem itemSignIn;// 签到
 	/** 显示签到fragment标记 **/
@@ -67,11 +72,14 @@ public class MainActivity extends DoubleClickFinishActivity implements
 	private SignInFragment signInFragment;
 
 	private FragmentManager fragmentManager;
+	private GameApplicationn applicationn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		applicationn = (GameApplicationn) getApplication();
+		applicationn.addActivity(MainActivity.this);
 		initView();
 		fragmentManager = getSupportFragmentManager();
 
@@ -79,6 +87,13 @@ public class MainActivity extends DoubleClickFinishActivity implements
 
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		applicationn.stopService();
+		applicationn.exit();
+	}
+	
 	public void initView() {
 		SharedPreferencesUtil.saveSharedPreferencesBooleanUtil(this,
 				"LogInSuccessfully", Context.MODE_PRIVATE, false);
@@ -180,7 +195,10 @@ public class MainActivity extends DoubleClickFinishActivity implements
 		// setTabSelection(itemHome);
 		// resideMenu.closeMenu();
 		// } else
-		if (!UserNameLoginUtils.IsUserNameLogin(this)) {
+		if (arg0 == itemMannerger) {
+				sign = 0;
+				setTabSelection(itemMannerger);// 已登录过 在这个方法里编写登陆成功后
+			}else if (!UserNameLoginUtils.IsUserNameLogin(this)) {
 			UserNameLoginUtils.LoginFailure(this, LoginActivity.class);// 未登陆过
 		}
 		if (arg0 == itemPersonalCenter) {
@@ -198,9 +216,6 @@ public class MainActivity extends DoubleClickFinishActivity implements
 		} else if (arg0 == itemPhotoShare) {
 			sign = 0;
 			setTabSelection(itemPhotoShare);// 已登录过 在这个方法里编写登陆成功后
-		} else if (arg0 == itemMannerger) {
-			sign = 0;
-			setTabSelection(itemMannerger);// 已登录过 在这个方法里编写登陆成功后
 		}
 		// else if (arg0 == itemSetting) {
 		// setTabSelection(itemSetting);
