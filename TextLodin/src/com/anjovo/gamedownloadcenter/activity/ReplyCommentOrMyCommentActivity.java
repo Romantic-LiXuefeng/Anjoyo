@@ -45,6 +45,10 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 	}
 
 	private void getIntentExtraData() {
+		// 获取用户信息
+		UserNameMessageBean bean = AnalysisUserMessage
+				.getUserMessageBean(ReplyCommentOrMyCommentActivity.this);
+
 		Intent intent = getIntent();
 		String userpic = intent.getStringExtra("userpic");
 		String nickname = intent.getStringExtra("nickname");
@@ -54,19 +58,21 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 		id = intent.getStringExtra("userid");
 		gxid = intent.getStringExtra("gxid");
 
-		/** 1代表评论,0代表回复 **/
-		int state = intent.getIntExtra("replycommentorcommentstate", 2);
+		state = intent.getIntExtra("replycommentorcommentstate", 2);
 		if (state == 1) {
 			/** 评论 **/
 			etComment.setHint("请填写你要评论的内容");
-			Log.d("vivi", "评论");
+			url = "http://www.gamept.cn/yx_reconment.php?id=" + gxid + "&uid="
+					+ bean.getUserid() + "&type=gxpic" + "&content=";
 		} else if (state == 0) {
 			/** 回复 **/
-			Log.d("vivi", "回复");
 			String plid = intent.getStringExtra("plid");
 			String name = intent.getStringExtra("name");
 			etComment.setHint("回复" + name + ":");
 			classid = plid;
+			url = "http://www.gamept.cn/yx_reconment.php?id=" + gxid + "&uid="
+					+ bean.getUserid() + "&type=gxpic" + "&classid=" + classid
+					+ "&content=";
 		}
 		tvTime.setText(time);
 		tvNickName.setText(nickname);
@@ -97,6 +103,7 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 	}
 
 	private String classid = "";
+	private String url = "";
 	private OnClickListener onClickListener = new OnClickListener() {
 
 		@Override
@@ -105,13 +112,9 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 				@SuppressWarnings("deprecation")
 				String content = URLEncoder.encode(etComment.getText()
 						.toString());
-				UserNameMessageBean bean = AnalysisUserMessage
-						.getUserMessageBean(ReplyCommentOrMyCommentActivity.this);
-				new HttpUtils().send(HttpMethod.GET,
-						"http://www.gamept.cn/yx_reconment.php?id=" + gxid
-								+ "&uid=" + bean.getUserid() + "&content="
-								+ content + "&type=gxpic" + "&classid="
-								+ classid, new RequestCallBack<String>() {
+				url = url + content;
+				new HttpUtils().send(HttpMethod.GET, url,
+						new RequestCallBack<String>() {
 
 							@Override
 							public void onFailure(HttpException arg0,
@@ -127,9 +130,16 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 									int code = Integer.parseInt(object
 											.getString("code"));
 									if (code == 0) {
-										Toast.makeText(
-												ReplyCommentOrMyCommentActivity.this,
-												"评论成功!", 1).show();
+										if (state == 0) {
+											Toast.makeText(
+													ReplyCommentOrMyCommentActivity.this,
+													"回复成功!", 1).show();
+										} else {
+											Toast.makeText(
+													ReplyCommentOrMyCommentActivity.this,
+													"评论成功!", 1).show();
+										}
+
 									}
 									finish();
 								} catch (JSONException e) {
@@ -146,4 +156,5 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 	private ImageView ivBack;
 	private String gxid;
 	private String id;
+	private int state;
 }
