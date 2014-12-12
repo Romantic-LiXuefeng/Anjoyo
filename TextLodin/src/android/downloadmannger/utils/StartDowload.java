@@ -13,6 +13,13 @@ import android.downloadmannger.model.DownloadEntity;
 import android.net.Uri;
 import android.widget.Toast;
 
+/**
+ * @author Administrator
+ * 下载管理辅助类 调用StartDowload.getStartDowload().start（）此方法是app下载入口
+ * StartDowload.getStartDowload().isAppDownloadComplete（）根据传过来的app下载路径判断次app是否已经下载完成
+ * StartDowload.getStartDowload().startToInstall()跳转到安装界面
+ * StartDowload.getStartDowload().ToashShow()；此方法用于toast打印
+ */
 public class StartDowload {
 
 	private static StartDowload instance;
@@ -39,17 +46,17 @@ public class StartDowload {
 		mDbHandler = DbHandler.getInstance(a);
 		//判断任务是否已经下载完成了
 		if(mDbHandler.isComplete(fileName)){
-			toashShow(fileName+" 已下载完成",a);
+			ToashShow(fileName+" 已下载完成",a);
 			return;
 		}
 		//判断任务是否正在下载中
 		if(((GameApplicationn) a.getApplication()).getDownloadService().getDownloadRunables().containsKey(fileName)){
-			toashShow(fileName+" 正在下载",a);
+			ToashShow(fileName+" 正在下载",a);
 			return;
 		}
 		
 		((GameApplicationn) a.getApplication()).getDownloadService().download(FormatURLEncoder(urlStr), fileName);
-		toashShow(fileName+" 已加入下载队列",a);
+		ToashShow(fileName+" 已加入下载队列",a);
 	
 	}
 	
@@ -114,7 +121,7 @@ public class StartDowload {
 	}
 	
 	private Toast mToast;
-	private void toashShow(String text,Context a){
+	private void ToashShow(String text,Context a){
 		if(mToast == null){
 			mToast = Toast.makeText(a, "", Toast.LENGTH_SHORT);
 		}
