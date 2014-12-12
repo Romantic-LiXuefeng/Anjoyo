@@ -2,47 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/mannger_bg"
     android:orientation="vertical" >
 
     <include layout="@layout/common_title_bar" />
 
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/common_radiogroup" />
+
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/custom_height10d"
-        android:layout_marginTop="@dimen/custom_height10d" >
+        android:id="@+id/frameLayout_activity_fragment"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/custom_height0d"
+        android:layout_weight="1" >
 
-        <Button
-            android:id="@+id/btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/focus_n"
-            android:text="下载管理" />
+        <include
+            layout="@layout/fragment_mannerger_appmanger"/>
 
-        <Button
-            android:id="@+id/btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/redeem_btn_download_t"
-            android:text="软件管理" />
+        <include
+            layout="@layout/fragment_mannerger_downloadmanger" />
     </RelativeLayout>
-
-    <ListView
-        android:id="@+id/listview1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" >
-    </ListView>
-
-    <ListView
-        android:id="@+id/listview2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible" >
-    </ListView>
 
 </LinearLayout>

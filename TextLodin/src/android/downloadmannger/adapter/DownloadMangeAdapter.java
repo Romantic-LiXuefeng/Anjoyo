@@ -25,8 +25,8 @@ import com.anjovo.textlodin.R;
 public class DownloadMangeAdapter extends BaseAdapter{
 	private List<DownloadEntity> mDownloadEntities;
 	private LayoutInflater mInflater;
-	/**代表list集合中第一个下载完成的 地址**/
-	private String mCurUrl = "";
+	/**代表list集合中第一个下载完成的 app名字**/
+	private String mFileName = "";
 	private HashMap<String, DownloadEntity> mDownloadEntitiesMap;
 	public DownloadMangeAdapter(List<DownloadEntity> downloadEntities, Context context) {
 		super();
@@ -34,9 +34,9 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		mInflater = LayoutInflater.from(context);
 		mDownloadEntitiesMap = new HashMap<String, DownloadEntity>();
 		for (DownloadEntity downloadEntity : downloadEntities) {
-			mDownloadEntitiesMap.put(downloadEntity.getUrl(), downloadEntity);
+			mDownloadEntitiesMap.put(downloadEntity.getTitle(), downloadEntity);
 			if(downloadEntity.getState() == ColumnsDownload.STATE_DOWNLOAD_COMPLETE){
-				mCurUrl = downloadEntity.getUrl();
+				mFileName = downloadEntity.getTitle();
 				break;
 			}
 		}
@@ -80,10 +80,10 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		String title = downloadEntity.getTitle();
 		holder.titleTv.setText(title);
 
-		mHolders.put(holder, downloadEntity.getUrl());
+		mHolders.put(holder, downloadEntity.getTitle());
 
 		//显示或隐藏 "下载历史"视图
-		if(downloadEntity.getUrl().equals(mCurUrl)){
+		if(downloadEntity.getTitle().equals(mFileName)){
 			holder.downloadedHeadLayout.setVisibility(View.VISIBLE);
 		}else{
 			holder.downloadedHeadLayout.setVisibility(View.GONE);
@@ -137,27 +137,31 @@ public class DownloadMangeAdapter extends BaseAdapter{
 	 * @param progress
 	 * @param max
 	 */
-	private void onUpdateProgress(String urlStr, int progress, int max){
-		ViewHolder holder = getViewHolder(urlStr);
+	private void onUpdateProgress(String fileName, int progress, int max){
+		ViewHolder holder = getViewHolder(fileName);
 		if(holder != null){
 			holder.progressBar.setMax(max);
 			holder.progressBar.setProgress(progress);
 			holder.tipTv.setText(formatProgress(progress,max));
 		}
 		//更新对应的item对象的数据  这里主要解决当前页面中下载的数据  退出当前页面重新进来发生以前页面本来已下载的数据重新下载的Bug
-		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
-		downloadEntity.setHaveReadSize(progress);
-		downloadEntity.setFileSize(max);
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(fileName);
+		if(downloadEntity != null){
+			downloadEntity.setHaveReadSize(progress);
+			downloadEntity.setFileSize(max);
+		}
 	}
 	/**
 	 * 某个下载任务停止
 	 * @param urlStr
 	 */
-	private void onDownloadStop(String urlStr){
+	private void onDownloadStop(String fileName){
 		//更新对应的item对象的状态
-		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
-		downloadEntity.setState(MyConstant.STATE_DOWNLOAD_STOP);
-		ViewHolder holder = getViewHolder(urlStr);
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(fileName);
+		if(downloadEntity != null){
+			downloadEntity.setState(MyConstant.STATE_DOWNLOAD_STOP);
+		}
+		ViewHolder holder = getViewHolder(fileName);
 		if(holder != null){
 			holder.tipTv.setText("点击继续下载");
 			holder.downloadStateIv.setImageResource(R.drawable.btn_down_stop);
@@ -167,11 +171,13 @@ public class DownloadMangeAdapter extends BaseAdapter{
 	 * 某个下载任务 在等待
 	 * @param urlStr
 	 */
-	private void onDownloadWait(String urlStr){
+	private void onDownloadWait(String fileName){
 		//更新对应的item对象的状态
-		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
-		downloadEntity.setState(MyConstant.STATE_DOWNLOAD_WAIT);
-		ViewHolder holder = getViewHolder(urlStr);
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(fileName);
+		if(downloadEntity != null){
+			downloadEntity.setState(MyConstant.STATE_DOWNLOAD_WAIT);
+		}
+		ViewHolder holder = getViewHolder(fileName);
 		if(holder != null){
 			holder.tipTv.setText("等待下载");
 			holder.downloadStateIv.setImageResource(R.drawable.btn_down_waitting);
@@ -182,11 +188,13 @@ public class DownloadMangeAdapter extends BaseAdapter{
 	 * 某个下载任务 开始下载
 	 * @param urlStr
 	 */
-	private void onDownloadStart(String urlStr){
+	private void onDownloadStart(String fileName){
 		//更新对应的item对象的状态
-		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
-		downloadEntity.setState(MyConstant.STATE_DOWNLOAD_START);
-		ViewHolder holder = getViewHolder(urlStr);
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(fileName);
+		if(downloadEntity != null){
+			downloadEntity.setState(MyConstant.STATE_DOWNLOAD_START);
+		}
+		ViewHolder holder = getViewHolder(fileName);
 		if(holder != null){
 			holder.tipTv.setText("准备下载");
 			holder.downloadStateIv.setImageResource(R.drawable.btn_down_loading);
@@ -197,12 +205,14 @@ public class DownloadMangeAdapter extends BaseAdapter{
 	 * 某个下载任务 下载完成了
 	 * @param urlStr
 	 */
-	private void onDownloadComplete(String urlStr){
-		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(urlStr);
-		downloadEntity.setState(ColumnsDownload.STATE_DOWNLOAD_COMPLETE);
+	private void onDownloadComplete(String fileName){
+		DownloadEntity downloadEntity = mDownloadEntitiesMap.get(fileName);
+		if(downloadEntity != null){
+			downloadEntity.setState(ColumnsDownload.STATE_DOWNLOAD_COMPLETE);
+		}
 		int tag = 0;
 		for (DownloadEntity entity : mDownloadEntities) {
-			if(entity.getUrl().equals(mCurUrl)){//匹配成功说明当前位置是数据库中第一条已下载完成的数据
+			if(entity.getUrl().equals(mFileName)){//匹配成功说明当前位置是数据库中第一条已下载完成的数据
 				break;
 			}else{
 				tag++;
@@ -212,7 +222,7 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		DownloadEntity tagEntity = downloadEntity;
 		mDownloadEntities.add(tag, tagEntity);
 		mDownloadEntities.remove(downloadEntity);
-		mCurUrl = downloadEntity.getUrl();
+		mFileName = downloadEntity.getUrl();
 
 		notifyDataSetChanged();
 	}
@@ -229,10 +239,10 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		fileSize = (float)(Math.round(fileSize*10))/10;
 		return downloadedSize+"M/"+fileSize+"M";
 	}
-	private ViewHolder getViewHolder(String urlStr) {
+	private ViewHolder getViewHolder(String fileName) {
 		Set<ViewHolder> keySet = mHolders.keySet();
 		for (ViewHolder viewHolder : keySet) {
-			if(mHolders.get(viewHolder).equals(urlStr)){
+			if(mHolders.get(viewHolder).equals(fileName)){
 				return viewHolder;
 			}
 		}
@@ -269,30 +279,30 @@ public class DownloadMangeAdapter extends BaseAdapter{
 	IDownloadCallBack downloadCallBack = new IDownloadCallBack() {
 
 		@Override
-		public void onDownloadWait(String urlStr) {
-			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_WAIT, urlStr));
+		public void onDownloadWait(String fileName) {
+			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_WAIT, fileName));
 		}
 
 		@Override
-		public void onDownloadUpdateProgress(String urlStr, int progress, int max) {
-			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_PROGRESS_UPDATE, progress, max, urlStr));
+		public void onDownloadUpdateProgress(String fileName, int progress, int max) {
+			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_PROGRESS_UPDATE, progress, max, fileName));
 
 		}
 
 		@Override
-		public void onDownloadStop(String urlStr) {
+		public void onDownloadStop(String fileName) {
 
-			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_STOP, urlStr));
+			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_STOP, fileName));
 		}
 
 		@Override
-		public void onDownloadStart(String urlStr) {
-			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_START, urlStr));
+		public void onDownloadStart(String fileName) {
+			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_START, fileName));
 		}
 
 		@Override
-		public void onDownloadComplete(String urlStr) {
-			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_COMPLETE, urlStr));
+		public void onDownloadComplete(String fileName) {
+			handler.sendMessage(handler.obtainMessage(MSG_DOWNLOAD_COMPLETE, fileName));
 		}
 	};
 

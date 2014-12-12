@@ -6,7 +6,7 @@
         android:id="@+id/downloaded_head_layout"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
-        android:background="@drawable/btn_download_group_bg"
+        android:background="@drawable/mannerger_line"
         android:gravity="center_vertical"
         android:minHeight="30dp"
         android:orientation="horizontal"

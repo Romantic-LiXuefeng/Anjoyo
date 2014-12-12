@@ -38,7 +38,17 @@ public class DownloadService extends Service{
 	public HashMap<String, DownloadRunnable> getDownloadRunables() {
 		return mDownloadRunables;
 	}
+	/**
+	 * 下载速度
+	 */
+	private String mDownloadSpeed = "0kb/s";
+	public String getmDownloadSpeed() {
+		return mDownloadSpeed;
+	}
 	
+	public void setmDownloadSpeed(String mDownloadSpeed) {
+		this.mDownloadSpeed = mDownloadSpeed;
+	}
 	private DbHandler mDbHandler;
 	private MyBinder binder = new MyBinder();
 	public class MyBinder extends Binder{
@@ -74,15 +84,15 @@ public class DownloadService extends Service{
 		File destFile = new File(DOWNLOAD_DIR, fileName+".apk");
 		DownloadRunnable runnable = null;
 		//判断数据库中是否包含了该下载任务
-		if(!mDbHandler.exist(urlStr)){
+		if(!mDbHandler.exist(fileName)){
 			mDbHandler.insert(urlStr,fileName,destFile);
-			runnable = new DownloadRunnable(urlStr, destFile,true);
+			runnable = new DownloadRunnable(urlStr, destFile,fileName,true);
 			log(fileName+"是一个从未下载过的任务");
 		}else{
-			runnable = new DownloadRunnable(urlStr, destFile,false);
+			runnable = new DownloadRunnable(urlStr, destFile,fileName,false);
 			log(fileName+"是一个下载过的任务");
 		}
-		mDownloadRunables.put(urlStr, runnable);
+		mDownloadRunables.put(fileName, runnable);
 		mExecutorService.submit(runnable);
 	}
 	/****
@@ -100,6 +110,7 @@ public class DownloadService extends Service{
 		private int startPos;
 		/**要下载的文件的大小**/
 		private int fileSize;
+		String fileName;
 
 		private boolean isFirst = true;
 		private HttpURLConnection conn;
@@ -109,15 +120,16 @@ public class DownloadService extends Service{
 		}
 		
 		private boolean isStop;
-		public DownloadRunnable(String urlStr, File destFile,boolean isFirst) {
+		public DownloadRunnable(String urlStr, File destFile,String fileName,boolean isFirst) {
 			super();
 			this.urlStr = urlStr;
 			this.destFile = destFile;
 			this.isFirst = isFirst;
+			this.fileName = fileName;
 			
 			//回调 "等待"
 			if(mCallBack != null){
-				mCallBack.onDownloadWait(urlStr);
+				mCallBack.onDownloadWait(fileName);
 			}
 			state = MyConstant.STATE_DOWNLOAD_WAIT;//将线程状态设置为等待
 		}
@@ -139,10 +151,10 @@ public class DownloadService extends Service{
 				fileSize = conn.getContentLength();
 				if(isFirst){
 					//更新数据库中数据的文件大小
-					mDbHandler.updateFileSize(urlStr,fileSize);
+					mDbHandler.updateFileSize(fileName,fileSize);
 				}else{
 					//获取到下载的其实位置
-					startPos = mDbHandler.getHaveReadSize(urlStr);
+					startPos = mDbHandler.getHaveReadSize(fileName);
 				}
 
 				if(!destFile.exists()){
@@ -151,7 +163,6 @@ public class DownloadService extends Service{
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -161,7 +172,7 @@ public class DownloadService extends Service{
 		private void startDownload(){
 			//回调 "开始下载"  将此放在这里而不放在run()方法中主要是解决从暂停态恢复到下载态时的Bug
 			if(mCallBack != null){
-				mCallBack.onDownloadStart(urlStr);
+				mCallBack.onDownloadStart(fileName);
 			}
 			InputStream is = null;
 			RandomAccessFile raf = null;
@@ -173,7 +184,7 @@ public class DownloadService extends Service{
 				is = conn.getInputStream(); //通过链接获取到字节输入流
 				raf = new RandomAccessFile(destFile, "rw");
 				raf.seek(startPos);
-				
+				long a = System.currentTimeMillis();
 				byte[] buff = new byte[1024 * 100];
 				int len;
 				int total = startPos;
@@ -183,23 +194,29 @@ public class DownloadService extends Service{
 					updateProgress(total);
 					if(isStop){ //如果用户停止下载任务
 						if(mCallBack != null){ //回调 "停止下载"
-							mCallBack.onDownloadStop(urlStr);
+							mCallBack.onDownloadStop(fileName);
 						}
 						break;
 					}
 				}
-				
+				if(isStop){
+					setmDownloadSpeed("0kb/s");
+				}else{
+					long b = System.currentTimeMillis();
+					setmDownloadSpeed(total/(b-a)+"kb/s");
+				}
 				//判断是否下载完成
 				if(total == fileSize){
-					mDbHandler.updateDownloadComplete(urlStr);
+					setmDownloadSpeed("0kb/s");
+					mDbHandler.updateDownloadComplete(fileName);
 					//回调  "下载完成"
 					if(mCallBack != null){
-						mCallBack.onDownloadComplete(urlStr);
+						mCallBack.onDownloadComplete(fileName);
 					}
 				}
 				
 				//将任务从下载队列中移除
-				mDownloadRunables.remove(urlStr);
+				mDownloadRunables.remove(fileName);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}finally{
@@ -227,10 +244,10 @@ public class DownloadService extends Service{
 		 * @param total
 		 */
 		private void updateProgress(int total) {
-			mDbHandler.updateDownloadProgress(urlStr,total);
+			mDbHandler.updateDownloadProgress(fileName,total);
 			//回调 "下载进度更新"
 			if(mCallBack != null){
-				mCallBack.onDownloadUpdateProgress(urlStr, total, fileSize);
+				mCallBack.onDownloadUpdateProgress(fileName, total, fileSize);
 			}
 		}
 		/**
@@ -247,12 +264,12 @@ public class DownloadService extends Service{
 		mCallBack = downloadCallBack;
 		//以下代码解决界面一加载下载图标显示不正常的问题  就是一进去就获取下载状态  根据下载状态来回调某个事件
 		Set<String> keySet = mDownloadRunables.keySet();
-		for (String urlStr : keySet) {
-			DownloadRunnable runnable = mDownloadRunables.get(urlStr);
+		for (String fileName : keySet) {
+			DownloadRunnable runnable = mDownloadRunables.get(fileName);
 			if(runnable.getState() == MyConstant.STATE_DOWNLOAD_WAIT){
-				mCallBack.onDownloadWait(urlStr);
+				mCallBack.onDownloadWait(fileName);
 			}else{
-				mCallBack.onDownloadStart(urlStr);
+				mCallBack.onDownloadStart(fileName);
 			}
 		}
 	}
@@ -275,7 +292,7 @@ public class DownloadService extends Service{
 	 * @param fileName
 	 */
 	public void startOrStop(String urlStr,String fileName) {
-		DownloadRunnable runnable = mDownloadRunables.get(urlStr);
+		DownloadRunnable runnable = mDownloadRunables.get(fileName);
 		if(runnable == null){
 			download(urlStr, fileName);
 			log("不在下载队列里面，添加下载任务,之后队列长="+mDownloadRunables.size());

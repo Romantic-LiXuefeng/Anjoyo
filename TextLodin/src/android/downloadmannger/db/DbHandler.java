@@ -33,11 +33,11 @@ public class DbHandler extends DbOpenHelper{
 	 * @param urlStr
 	 * @return
 	 */
-	public boolean exist(String urlStr) {
+	public boolean exist(String fileName) {
 		
-		String selection = ColumnsDownload.URL + "=?";
-		String[] selectionArgs = {urlStr};
-		Cursor cursor = dbRead.query(ColumnsDownload.TABLE_NAME, new String[]{ColumnsDownload.URL}, selection, selectionArgs, null, null, null);
+		String selection = ColumnsDownload.FILE_NAME + "=?";
+		String[] selectionArgs = {fileName};
+		Cursor cursor = dbRead.query(ColumnsDownload.TABLE_NAME, new String[]{ColumnsDownload.FILE_NAME}, selection, selectionArgs, null, null, null);
 		if(cursor.getCount() != 0){
 			cursor.close();
 			return true;
@@ -68,10 +68,10 @@ public class DbHandler extends DbOpenHelper{
 	 * @param urlStr
 	 * @return
 	 */
-	public int getHaveReadSize(String urlStr) {
-		String[] columns = {ColumnsDownload.URL,ColumnsDownload.HAVE_READ};
-		String selection = ColumnsDownload.URL + "=?";
-		String[] selectionArgs = {urlStr};
+	public int getHaveReadSize(String fileName) {
+		String[] columns = {ColumnsDownload.FILE_NAME,ColumnsDownload.HAVE_READ};
+		String selection = ColumnsDownload.FILE_NAME + "=?";
+		String[] selectionArgs = {fileName};
 		Cursor cursor = dbRead.query(ColumnsDownload.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
 		if(cursor.moveToNext()){
 			int haveRead = cursor.getInt(cursor.getColumnIndex(ColumnsDownload.HAVE_READ));
@@ -87,12 +87,12 @@ public class DbHandler extends DbOpenHelper{
 	 * @param urlStr
 	 * @param fileSize
 	 */
-	public void updateFileSize(String urlStr, int fileSize) {
+	public void updateFileSize(String fileName, int fileSize) {
 		
 		ContentValues values = new ContentValues();
 		values.put(ColumnsDownload.FILE_SIZE, fileSize);
-		String whereClause = ColumnsDownload.URL + "=?";
-		String[] whereArgs = {urlStr};
+		String whereClause = ColumnsDownload.FILE_NAME + "=?";
+		String[] whereArgs = {fileName};
 		dbWrite.update(ColumnsDownload.TABLE_NAME, values, whereClause, whereArgs);
 	}
 
@@ -101,11 +101,11 @@ public class DbHandler extends DbOpenHelper{
 	 * @param urlStr
 	 * @param total
 	 */
-	public void updateDownloadProgress(String urlStr, int total) {
+	public void updateDownloadProgress(String fileName, int total) {
 		ContentValues values = new ContentValues();
 		values.put(ColumnsDownload.HAVE_READ, total);
-		String whereClause = ColumnsDownload.URL + "=?";
-		String[] whereArgs = {urlStr};
+		String whereClause = ColumnsDownload.FILE_NAME + "=?";
+		String[] whereArgs = {fileName};
 		dbWrite.update(ColumnsDownload.TABLE_NAME, values, whereClause, whereArgs);
 	}
 
@@ -133,11 +133,11 @@ public class DbHandler extends DbOpenHelper{
 	 * 将某个下载任务标志为 "下载完成"
 	 * @param urlStr
 	 */
-	public void updateDownloadComplete(String urlStr) {
+	public void updateDownloadComplete(String fileName) {
 		ContentValues values = new ContentValues();
 		values.put(ColumnsDownload.STATE, ColumnsDownload.STATE_DOWNLOAD_COMPLETE);
-		String whereClause = ColumnsDownload.URL + "=?";
-		String[] whereArgs = {urlStr};
+		String whereClause = ColumnsDownload.FILE_NAME + "=?";
+		String[] whereArgs = {fileName};
 		dbWrite.update(ColumnsDownload.TABLE_NAME, values , whereClause, whereArgs);
 	}
 
@@ -146,10 +146,10 @@ public class DbHandler extends DbOpenHelper{
 	 * @param urlStr
 	 * @return
 	 */
-	public boolean isComplete(String urlStr) {
-		String[] columns = {ColumnsDownload.URL,ColumnsDownload.STATE};
-		String selection = ColumnsDownload.URL + "=?";
-		String[] selectionArgs = {urlStr};
+	public boolean isComplete(String fileName) {
+		String[] columns = {ColumnsDownload.FILE_NAME,ColumnsDownload.STATE};
+		String selection = ColumnsDownload.FILE_NAME + "=?";
+		String[] selectionArgs = {fileName};
 		Cursor cursor = dbRead.query(ColumnsDownload.TABLE_NAME, columns, selection, selectionArgs, null, null, null);
 		if(cursor.moveToNext()){
 			int state = cursor.getInt(cursor.getColumnIndex(ColumnsDownload.STATE));

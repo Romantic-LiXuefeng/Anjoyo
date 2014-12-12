@@ -72,6 +72,11 @@ public class MainActivity extends DoubleClickFinishActivity implements
 	private SignInFragment signInFragment;
 
 	private FragmentManager fragmentManager;
+	
+	public FragmentManager getFragmentManager1() {
+		return getSupportFragmentManager();
+	}
+
 	private GameApplicationn applicationn;
 
 	@Override
@@ -81,7 +86,7 @@ public class MainActivity extends DoubleClickFinishActivity implements
 		applicationn = (GameApplicationn) getApplication();
 		applicationn.addActivity(MainActivity.this);
 		initView();
-		fragmentManager = getSupportFragmentManager();
+		fragmentManager = getFragmentManager1();
 
 		setTabSelection(itemHome);
 

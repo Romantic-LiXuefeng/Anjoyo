@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.downloadmannger.app.GameApplicationn;
 import android.downloadmannger.utils.StartDowload;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.gamedownloadcenter.bean.SpecicalParticularsBean;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
@@ -50,7 +48,7 @@ public class GameSpecialDetailAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if(convertView==null){
 			convertView=LayoutInflater.from(context).inflate(R.layout.item_paihang_list, null);
@@ -71,14 +69,15 @@ public class GameSpecialDetailAdapter extends BaseAdapter{
 			
 			@Override
 			public void onClick(View v) {
-				//TODO 启动下载管理页面
-//				StartService.getStartService().start((Activity) context);
+				//TODO 启动下载
+				StartDowload.getStartDowload().start((Activity) context,"http://www.gamept.cn" + mSpecical.get(position).getItems().getFlashurl(), mSpecical.get(position).getItems().getTitle());
 			}
 		});
 		holder.rbStar.setRating((float)Integer.parseInt(mSpecical.get(position).getItems().getStar()));
 		Picasso.with(context).load("http://www.gamept.cn" + mSpecical.get(position).getItems().getIcon()).placeholder(R.drawable.head).into(holder.recommendHead);
 		return convertView;
 	}
+	
 	private class ViewHolder{
 		@ViewInject(R.id.iv_recommend_head)
     	ImageView recommendHead;

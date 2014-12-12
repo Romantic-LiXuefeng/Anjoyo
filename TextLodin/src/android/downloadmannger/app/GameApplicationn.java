@@ -11,7 +11,6 @@ import android.content.ServiceConnection;
 import android.downloadmannger.service.DownloadService;
 import android.downloadmannger.service.DownloadService.MyBinder;
 import android.os.IBinder;
-import android.widget.Toast;
 
 public class GameApplicationn extends Application{
 
@@ -53,7 +52,9 @@ public class GameApplicationn extends Application{
 	 * 停止服务
 	 */
 	public void stopService(){
-		unbindService(conn);
+		if(mService != null){
+			unbindService(conn);
+		}
 	}
 	/**退出所有的activity**/
 	public void exit() {
