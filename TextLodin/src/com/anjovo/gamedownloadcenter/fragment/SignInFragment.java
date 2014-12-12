@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.anjovo.gamedownloadcenter.bean.UserNameMessageBean;
 import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.fragment.base.TitleFragmentBase;
 import com.anjovo.gamedownloadcenter.utils.AnalysisUserMessage;
+import com.anjovo.gamedownloadcenter.utils.TimeUntil;
 import com.anjovo.gamedownloadcenter.utils.UserNameLoginUtils;
 import com.anjovo.gamedownloadcenter.utils.SharedPreferencesUtil;
 import com.anjovo.textlodin.R;
@@ -43,13 +45,14 @@ public class SignInFragment extends TitleFragmentBase {
 	private ImageView userPic;
 	private TextView tvOverView;
 	private String userid;
+	private boolean isClicked = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.fragment_sign_in, container,
 				false);
-		
+
 		return mContentView;
 	}
 
@@ -74,8 +77,15 @@ public class SignInFragment extends TitleFragmentBase {
 
 			@Override
 			public void onClick(View v) {
-				String sayText = etLeaveMessage.getText().toString();
-				sendSignInMessage(sayText, userid);
+
+				if (!isClicked) {
+					String sayText = etLeaveMessage.getText().toString();
+					sendSignInMessage(sayText, userid);
+					isClicked = true;
+				} else {
+					Toast.makeText(getActivity(), "今天已经签到过了!!!", 1).show();
+				}
+
 			}
 		});
 	}

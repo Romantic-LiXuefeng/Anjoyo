@@ -81,7 +81,8 @@
         android:background="@drawable/edittext_bg"
         android:gravity="top|left"
         android:hint="签到留言"
-        android:maxLines="5" />
+        android:maxLines="5"
+        android:padding="@dimen/custom_height8d" />
 
     <Button
         android:id="@+id/bt_sign_in"

@@ -59,6 +59,9 @@ public class SignInRecordFragment extends TitleFragmentBase {
 		mAdapter = new MySignInRecordListViewAdapter(mList, getActivity());
 		mListView.setAdapter(mAdapter);
 	}
+
+	private String username;
+
 	private void getSignInRecoed(String id) {
 		new HttpUtils().send(HttpMethod.GET, Constant.SIGNINRECORD_URL + id,
 				new RequestCallBack<String>() {
@@ -69,7 +72,6 @@ public class SignInRecordFragment extends TitleFragmentBase {
 								.show();
 
 					}
-
 					@Override
 					public void onSuccess(ResponseInfo<String> arg0) {
 						String result = arg0.result;
@@ -82,7 +84,7 @@ public class SignInRecordFragment extends TitleFragmentBase {
 										.get(i);
 								String data = JSONobject
 										.getString(Constant.SIGNINRECORD_DATA);
-								String username = JSONobject
+								username = JSONobject
 										.getString(Constant.SIGNINRECORD_USERNAME);
 								SignInRecordBean bean = new SignInRecordBean(
 										data, username);

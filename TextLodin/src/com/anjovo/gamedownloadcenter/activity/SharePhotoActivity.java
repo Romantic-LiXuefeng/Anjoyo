@@ -21,8 +21,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.constant.Constant;
+import com.anjovo.gamedownloadcenter.utils.StorageStateUntil;
 import com.anjovo.textlodin.R;
 
 public class SharePhotoActivity extends Activity {
@@ -106,12 +108,19 @@ public class SharePhotoActivity extends Activity {
 	// 调用系统相机拍照
 	private void takePhoto() {
 		picName = System.currentTimeMillis() + ".jpg";
-
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		Uri imageUri = Uri.fromFile(new File(Constant.External_Storage_Paths,
-				picName));
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-		startActivityForResult(intent, 1);
+		int storageState = StorageStateUntil.getStorageState();
+		if (storageState == 1) {
+			Uri imageUri = Uri.fromFile(new File(
+					Constant.External_Storage_Paths, picName));
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+			startActivityForResult(intent, 1);
+		} else if (storageState == 0) {
+			Toast.makeText(this, "当前外部存储设备不可用!!!", 1).show();
+		} else if (storageState == 2) {
+			Toast.makeText(this, "当前外部存储设备只可以读!!!", 1).show();
+		}
+
 	}
 
 	/** 拍照图片的名字 **/
@@ -126,9 +135,10 @@ public class SharePhotoActivity extends Activity {
 				Bitmap bitmap = BitmapFactory
 						.decodeFile(Constant.External_Storage_Paths + picName);
 				Bitmap zoomBitmap = zoomBitmap(bitmap,
-						Constant.screenWidth * 4 / 5, Constant.screenHeight *2/ 5);
+						Constant.screenWidth * 4 / 5,
+						Constant.screenHeight * 2 / 5);
 				ivAddPic.setBackgroundColor(android.graphics.Color
-						.parseColor("#ffffff"));
+						.parseColor("#E8E8E8"));
 				ivAddPic.setImageBitmap(zoomBitmap);
 				break;
 			case 101:

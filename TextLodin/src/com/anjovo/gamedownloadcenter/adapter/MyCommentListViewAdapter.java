@@ -76,15 +76,15 @@ public class MyCommentListViewAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				Intent intent = new Intent(context,
 						ReplyCommentOrMyCommentActivity.class);
-
-				String hintStr = "回复" + bean1.getNickname() + ":";
-				intent.putExtra("hintStr", hintStr);
+				intent.putExtra("name", bean1.getNickname());
 				intent.putExtra("userpic", bean.getUserpic());
 				intent.putExtra("nickname", bean.getNickname());
 				intent.putExtra("title", bean.getTitle());
 				intent.putExtra("gxpic", bean.getGxpic());
 				intent.putExtra("time", bean.getTime());
 				intent.putExtra("gxid", bean.getGxid());
+				intent.putExtra("plid", bean1.getPlid());
+				intent.putExtra("replycommentorcommentstate", 0);
 				context.startActivity(intent);
 			}
 		});
