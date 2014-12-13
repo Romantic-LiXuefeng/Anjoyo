@@ -133,6 +133,7 @@
                 android:id="@+id/download_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/imageview_btn_selector"
                 android:src="@drawable/skin_src_image_btn_down_delete_default" />
         </LinearLayout>
     </LinearLayout>

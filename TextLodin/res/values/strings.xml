@@ -1,5 +1,17 @@
 <resources>
 
+    <!-- app管理 -->
+    <array name="choice">
+    	<item name="start">启动程序</item>
+    	<item name="detail">详细信息</item>
+    	<item name="uninstall">卸载程序</item>
+    </array>
+    <array name="detail_choice">
+    	<item name="start">运行</item>
+    	<item name="uninstall">卸载</item>
+    	<item name="back">返回</item>
+    </array>
+    
     <string name="app_name">菜鸟游戏</string>
     <string name="underline"><u>忘记密码?</u></string>
     <string name="registration_protocol"><u>菜鸟游戏注册协议</u></string>

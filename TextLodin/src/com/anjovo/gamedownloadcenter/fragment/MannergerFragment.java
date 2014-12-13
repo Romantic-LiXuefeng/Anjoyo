@@ -3,8 +3,13 @@ package com.anjovo.gamedownloadcenter.fragment;
 import java.io.File;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.downloadmannger.activity.DowloadMainActivity;
 import android.downloadmannger.adapter.DownloadMangeAdapter;
 import android.downloadmannger.app.GameApplicationn;
@@ -12,6 +17,7 @@ import android.downloadmannger.db.DbHandler;
 import android.downloadmannger.db.DbOpenHelper.ColumnsDownload;
 import android.downloadmannger.model.DownloadEntity;
 import android.downloadmannger.service.DownloadService;
+import android.downloadmannger.utils.StartDowload;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -37,7 +45,7 @@ import com.lidroid.xutils.view.annotation.event.OnCheckedChange;
  * @author Administrator
  * 管理页面
  */
-public class MannergerFragment extends TitleFragmentBase {
+public class MannergerFragment extends TitleFragmentBase implements Runnable{
 	
 	@ViewInject(R.id.detail_layout14)
 	private RadioGroup detail_layout;//
@@ -52,16 +60,22 @@ public class MannergerFragment extends TitleFragmentBase {
 	
 	@ViewInject(R.id.listView_downloadmannerger)
 	private ListView mListViewDowbload;
-	@ViewInject(R.id.listView_app)
-	private ListView mListViewApp;
 	@ViewInject(R.id.downloading_speed_text)
 	private TextView downloading_speed_text;
 	private DownloadMangeAdapter mAdapter;
 	private List<DownloadEntity> mDownloadEntitys;
 	private DbHandler mDbHandler;
 	GameApplicationn applicationn;
+	/**以下属于app管理**/
+	@ViewInject(R.id.listView_app)
+	private ListView mListViewApp;
+	private List<PackageInfo> allpackageInfos;
+	ProgressDialog progressDialog;
+	
 	public static final int MSG_SET_LISTVIEW = 1;
 	public static final int MSG_CLEAR_COMPLETE = 2;
+	/**以下属于app管理**/
+	private static final int SEARCH_APP = 0;
 	Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -73,6 +87,15 @@ public class MannergerFragment extends TitleFragmentBase {
 				break;
 			case MSG_CLEAR_COMPLETE:
 				mDialog.dismiss();
+				break;
+			case SEARCH_APP:
+				if(allpackageInfos.size() > 0){
+					mListViewApp.setAdapter(new ListViewAdapter(getActivity(),allpackageInfos));
+					progressDialog.dismiss();
+				}else{
+					StartDowload.getStartDowload().ToashShow("数据加载错误, 请稍候重试...",getActivity());
+				}
+				// setProgressBarIndeterminateVisibility(false);//在不需要显示进度条的时候调用这个方法
 				break;
 			}
 		};
@@ -102,13 +125,59 @@ public class MannergerFragment extends TitleFragmentBase {
 			mAdapter.unregisterDownloadCallBack(applicationn.getDownloadService());
 		}
 	}
+	
 	private void InitFragments() {
 		mListViewDowbload.setOnItemClickListener(onItemClickListener);
 		mDownloadmanger.setChecked(true);
 		fragment1.setVisibility(View.GONE);
 		fragment2.setVisibility(View.VISIBLE);
 	}
-	OnItemClickListener onItemClickListener = new OnItemClickListener() {
+
+	private void initAppMannerger() {
+		mListViewApp.setOnItemClickListener(onItemClickListenerApp);	
+		progressDialog = ProgressDialog.show(getActivity(), "请稍等", "正在搜索中...",true,false);
+        progressDialog.setMax(20);
+        //setProgressBarIndeterminateVisibility(true);//在需要显示进度条的时候调用这个方法
+        Thread thread = new Thread(this);
+        thread.start();
+	}
+
+	/**
+	 * 属于app软件管理页面
+	 */
+	private OnItemClickListener onItemClickListenerApp = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id) {
+			final PackageInfo tempPackageInfo = allpackageInfos.get(position);
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("选项");
+			builder.setItems(R.array.choice, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					switch (which) {
+					case 0:
+						StartDowload.getStartDowload().startProgress(getActivity(), tempPackageInfo);
+						break;
+					case 1:
+						showAppDetail(tempPackageInfo);
+						break;
+					case 2:
+						StartDowload.getStartDowload().stratToUninstall(getActivity(), tempPackageInfo);
+						break;
+					}
+				}
+			});
+			builder.setNegativeButton("取消", null);
+			builder.create().show();
+		}
+	};
+	
+	/**
+	 * 属于app下载管理页面
+	 */
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -136,7 +205,7 @@ public class MannergerFragment extends TitleFragmentBase {
 	/**
 	 * 加载数据
 	 */
-	private void loadDatas(){
+	public void loadDatas(){
 		new Thread(){
 			public void run() {
 				mDownloadEntitys = mDbHandler.getDownloadEntitys();
@@ -204,6 +273,7 @@ public class MannergerFragment extends TitleFragmentBase {
 			mAppmanger.setChecked(true);
 			fragment1.setVisibility(View.VISIBLE);
 			fragment2.setVisibility(View.GONE);
+			initAppMannerger();
 		}
 	}
 	
@@ -242,5 +312,107 @@ public class MannergerFragment extends TitleFragmentBase {
 	 */
 	public void startDowload(String urlStr, String fileName){
 		startActivity(new Intent(getActivity(), DowloadMainActivity.class));
+	}
+
+	@Override
+	public void run() {
+		allpackageInfos = getActivity().getPackageManager()
+		.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES| PackageManager.GET_ACTIVITIES);
+		handler.sendEmptyMessage(SEARCH_APP);
+	}
+	
+	class ListViewAdapter extends BaseAdapter{
+    	LayoutInflater inflater;
+    	List<PackageInfo> packageInfos;
+    	public ListViewAdapter(Context context,List<PackageInfo> packageInfos) {
+    		inflater = LayoutInflater.from(context);
+    		this.packageInfos = packageInfos;
+    	}
+		@Override
+		public int getCount() {
+			return packageInfos.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return packageInfos.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			DownloadMannergerViewHolder holder;
+			if(convertView == null){
+				convertView = inflater.inflate(R.layout.item_appmannerger, null);
+				holder = new DownloadMannergerViewHolder();
+				ViewUtils.inject(holder, convertView);
+				convertView.setTag(holder);
+			}else{
+				holder = (DownloadMannergerViewHolder) convertView.getTag();
+			}
+			holder.tv_appname.setText(packageInfos.get(position).applicationInfo.loadLabel(getActivity().getPackageManager()));
+			holder.tv_packagename.setText(packageInfos.get(position).packageName);
+			holder.iv.setImageDrawable(packageInfos.get(position).applicationInfo.loadIcon(getActivity().getPackageManager()));
+			return convertView;
+		}
+    }
+	
+	class DownloadMannergerViewHolder{
+		@ViewInject(R.id.lv_item_appname)
+		TextView tv_appname;
+		@ViewInject(R.id.lv_item_packageame)
+		TextView tv_packagename;
+		@ViewInject(R.id.lv_icon)
+		ImageView iv;
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		refreshApps();
+	} 
+	
+	private void refreshApps(){
+		progressDialog = ProgressDialog.show(getActivity(), null, "重新加载中,请稍等...",true,false);
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				allpackageInfos = getActivity().getPackageManager().getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES | PackageManager.GET_ACTIVITIES);
+				handler.sendEmptyMessage(SEARCH_APP);
+			}
+		});
+		t.start();
+	}
+	
+	private void showAppDetail(PackageInfo packageInfo) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setTitle("详细信息");
+		StringBuffer message = new StringBuffer();
+		message.append("应用名称:" + packageInfo.applicationInfo.loadLabel(getActivity().getPackageManager()));
+		message.append("\n包名:" + packageInfo.packageName);
+		message.append("\n版本号:" + packageInfo.versionCode);
+		message.append("\n版本名:" + packageInfo.versionName);
+		final PackageInfo temppackageInfo = packageInfo;
+		builder.setMessage(message.toString());
+		builder.setIcon(packageInfo.applicationInfo.loadIcon(getActivity().getPackageManager()));
+		builder.setPositiveButton("运行", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				StartDowload.getStartDowload().startProgress(getActivity(), temppackageInfo);
+			}
+		});
+		builder.setNeutralButton("卸载", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				StartDowload.getStartDowload().stratToUninstall(getActivity(), temppackageInfo);
+			}
+		});
+		builder.setNegativeButton("返回", null);
+		builder.create().show();
 	}
 }

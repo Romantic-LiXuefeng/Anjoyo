@@ -664,4 +664,10 @@ public class MainActivity extends DoubleClickFinishActivity implements
 
 		}
 	};
+
+	public void loadDatas() {
+		if(mannergerFragment != null){
+			mannergerFragment.loadDatas();
+		}
+	}
 }

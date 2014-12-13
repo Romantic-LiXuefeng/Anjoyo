@@ -168,4 +168,14 @@ public class DbHandler extends DbOpenHelper{
 	public void clearDownloadTable() {
 		dbWrite.delete(ColumnsDownload.TABLE_NAME, null, null);
 	}
+
+	/**
+	 * 制定app名字刪除app
+	 * @param title
+	 */
+	public void deleteOnData(String title) {
+		String whereClause = ColumnsDownload.FILE_NAME + "=?";
+		String[] whereArgs = {title};
+		dbWrite.delete(ColumnsDownload.TABLE_NAME, whereClause, whereArgs);
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
+import android.downloadmannger.db.DbHandler;
 import android.downloadmannger.db.DbOpenHelper.ColumnsDownload;
 import android.downloadmannger.model.DownloadEntity;
 import android.downloadmannger.service.DownloadService;
@@ -20,18 +21,23 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
 import com.anjovo.textlodin.R;
 
 public class DownloadMangeAdapter extends BaseAdapter{
 	private List<DownloadEntity> mDownloadEntities;
 	private LayoutInflater mInflater;
+	private DbHandler mHandler;
 	/**代表list集合中第一个下载完成的 app名字**/
 	private String mFileName = "";
+	private Context context;
 	private HashMap<String, DownloadEntity> mDownloadEntitiesMap;
 	public DownloadMangeAdapter(List<DownloadEntity> downloadEntities, Context context) {
 		super();
 		this.mDownloadEntities = downloadEntities;
+		this.context = context;
 		mInflater = LayoutInflater.from(context);
+		mHandler = DbHandler.getInstance(context);
 		mDownloadEntitiesMap = new HashMap<String, DownloadEntity>();
 		for (DownloadEntity downloadEntity : downloadEntities) {
 			mDownloadEntitiesMap.put(downloadEntity.getTitle(), downloadEntity);
@@ -59,7 +65,7 @@ public class DownloadMangeAdapter extends BaseAdapter{
 
 	private HashMap<ViewHolder, String> mHolders = new HashMap<ViewHolder, String>();
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
 		if(convertView == null){
 			convertView = mInflater.inflate(R.layout.downloading_item, null);
@@ -68,6 +74,7 @@ public class DownloadMangeAdapter extends BaseAdapter{
 			holder.deleteIv = (ImageView) convertView.findViewById(R.id.download_delete);
 			holder.downloadedHeadLayout = convertView.findViewById(R.id.downloaded_head_layout);
 			holder.downloadStateIv = (ImageView) convertView.findViewById(R.id.download_state);
+			holder.download_delete = (ImageView) convertView.findViewById(R.id.download_delete);
 			holder.progressBar = (ProgressBar) convertView.findViewById(R.id.download_progressbar);
 			holder.progressView = convertView.findViewById(R.id.download_progressView);
 			holder.tipTv = (TextView) convertView.findViewById(R.id.download_tip_tv);
@@ -118,11 +125,21 @@ public class DownloadMangeAdapter extends BaseAdapter{
 			}
 		}
 
+		holder.download_delete.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mHandler.deleteOnData(getItem(position).getTitle());
+				notifyDataSetChanged();
+				((MainActivity) context).loadDatas();
+			}
+		});
 		return convertView;
 	}
 
 	class ViewHolder{
 		ImageView downloadStateIv;
+		ImageView download_delete;
 		TextView titleTv;
 		View progressView;
 		ImageView deleteIv;
