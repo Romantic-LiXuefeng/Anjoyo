@@ -57,7 +57,6 @@ public class SharePhotoActivity extends Activity {
 	private Button btCancel;
 	/** 用户id **/
 	private String id = "";
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
