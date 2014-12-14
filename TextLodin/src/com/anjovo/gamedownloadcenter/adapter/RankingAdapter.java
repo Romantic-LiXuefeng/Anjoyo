@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageInfo;
 import android.downloadmannger.utils.StartDowload;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 public class RankingAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<HashMap<String, String>> rankingList;
+    private PackageInfo appPackageInfo;
     
 	public RankingAdapter(Context context,
 			ArrayList<HashMap<String, String>> rankingList) {
@@ -69,27 +71,38 @@ public class RankingAdapter extends BaseAdapter {
 		holder.rankingSize.setText(rankingList.get(position).get(Constant.RECOMMEND_FILESIZE));
 		holder.rbStar.setRating((float)Integer.parseInt(rankingList.get(position).get(Constant.RECOMMEND_STAR)));
 		Picasso.with(context).load("http://www.gamept.cn" + rankingList.get(position).get(Constant.RECOMMEND_ICON)).placeholder(R.drawable.head).into(holder.rankingHead);
+		holder.rankingDown.setText("下载");
+		
+		PackageInfo packageInfo1 = StartDowload.getStartDowload().getAppPackageInfo((Activity)context, rankingList.get(position).get(Constant.RECOMMEND_TITLE));
+		if(packageInfo1 != null){
+			appPackageInfo = packageInfo1;
+			holder.rankingDown.setText("启动");
+		}else if(StartDowload.getStartDowload().isAppDownloadComplete((Activity)context, rankingList.get(position).get(Constant.RECOMMEND_TITLE))){
+			holder.rankingDown.setText("安装");
+		}else{
+			holder.rankingDown.setText("下载");
+		}
 		holder.rankingDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-					holder.rankingDown.setText("下载中");
+				if(holder.rankingDown.getText().equals("启动")){
+					if(appPackageInfo != null){
+						StartDowload.getStartDowload().startProgress((Activity)context, appPackageInfo);
+					}else{
+						StartDowload.getStartDowload().ToashShow("启动程序失败，请稍候重试...", context);
+					}
+				}else if(holder.rankingDown.getText().equals("安装")){
+					StartDowload.getStartDowload().startToInstall((Activity)context,rankingList.get(position).get(Constant.RECOMMEND_TITLE));
+				}else{
 					StartDowload.getStartDowload().start((Activity)context, "http://www.gamept.cn" + rankingList.get(position).get(Constant.RECOMMEND_FLASHRL),rankingList.get(position).get(Constant.RECOMMEND_TITLE));			
+				}
+				notifyDataSetChanged();
 			}			
 		});
-		boolean isDownloadComplete = StartDowload.getStartDowload().isAppDownloadComplete((Activity)context, rankingList.get(position).get(Constant.RECOMMEND_TITLE));
-		if(isDownloadComplete){
-			holder.rankingDown.setText("安装");
-			//notifyDataSetChanged();
-			holder.rankingDown.setOnClickListener(new OnClickListener() {				
-				@Override
-				public void onClick(View v) {
-					StartDowload.getStartDowload().startToInstall((Activity)context,rankingList.get(position).get(Constant.RECOMMEND_TITLE));
-				}
-			});
-		}
 		return convertView;
 		
 	}
+	
     class ViewHolder{
     	@ViewInject(R.id.iv_recommend_head)
     	ImageView rankingHead;

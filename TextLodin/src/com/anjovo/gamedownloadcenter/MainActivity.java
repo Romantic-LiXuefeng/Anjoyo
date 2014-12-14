@@ -1,7 +1,11 @@
 package com.anjovo.gamedownloadcenter;
 
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.downloadmannger.app.GameApplicationn;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -36,7 +40,7 @@ import com.anjovo.textlodin.R;
  * @author Administrator 主页面 主题框架 功能 双击返回键则退出应用 有侧滑 有和所有fragment的框架
  */
 public class MainActivity extends DoubleClickFinishActivity implements
-		OnClickListener, OnClickChangeListener {
+		OnClickListener, OnClickChangeListener, Runnable{
 
 	private ResideMenu resideMenu;
 	private View mMenuView;
@@ -85,13 +89,19 @@ public class MainActivity extends DoubleClickFinishActivity implements
 		setContentView(R.layout.activity_main);
 		applicationn = (GameApplicationn) getApplication();
 		applicationn.addActivity(MainActivity.this);
+		Thread thread = new Thread(this);
+        thread.start();
 		initView();
 		fragmentManager = getFragmentManager1();
 
 		setTabSelection(itemHome);
-
 	}
 
+	@Override
+	public void run() {
+		installedPackages = getPackageManager().getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES| PackageManager.GET_ACTIVITIES);
+	}
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -664,6 +674,11 @@ public class MainActivity extends DoubleClickFinishActivity implements
 
 		}
 	};
+	public List<PackageInfo> installedPackages;
+
+	public List<PackageInfo> getInstalledPackages() {
+		return installedPackages;
+	}
 
 	public void loadDatas() {
 		if(mannergerFragment != null){

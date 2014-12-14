@@ -16,6 +16,8 @@ import android.downloadmannger.model.DownloadEntity;
 import android.net.Uri;
 import android.widget.Toast;
 
+import com.anjovo.gamedownloadcenter.MainActivity;
+
 /**
  * @author Administrator 下载管理辅助类
  *         调用StartDowload.getStartDowload().start（）此方法是app下载入口
@@ -98,7 +100,7 @@ public class StartDowload {
 	}
 
 	/**
-	 * 根据传过来的app下载路径判断次app是否已经下载完成
+	 * 根据传过来的app名字判断次app是否已经下载完成
 	 * 
 	 * @param a
 	 * @param fileName
@@ -168,6 +170,24 @@ public class StartDowload {
 		a.startActivity(intent);
 	}
 	
+	/**
+	 * 通过游戏名字获得PackageInfo
+	 * @param a
+	 * @param fileName
+	 */
+	public PackageInfo getAppPackageInfo(Activity a,String fileName){
+		GameApplicationn c = (GameApplicationn) a.getApplication();
+		MainActivity activity = (MainActivity) c.getActivity(0);
+		List<PackageInfo> installedPackages = activity.getInstalledPackages();
+		for (PackageInfo packageInfo : installedPackages) {
+			String title = packageInfo.applicationInfo.loadLabel(a.getPackageManager()).toString();
+			if(fileName.equals(title+"")){
+				return packageInfo;
+			}
+		}
+		return null;
+	}
+	
 	private Toast mToast;
 
 	public void ToashShow(String text, Context a) {
@@ -177,4 +197,5 @@ public class StartDowload {
 		mToast.setText(text);
 		mToast.show();
 	}
+	
 }

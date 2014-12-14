@@ -187,7 +187,6 @@ public class MannergerFragment extends TitleFragmentBase implements Runnable{
 				//如果点击的item 是一个下载完成的，跳转到安装apk界面
 				startToInstall(entity.getFilePath());
 			}else{
-				//TODO
 				applicationn.getDownloadService().startOrStop(entity.getUrl(),entity.getTitle());
 			}
 		}
@@ -302,6 +301,7 @@ public class MannergerFragment extends TitleFragmentBase implements Runnable{
 	@Override
 	public void onResume() {
 		super.onResume();
+		loadDatas();
 	}
 	
 	/**
