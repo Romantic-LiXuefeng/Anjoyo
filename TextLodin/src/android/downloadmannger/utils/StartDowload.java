@@ -119,7 +119,7 @@ public class StartDowload {
 	 * @param filePath
 	 */
 	public void startToInstall(Activity a, String fileName) {
-		int position = 0;
+		int position = -1;
 		String filePath;mDbHandler = DbHandler.getInstance(a);
 		List<DownloadEntity> downloadEntitys = mDbHandler.getDownloadEntitys();
 		for (int i = 0; i < downloadEntitys.size(); i++) {
@@ -128,7 +128,7 @@ public class StartDowload {
 				break;
 			}
 		}
-		if (position != 0) {
+		if (position != -1) {
 			filePath = downloadEntitys.get(position).getFilePath();
 			Intent intent = new Intent(Intent.ACTION_VIEW);
 			intent.setDataAndType(Uri.parse("file://" + filePath),

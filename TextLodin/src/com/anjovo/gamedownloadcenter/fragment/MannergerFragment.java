@@ -209,7 +209,6 @@ public class MannergerFragment extends TitleFragmentBase implements Runnable{
 		new Thread(){
 			public void run() {
 				mDownloadEntitys = mDbHandler.getDownloadEntitys();
-				
 				handler.sendEmptyMessage(MSG_SET_LISTVIEW);
 			};
 		}.start();
