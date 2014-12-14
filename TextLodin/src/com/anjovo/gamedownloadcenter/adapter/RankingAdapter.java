@@ -79,7 +79,7 @@ public class RankingAdapter extends BaseAdapter {
 		Picasso.with(context).load("http://www.gamept.cn" + rankingList.get(position).get(Constant.RECOMMEND_ICON)).placeholder(R.drawable.head).into(holder.rankingHead);
 		holder.rankingDown.setText("下载");
 		
-		PackageInfo packageInfo1 = StartDowload.getStartDowload().getAppPackageInfo((Activity)context, rankingList.get(position).get(Constant.RECOMMEND_TITLE));
+		PackageInfo packageInfo1 = StartDowload.getStartDowload().getAppPackageInfo((Activity)context, rankingList.get(position).get(Constant.RECOMMEND_PACHAGENAME));
 		if(packageInfo1 != null){
 			appPackageInfo = packageInfo1;
 			holder.rankingDown.setText("启动");
