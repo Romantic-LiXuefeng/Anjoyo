@@ -22,6 +22,10 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 
+/**
+ * @author Administrator
+ * 下载服务
+ */
 public class DownloadService extends Service{
 	
 	public static final String DOWNLOAD_DIR = Environment.getExternalStorageDirectory().getPath() + File.separator
