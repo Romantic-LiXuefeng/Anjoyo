@@ -20,6 +20,10 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.squareup.picasso.Picasso;
 
+/**
+ * @author Administrator
+ * 专题推荐页面 item的adapter
+ */
 public class GameSpecialDetailAdapter extends BaseAdapter{
 	private List<SpecicalParticularsBean> mSpecical;
 	private Context context;

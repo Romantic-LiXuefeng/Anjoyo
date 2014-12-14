@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.downloadmannger.utils.StartDowload;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import com.anjovo.gamedownloadcenter.fragment.base.FragmentBase;
 import com.anjovo.textlodin.R;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 /**
  * @author Administrator
@@ -27,6 +30,8 @@ public class DetailFragment extends FragmentBase{
 	private TextView mFlashsay;
 	@ViewInject(R.id.morepic_activity_detail)
 	private GridView mMorepicGridView;//
+	@ViewInject(R.id.download)
+	private Button mDownload;//
 	private List<HashMap<String, String>> mMorepics = new ArrayList<HashMap<String,String>>();
 	private GameDetailMorepicAdapter adapter;
 	@Override
@@ -48,6 +53,14 @@ public class DetailFragment extends FragmentBase{
 		setAdapter(mMorepics);
 	}
 
+	@OnClick({R.id.download})
+	public void Onclick(View v){
+		if(v == mDownload){
+			if(mMorepics != null && mMorepics.size() > 0){
+				StartDowload.getStartDowload().start(getActivity(),"http://www.gamept.cn" + mMorepics.get(0).get("flashurl"), mMorepics.get(0).get("title"));
+			}
+		}
+	}
 	public void setAdapter(List<HashMap<String, String>> mMorepic) {
 		mMorepics.clear();
 		mMorepics.addAll(mMorepic);

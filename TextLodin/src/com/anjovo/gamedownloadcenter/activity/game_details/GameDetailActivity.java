@@ -152,6 +152,7 @@ public class GameDetailActivity extends TitleActivityBase implements Callback{
 		Log.i("TEST_IMAGE path ==>>>", TEST_IMAGE);
 	}
 
+	@SuppressWarnings("unused")
 	private void initTestText() {
 		TEST_TEXT = new HashMap<Integer, String>();
 		try {
