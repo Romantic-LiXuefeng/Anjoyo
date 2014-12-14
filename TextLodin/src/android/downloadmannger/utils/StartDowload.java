@@ -118,12 +118,12 @@ public class StartDowload {
 	 * 
 	 * @param filePath
 	 */
-	public void startToInstall(Activity a, String urlStr) {
+	public void startToInstall(Activity a, String fileName) {
 		int position = 0;
 		String filePath;
 		List<DownloadEntity> downloadEntitys = mDbHandler.getDownloadEntitys();
 		for (int i = 0; i < downloadEntitys.size(); i++) {
-			if (downloadEntitys.get(i).getUrl().equals(urlStr)) {
+			if (downloadEntitys.get(i).getTitle().equals(fileName)) {
 				position = i;
 				break;
 			}
