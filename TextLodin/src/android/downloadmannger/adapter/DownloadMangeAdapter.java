@@ -239,7 +239,7 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		DownloadEntity tagEntity = downloadEntity;
 		mDownloadEntities.add(tag, tagEntity);
 		mDownloadEntities.remove(downloadEntity);
-		mFileName = downloadEntity.getUrl();
+		mFileName = downloadEntity.getTitle();
 
 		notifyDataSetChanged();
 	}

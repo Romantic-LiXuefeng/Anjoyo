@@ -199,16 +199,13 @@ public class DownloadService extends Service{
 					if(isStop){ //如果用户停止下载任务
 						if(mCallBack != null){ //回调 "停止下载"
 							mCallBack.onDownloadStop(fileName);
+							setmDownloadSpeed("0kb/s");
 						}
 						break;
 					}
 				}
-				if(isStop){
-					setmDownloadSpeed("0kb/s");
-				}else{
-					long b = System.currentTimeMillis();
-					setmDownloadSpeed(total/(b-a)+"kb/s");
-				}
+				long b = System.currentTimeMillis();
+				setmDownloadSpeed(total/(b-a)+"kb/s");
 				//判断是否下载完成
 				if(total == fileSize){
 					setmDownloadSpeed("0kb/s");
