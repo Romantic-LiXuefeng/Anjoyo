@@ -120,7 +120,7 @@ public class StartDowload {
 	 */
 	public void startToInstall(Activity a, String fileName) {
 		int position = 0;
-		String filePath;
+		String filePath;mDbHandler = DbHandler.getInstance(a);
 		List<DownloadEntity> downloadEntitys = mDbHandler.getDownloadEntitys();
 		for (int i = 0; i < downloadEntitys.size(); i++) {
 			if (downloadEntitys.get(i).getTitle().equals(fileName)) {
