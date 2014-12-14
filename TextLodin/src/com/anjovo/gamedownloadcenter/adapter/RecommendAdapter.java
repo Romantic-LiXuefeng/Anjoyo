@@ -65,8 +65,13 @@ public class RecommendAdapter extends BaseAdapter {
 		}else{
 			holder.recommendNum.setText(loadDownNum+"次");
 		}	
-		
-		holder.recommendSize.setText(recommendList.get(position).get(Constant.RECOMMEND_FILESIZE));
+		String appSize = recommendList.get(position).get(Constant.RECOMMEND_FILESIZE);
+		if(appSize.equals("")){
+			holder.recommendSize.setText("0.00"+"MB");
+		}else{
+			holder.recommendSize.setText(appSize);
+		}
+		//holder.recommendSize.setText(recommendList.get(position).get(Constant.RECOMMEND_FILESIZE));
 		holder.rbStar.setRating((float)Integer.parseInt(recommendList.get(position).get(Constant.RECOMMEND_STAR)));
 		Picasso.with(context).load("http://www.gamept.cn" + recommendList.get(position).get(Constant.RECOMMEND_ICON)).placeholder(R.drawable.head).into(holder.recommendHead);
 		
