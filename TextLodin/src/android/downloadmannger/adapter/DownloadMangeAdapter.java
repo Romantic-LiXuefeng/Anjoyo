@@ -229,7 +229,7 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		}
 		int tag = 0;
 		for (DownloadEntity entity : mDownloadEntities) {
-			if(entity.getUrl().equals(mFileName)){//匹配成功说明当前位置是数据库中第一条已下载完成的数据
+			if(entity.getTitle().equals(mFileName)){//匹配成功说明当前位置是数据库中第一条已下载完成的数据
 				break;
 			}else{
 				tag++;
@@ -239,7 +239,7 @@ public class DownloadMangeAdapter extends BaseAdapter{
 		DownloadEntity tagEntity = downloadEntity;
 		mDownloadEntities.add(tag, tagEntity);
 		mDownloadEntities.remove(downloadEntity);
-		mFileName = downloadEntity.getUrl();
+		mFileName = downloadEntity.getTitle();
 
 		notifyDataSetChanged();
 	}

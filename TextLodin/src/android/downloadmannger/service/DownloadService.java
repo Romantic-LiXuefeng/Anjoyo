@@ -22,6 +22,10 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 
+/**
+ * @author Administrator
+ * 下载服务
+ */
 public class DownloadService extends Service{
 	
 	public static final String DOWNLOAD_DIR = Environment.getExternalStorageDirectory().getPath() + File.separator
@@ -195,16 +199,13 @@ public class DownloadService extends Service{
 					if(isStop){ //如果用户停止下载任务
 						if(mCallBack != null){ //回调 "停止下载"
 							mCallBack.onDownloadStop(fileName);
+							setmDownloadSpeed("0kb/s");
 						}
 						break;
 					}
 				}
-				if(isStop){
-					setmDownloadSpeed("0kb/s");
-				}else{
-					long b = System.currentTimeMillis();
-					setmDownloadSpeed(total/(b-a)+"kb/s");
-				}
+				long b = System.currentTimeMillis();
+				setmDownloadSpeed(total/(b-a)+"kb/s");
 				//判断是否下载完成
 				if(total == fileSize){
 					setmDownloadSpeed("0kb/s");
