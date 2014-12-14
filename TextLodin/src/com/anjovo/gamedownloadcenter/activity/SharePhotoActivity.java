@@ -1,11 +1,23 @@
 package com.anjovo.gamedownloadcenter.activity;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Matrix;
@@ -18,14 +30,20 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anjovo.gamedownloadcenter.constant.Constant;
+import com.anjovo.gamedownloadcenter.utils.AnalysisUserMessage;
 import com.anjovo.gamedownloadcenter.utils.StorageStateUntil;
 import com.anjovo.textlodin.R;
+import com.lidroid.xutils.http.client.multipart.HttpMultipartMode;
+import com.lidroid.xutils.http.client.multipart.MultipartEntity;
+import com.lidroid.xutils.http.client.multipart.content.ByteArrayBody;
+import com.lidroid.xutils.http.client.multipart.content.StringBody;
 
 public class SharePhotoActivity extends Activity {
 	/** 添加分享图片 **/
@@ -37,12 +55,20 @@ public class SharePhotoActivity extends Activity {
 	private Button btPhotoGraph;
 	private Button btPhotoAlbum;
 	private Button btCancel;
+	/** 用户id **/
+	private String id = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sharephoto);
 		initView();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		id = AnalysisUserMessage.getUserMessageBean(this).getUserid();
 	}
 
 	private void initView() {
@@ -67,8 +93,13 @@ public class SharePhotoActivity extends Activity {
 		// 取消
 		btCancel = (Button) findViewById(R.id.cancel);
 		btCancel.setOnClickListener(onClickListener);
+
+		etContent = (EditText) findViewById(R.id.comment_or_relpy_content);
+
 	}
 
+	/** 分享照片的title **/
+	private String content = "";
 	private OnClickListener onClickListener = new OnClickListener() {
 
 		@Override
@@ -76,6 +107,9 @@ public class SharePhotoActivity extends Activity {
 			if (v == ivAddPic) {
 				ll.setVisibility(View.VISIBLE);
 			} else if (v == btSubmit) {
+				content = etContent.getText().toString();
+				content = uri = "http://www.gamept.cn/yx_gxpic.php?uid=" + id
+						+ "&title=" + content + "&gxpic";
 				submitSharePhotoAndComment();
 			} else if (v == btPhotoGraph) {
 				ll.setVisibility(View.GONE);
@@ -95,7 +129,51 @@ public class SharePhotoActivity extends Activity {
 
 	/** 提交分享图片和评论 **/
 	private void submitSharePhotoAndComment() {
-		// TODO
+		new Thread() {
+			@Override
+			public void run() {
+				super.run();
+				executeMultipartPost(uri);
+			}
+		}.start();
+		Toast.makeText(this, "分享照片成功!", 1).show();
+	}
+
+	private String uri = "";
+
+	/** 上传文件 **/
+	private void executeMultipartPost(String uri) {
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			bm.compress(CompressFormat.PNG, 30, bos);
+			byte[] data = bos.toByteArray();
+
+			HttpClient mClient = new DefaultHttpClient();
+			HttpPost postRequest = new HttpPost(uri);
+			ByteArrayBody bab = new ByteArrayBody(data, picName);
+
+			MultipartEntity reqEntity = new MultipartEntity(
+					HttpMultipartMode.BROWSER_COMPATIBLE);
+			reqEntity.addPart("uploaded1", bab);
+
+			reqEntity.addPart("photoCaption", new StringBody(picName));
+			postRequest.setEntity(reqEntity);
+			HttpResponse execute = mClient.execute(postRequest);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					execute.getEntity().getContent(), "UTF-8"));
+			String sResponse;
+			StringBuilder s = new StringBuilder();
+			while ((sResponse = reader.readLine()) != null) {
+				s = s.append(sResponse);
+			}
+			Log.d("vivi", s.toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 打开手机相册
@@ -123,18 +201,20 @@ public class SharePhotoActivity extends Activity {
 
 	}
 
-	/** 拍照图片的名字 **/
+	/** 上传图片的名字 **/
 	private String picName;
 	private ImageView ivBack;
+	private Bitmap bm = null;
+	private EditText etContent;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 1:
-				Bitmap bitmap = BitmapFactory
-						.decodeFile(Constant.External_Storage_Paths + picName);
-				Bitmap zoomBitmap = zoomBitmap(bitmap,
+				bm = BitmapFactory.decodeFile(Constant.External_Storage_Paths
+						+ picName);
+				Bitmap zoomBitmap = zoomBitmap(bm,
 						Constant.screenWidth * 4 / 5,
 						Constant.screenHeight * 2 / 5);
 				ivAddPic.setBackgroundColor(android.graphics.Color
@@ -151,13 +231,17 @@ public class SharePhotoActivity extends Activity {
 				if (c != null) {
 					c.moveToFirst();
 					String filePath = c.getString(c.getColumnIndex(Media.DATA));
+					int indexOf = filePath.indexOf("/");
+
+					picName = filePath.substring(indexOf + 1,
+							filePath.length() - 1);
 					c.close();
 					Options opts = new Options();
 					opts.inSampleSize = 4;
 					ivAddPic.setBackgroundColor(android.graphics.Color
 							.parseColor("#ffffff"));
-					ivAddPic.setImageBitmap(BitmapFactory.decodeFile(filePath,
-							opts));
+					bm = BitmapFactory.decodeFile(filePath, opts);
+					ivAddPic.setImageBitmap(bm);
 				}
 				break;
 			default:
