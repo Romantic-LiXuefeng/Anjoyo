@@ -29,6 +29,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.squareup.picasso.Picasso;
 
 /**
  * @author Administrator
@@ -45,6 +46,7 @@ public class FragmentRecommend extends Fragment{
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.recommend, null);
 		ViewUtils.inject(this, view);
+		//loadAdData();
 		recommend.setPullLoadEnable(true);
 		recommend.setXListViewListener(new XListView.IXListViewListener() {
 			
@@ -80,6 +82,44 @@ public class FragmentRecommend extends Fragment{
 		
 		return view;
 	}
+	//加载广告图片
+//	private void loadAdData() {
+//		String recommendAd_url = Constant.RECOMMENDAD;
+//		new HttpUtils().send(HttpMethod.GET, recommendAd_url,
+//				new RequestCallBack<String>() {
+//
+//					@Override
+//					public void onFailure(HttpException arg0, String arg1) {
+//						// TODO Auto-generated method stub
+//
+//					}
+//
+//					@Override
+//					public void onSuccess(ResponseInfo<String> arg0) {
+//						String jsonPic = arg0.result;
+//						JSONObject jsonObj;
+//						try {
+//							jsonObj = new JSONObject(jsonPic);
+//							JSONArray jsonary = jsonObj.getJSONArray("items");
+//							for (int i = 0; i < jsonary.length(); i++) {
+//								JSONObject obj = jsonary.getJSONObject(i);
+//								HashMap<String, String> hmAd= new HashMap<String, String>();
+//								hmAd.put(Constant.RECOMMENDAD_GAMEID, obj.getString(Constant.RECOMMENDAD_GAMEID));
+//								hmAd.put(Constant.RECOMMENDAD_ID, obj.getString(Constant.RECOMMENDAD_ID));
+//								hmAd.put(Constant.RECOMMENDAD_TITLEPIC, obj.getString(Constant.RECOMMENDAD_TITLEPIC));
+//								hmAd.put(Constant.RECOMMENDAD_TITLEURL, obj.getString(Constant.RECOMMENDAD_TITLEURL));
+//								//recommendList.add(hm);
+//								//recAdapter.notifyDataSetChanged();
+//						    }
+//						} catch (JSONException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//
+//					}
+//				});
+//
+//	}
 	private void loadData(){
 		String recommend_url = Constant.GAME_RECOMMEND + currentPage;
 		new HttpUtils().send(HttpMethod.GET, recommend_url, new RequestCallBack<String>() {

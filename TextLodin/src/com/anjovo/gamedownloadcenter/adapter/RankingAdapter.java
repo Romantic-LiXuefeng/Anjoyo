@@ -68,7 +68,13 @@ public class RankingAdapter extends BaseAdapter {
 		}else{
 			holder.rankingNum.setText(loadDownNum+"次");
 		}		
-		holder.rankingSize.setText(rankingList.get(position).get(Constant.RECOMMEND_FILESIZE));
+		//holder.rankingSize.setText(rankingList.get(position).get(Constant.RECOMMEND_FILESIZE));
+		String appSize = rankingList.get(position).get(Constant.RECOMMEND_FILESIZE);
+		if(appSize.equals("")){
+			holder.rankingSize.setText("0.00"+"MB");
+		}else{
+			holder.rankingSize.setText(appSize);
+		}
 		holder.rbStar.setRating((float)Integer.parseInt(rankingList.get(position).get(Constant.RECOMMEND_STAR)));
 		Picasso.with(context).load("http://www.gamept.cn" + rankingList.get(position).get(Constant.RECOMMEND_ICON)).placeholder(R.drawable.head).into(holder.rankingHead);
 		holder.rankingDown.setText("下载");

@@ -69,7 +69,7 @@
             android:id="@+id/tv_paihang_item_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="11.55M"
+            android:text="00.00M"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 

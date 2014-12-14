@@ -49,6 +49,12 @@ public class Constant {
 
 	// 推荐界面
 	public static final String GAME_RECOMMEND = "http://www.gamept.cn/yx_recommend.php?currentPage=";
+	public static final String RECOMMENDAD = "http://www.gamept.cn/yx_ad.php";
+	//推荐界面广告图片
+	public static final String RECOMMENDAD_ID = "id";
+	public static final String RECOMMENDAD_TITLEPIC = "titlepic";
+	public static final String RECOMMENDAD_TITLEURL = "titleurl"; 
+	public static final String RECOMMENDAD_GAMEID = "gameid";
 	// 推荐、排行用同一套常量
 	public static final String RECOMMEND_ID = "id";
 	public static final String RECOMMEND_STAR = "star";
