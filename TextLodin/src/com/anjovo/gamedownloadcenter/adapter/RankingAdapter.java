@@ -9,10 +9,13 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.squareup.picasso.Picasso;
 
+import android.app.Activity;
 import android.content.Context;
+import android.downloadmannger.utils.StartDowload;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,8 +49,8 @@ public class RankingAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		final ViewHolder holder;
 		if(convertView==null){
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.item_paihang_list, null);
@@ -66,6 +69,24 @@ public class RankingAdapter extends BaseAdapter {
 		holder.rankingSize.setText(rankingList.get(position).get(Constant.RECOMMEND_FILESIZE));
 		holder.rbStar.setRating((float)Integer.parseInt(rankingList.get(position).get(Constant.RECOMMEND_STAR)));
 		Picasso.with(context).load("http://www.gamept.cn" + rankingList.get(position).get(Constant.RECOMMEND_ICON)).placeholder(R.drawable.head).into(holder.rankingHead);
+		holder.rankingDown.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+					holder.rankingDown.setText("下载中");
+					StartDowload.getStartDowload().start((Activity)context, "http://www.gamept.cn" + rankingList.get(position).get(Constant.RECOMMEND_FLASHRL),rankingList.get(position).get(Constant.RECOMMEND_TITLE));			
+			}			
+		});
+		boolean isDownloadComplete = StartDowload.getStartDowload().isAppDownloadComplete((Activity)context, rankingList.get(position).get(Constant.RECOMMEND_TITLE));
+		if(isDownloadComplete){
+			holder.rankingDown.setText("安装");
+			//notifyDataSetChanged();
+			holder.rankingDown.setOnClickListener(new OnClickListener() {				
+				@Override
+				public void onClick(View v) {
+					StartDowload.getStartDowload().startToInstall((Activity)context,rankingList.get(position).get(Constant.RECOMMEND_TITLE));
+				}
+			});
+		}
 		return convertView;
 		
 	}

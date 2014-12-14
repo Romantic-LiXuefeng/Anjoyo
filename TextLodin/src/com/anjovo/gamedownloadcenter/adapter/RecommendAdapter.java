@@ -9,9 +9,12 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.squareup.picasso.Picasso;
 
+import android.app.Activity;
 import android.content.Context;
+import android.downloadmannger.utils.StartDowload;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -22,7 +25,6 @@ import android.widget.TextView;
 public class RecommendAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<HashMap<String, String>> recommendList;
-    
 	public RecommendAdapter(Context context,
 			ArrayList<HashMap<String, String>> recommendList) {
 		super();
@@ -46,8 +48,8 @@ public class RecommendAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		final ViewHolder holder;
 		if(convertView==null){
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.item_paihang_list, null);
@@ -63,11 +65,30 @@ public class RecommendAdapter extends BaseAdapter {
 		}else{
 			holder.recommendNum.setText(loadDownNum+"次");
 		}	
+		
 		holder.recommendSize.setText(recommendList.get(position).get(Constant.RECOMMEND_FILESIZE));
 		holder.rbStar.setRating((float)Integer.parseInt(recommendList.get(position).get(Constant.RECOMMEND_STAR)));
 		Picasso.with(context).load("http://www.gamept.cn" + recommendList.get(position).get(Constant.RECOMMEND_ICON)).placeholder(R.drawable.head).into(holder.recommendHead);
-		return convertView;
 		
+		holder.recommendDown.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+					holder.recommendDown.setText("下载中");
+					StartDowload.getStartDowload().start((Activity)context, "http://www.gamept.cn" + recommendList.get(position).get(Constant.RECOMMEND_FLASHRL),recommendList.get(position).get(Constant.RECOMMEND_TITLE));			
+			}			
+		});
+		boolean isDownloadComplete = StartDowload.getStartDowload().isAppDownloadComplete((Activity)context, recommendList.get(position).get(Constant.RECOMMEND_TITLE));
+		if(isDownloadComplete){
+			holder.recommendDown.setText("安装");
+			//notifyDataSetChanged();
+			holder.recommendDown.setOnClickListener(new OnClickListener() {				
+				@Override
+				public void onClick(View v) {
+					StartDowload.getStartDowload().startToInstall((Activity)context,recommendList.get(position).get(Constant.RECOMMEND_TITLE));
+				}
+			});
+		}
+		return convertView;		
 	}
     class ViewHolder{
     	@ViewInject(R.id.iv_recommend_head)
