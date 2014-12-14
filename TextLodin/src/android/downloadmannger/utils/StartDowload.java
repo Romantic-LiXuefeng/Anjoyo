@@ -171,17 +171,17 @@ public class StartDowload {
 	}
 	
 	/**
-	 * 通过游戏名字获得PackageInfo
+	 * 通过游戏包名获得PackageInfo
 	 * @param a
-	 * @param fileName
+	 * @param packaged
 	 */
-	public PackageInfo getAppPackageInfo(Activity a,String fileName){
+	public PackageInfo getAppPackageInfo(Activity a,String packaged){
 		GameApplicationn c = (GameApplicationn) a.getApplication();
 		MainActivity activity = (MainActivity) c.getActivity(0);
 		List<PackageInfo> installedPackages = activity.getInstalledPackages();
 		for (PackageInfo packageInfo : installedPackages) {
-			String title = packageInfo.applicationInfo.loadLabel(a.getPackageManager()).toString();
-			if(fileName.equals(title+"")){
+			String packageNamed = packageInfo.packageName.toString();
+			if(packaged.equals(packageNamed+"")){
 				return packageInfo;
 			}
 		}
