@@ -40,7 +40,7 @@
             android:padding="@dimen/custom_height8d" />
 
         <Button
-            android:id="@+id/I_want_to_comment"
+            android:id="@+id/sharephoto_submit"
             style="@style/bt_style"
             android:text="@string/submit" />
     </LinearLayout>

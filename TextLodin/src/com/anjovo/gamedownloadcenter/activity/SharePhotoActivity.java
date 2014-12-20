@@ -40,6 +40,12 @@ import com.anjovo.gamedownloadcenter.constant.Constant;
 import com.anjovo.gamedownloadcenter.utils.AnalysisUserMessage;
 import com.anjovo.gamedownloadcenter.utils.StorageStateUntil;
 import com.anjovo.textlodin.R;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 import com.lidroid.xutils.http.client.multipart.HttpMultipartMode;
 import com.lidroid.xutils.http.client.multipart.MultipartEntity;
 import com.lidroid.xutils.http.client.multipart.content.ByteArrayBody;
@@ -57,6 +63,7 @@ public class SharePhotoActivity extends Activity {
 	private Button btCancel;
 	/** 用户id **/
 	private String id = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,7 +88,6 @@ public class SharePhotoActivity extends Activity {
 		ivAddPic = (ImageView) findViewById(R.id.iv_add_pic);
 		ivAddPic.setOnClickListener(onClickListener);
 
-		btSubmit = (Button) findViewById(R.id.I_want_to_comment);
 		ll = (LinearLayout) findViewById(R.id.popupwindow);
 		// 照相
 		btPhotoGraph = (Button) findViewById(R.id.photograph);
@@ -94,7 +100,8 @@ public class SharePhotoActivity extends Activity {
 		btCancel.setOnClickListener(onClickListener);
 
 		etContent = (EditText) findViewById(R.id.comment_or_relpy_content);
-
+		btSubmit = (Button) findViewById(R.id.sharephoto_submit);
+		btSubmit.setOnClickListener(onClickListener);
 	}
 
 	/** 分享照片的title **/
@@ -106,10 +113,11 @@ public class SharePhotoActivity extends Activity {
 			if (v == ivAddPic) {
 				ll.setVisibility(View.VISIBLE);
 			} else if (v == btSubmit) {
+				ll.setVisibility(View.GONE);
 				content = etContent.getText().toString();
-				content = uri = "http://www.gamept.cn/yx_gxpic.php?uid=" + id
-						+ "&title=" + content + "&gxpic";
-				submitSharePhotoAndComment();
+				uri = "http://www.gamept.cn/yx_gxpic.php?uid=" + id + "&title="
+						+ content + "&gxpic";
+				submitSharePhotoAndComment(uri);
 			} else if (v == btPhotoGraph) {
 				ll.setVisibility(View.GONE);
 				takePhoto();
@@ -127,15 +135,37 @@ public class SharePhotoActivity extends Activity {
 	};
 
 	/** 提交分享图片和评论 **/
-	private void submitSharePhotoAndComment() {
-		new Thread() {
-			@Override
-			public void run() {
-				super.run();
-				executeMultipartPost(uri);
-			}
-		}.start();
-		Toast.makeText(this, "分享照片成功!", 1).show();
+	private void submitSharePhotoAndComment(String url) {
+		RequestParams params = new RequestParams();
+		params.addHeader("name", "value");
+		params.addQueryStringParameter("name", "value");
+
+		params.addBodyParameter("name", "value");
+		params.addBodyParameter("file", new File(path));
+		new HttpUtils().send(HttpMethod.POST, url, params,
+				new RequestCallBack<String>() {
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+						Toast.makeText(SharePhotoActivity.this, "分享照片失败!", 1)
+								.show();
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						String result = arg0.result;
+						Toast.makeText(SharePhotoActivity.this,
+								"分享照片成功!---------" + result, 1).show();
+					}
+				});
+		// new Thread() {
+		// @Override
+		// public void run() {
+		// super.run();
+		// executeMultipartPost(uri);
+		// }
+		// }.start();
+		// Toast.makeText(this, "分享照片成功!", 1).show();
 	}
 
 	private String uri = "";
@@ -206,13 +236,17 @@ public class SharePhotoActivity extends Activity {
 	private Bitmap bm = null;
 	private EditText etContent;
 
+	/** 上传文件路径 **/
+	private String path = "";
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
+			ll.setVisibility(View.GONE);
 			switch (requestCode) {
 			case 1:
-				bm = BitmapFactory.decodeFile(Constant.External_Storage_Paths
-						+ picName);
+				path = Constant.External_Storage_Paths + picName;
+				bm = BitmapFactory.decodeFile(path);
 				Bitmap zoomBitmap = zoomBitmap(bm,
 						Constant.screenWidth * 4 / 5,
 						Constant.screenHeight * 2 / 5);
@@ -231,7 +265,7 @@ public class SharePhotoActivity extends Activity {
 					c.moveToFirst();
 					String filePath = c.getString(c.getColumnIndex(Media.DATA));
 					int indexOf = filePath.indexOf("/");
-
+					path = filePath;
 					picName = filePath.substring(indexOf + 1,
 							filePath.length() - 1);
 					c.close();

@@ -48,7 +48,6 @@ public class ReplyCommentOrMyCommentActivity extends Activity {
 		// 获取用户信息
 		UserNameMessageBean bean = AnalysisUserMessage
 				.getUserMessageBean(ReplyCommentOrMyCommentActivity.this);
-
 		Intent intent = getIntent();
 		String userpic = intent.getStringExtra("userpic");
 		String nickname = intent.getStringExtra("nickname");
